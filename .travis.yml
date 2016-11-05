@@ -18,5 +18,5 @@ install:
   - mix do ecto.create, ecto.migrate
 
 script:
-  - mix test
   - mix dogma
+  - mix test
