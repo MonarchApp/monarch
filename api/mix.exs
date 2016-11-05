@@ -34,7 +34,8 @@ defmodule TransSponsor.Mixfile do
      {:phoenix_ecto, "~> 2.0"},
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:dogma, "~> 0.1", only: :dev}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

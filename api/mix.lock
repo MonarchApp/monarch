@@ -3,6 +3,7 @@
   "cowlib": {:hex, :cowlib, "1.0.2", "9d769a1d062c9c3ac753096f868ca121e2730b9a377de23dec0f7e08b1df84ee", [:make], []},
   "db_connection": {:hex, :db_connection, "1.0.0", "63c03e520d54886a66104d34e32397ba960db6e74b596ce221592c07d6a40d8d", [:mix], [{:connection, "~> 1.0.2", [hex: :connection, optional: false]}, {:poolboy, "~> 1.5", [hex: :poolboy, optional: true]}, {:sbroker, "~> 1.0", [hex: :sbroker, optional: true]}]},
   "decimal": {:hex, :decimal, "1.2.0", "462960fd71af282e570f7b477f6be56bf8968e68277d4d0b641a635269bf4b0d", [:mix], []},
+  "dogma": {:hex, :dogma, "0.1.8", "1ee856ed64f3ad635a4b2127beea427ea1b9bc271b8731679a97938e1827730f", [:mix], [{:poison, ">= 1.0.0", [hex: :poison, optional: false]}]},
   "ecto": {:hex, :ecto, "1.1.9", "6f30e4662d540c794048e62a04926c1d3c892a2ba4704fe1e19d4a9b5b2f881e", [:mix], [{:decimal, "~> 1.0", [hex: :decimal, optional: false]}, {:mariaex, "~> 0.5.0 or ~> 0.6.0", [hex: :mariaex, optional: true]}, {:poison, "~> 1.0 or ~> 2.0", [hex: :poison, optional: true]}, {:poolboy, "~> 1.4", [hex: :poolboy, optional: false]}, {:postgrex, "~> 0.11.0", [hex: :postgrex, optional: true]}, {:sbroker, "~> 0.7", [hex: :sbroker, optional: true]}]},
   "gettext": {:hex, :gettext, "0.12.1", "c0624f52763469ef7a3674919ae28b8286d88195b90fa1516180f31bbbd26d14", [:mix], []},
   "mime": {:hex, :mime, "1.0.1", "05c393850524767d13a53627df71beeebb016205eb43bfbd92d14d24ec7a1b51", [:mix], []},
