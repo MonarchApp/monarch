@@ -8,6 +8,7 @@ before_install:
   - mix local.hex --force
 install:
   - cd api/
+  - mix deps.get
   - mix do ecto.create, ecto.migrate
 script:
   - mix test
