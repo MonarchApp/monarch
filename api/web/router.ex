@@ -1,4 +1,5 @@
 defmodule TransSponsor.Router do
+  @moduledoc false
   use TransSponsor.Web, :router
 
   pipeline :api do
