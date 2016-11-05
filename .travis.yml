@@ -4,6 +4,7 @@ elixir:
 otp_release:
   - 19.0.0
 install:
+  - cd /api
   - mix local.hex --force
   - mix deps.get
 script:
