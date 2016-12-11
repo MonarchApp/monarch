@@ -6,7 +6,10 @@ defmodule TransSponsor.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", TransSponsor do
-    pipe_through :api
+  scope "/", TransSponsor do
+    pipe_through :browser
+
+    get "/", PageController, :index
+    resources "/users", UserController
   end
 end
