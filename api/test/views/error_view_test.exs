@@ -1,8 +1,7 @@
 defmodule TransSponsor.ErrorViewTest do
   use TransSponsor.ConnCase, async: true
 
-  # Bring render/3 and render_to_string/3 for testing custom views
-  import Phoenix.View
+  import Phoenix.View, only: [render: 3]
 
   test "renders 404.json" do
     assert render(TransSponsor.ErrorView, "404.json", []) ==
