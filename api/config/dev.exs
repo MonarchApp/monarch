@@ -24,8 +24,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :trans_sponsor, TransSponsor.Repo,
   adapter: Ecto.Adapters.Postgres,
-  # username: "postgres",
-  # password: "postgres",
+  username: "postgres",
+  password: "postgres",
   database: "trans_sponsor_dev",
   hostname: "localhost",
   pool_size: 10
