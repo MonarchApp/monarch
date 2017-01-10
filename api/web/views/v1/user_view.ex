@@ -1,4 +1,4 @@
-defmodule TransSponsor.V1.UserView do
+defmodule TransSponsor.UserView do
   use TransSponsor.Web, :view
 
   def render("index.json", %{users: users}) do

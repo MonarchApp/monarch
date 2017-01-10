@@ -7,9 +7,10 @@ defmodule TransSponsor.Router do
   end
 
   scope "/", TransSponsor do
-    pipe_through :browser
+    pipe_through :api
 
-    get "/", PageController, :index
-    resources "/users", UserController
+    scope "/v1", V1, as: :v1 do
+      resources "/users", UserController, except: [:new, :edit]
+    end
   end
 end
