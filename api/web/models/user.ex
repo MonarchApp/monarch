@@ -1,4 +1,5 @@
 defmodule TransSponsor.User do
+  @moduledoc false
   use TransSponsor.Web, :model
 
   schema "users" do

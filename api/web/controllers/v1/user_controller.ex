@@ -1,4 +1,5 @@
 defmodule TransSponsor.V1.UserController do
+  @moduledoc false
   use TransSponsor.Web, :controller
 
   alias TransSponsor.User

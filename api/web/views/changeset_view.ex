@@ -1,4 +1,5 @@
 defmodule TransSponsor.ChangesetView do
+  @moduledoc false
   use TransSponsor.Web, :view
 
   @doc """
