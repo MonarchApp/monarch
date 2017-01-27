@@ -3,6 +3,9 @@ machine:
   timezone:
     America/Los_Angeles
 
+  services:
+    - docker
+
 dependencies:
   override:
     - scripts/ci-setup
