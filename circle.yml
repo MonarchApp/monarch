@@ -5,6 +5,7 @@ machine:
 
 dependencies:
   override:
+    - scripts/ci-setup
     - scripts/ci-build
   cache_directories:
     - ~/dependencies
