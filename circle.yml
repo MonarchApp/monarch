@@ -19,5 +19,5 @@ test:
 deployment:
   development:
     branch: [develop, ci-integration]
-    override:
+    commands:
       - scripts/ci-deploy
