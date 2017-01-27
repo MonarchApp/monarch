@@ -1,6 +1,7 @@
+mix local.rebar --force
 mix local.hex --force
 cd api
-mix deps.get --force
+mix deps.get
 mix do ecto.create
 ecto.migrate
 mix dogma
