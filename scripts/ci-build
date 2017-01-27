@@ -4,5 +4,3 @@ cd api
 mix deps.get
 mix do ecto.create
 ecto.migrate
-mix dogma
-mix test
