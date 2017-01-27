@@ -1,4 +1,6 @@
-config :foo, TransSponsor.Repo,
+use Mix.Config 
+
+config :trans_sponsor, TransSponsor.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "username_placeholder",
   password: "password_placeholder",
