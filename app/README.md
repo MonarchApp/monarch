@@ -1,7 +1,11 @@
-# App
+# TransSponsor App
 
+## Setup
 
-## Testing:
+0. Install ![Elm](https://guide.elm-lang.org/install.html).
+0. Make the project `elm-make Main.elm --output=dist/index.html`
+
+## Testing
 
 - Install the test runner: `npm install -g elm-test`
 - Run `elm-test`.
