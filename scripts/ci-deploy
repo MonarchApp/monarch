@@ -1,6 +1,6 @@
 sed -i "s/username_placeholder/$DATABASE_USERNAME/" api/config/prod.secret.exs
 sed -i "s/password_placeholder/$DATABASE_PASSWORD/" api/config/prod.secret.exs
-sed -i "s/password_placeholder/$DATABASE_DATABASE/" api/config/prod.secret.exs
+sed -i "s/database_placeholder/$DATABASE_DATABASE/" api/config/prod.secret.exs
 sed -i "s/dbhost_placeholder/$DATABASE_HOST/" api/config/prod.secret.exs
 
 cd api
