@@ -1,7 +1,7 @@
-sed -i "s/username_placeholder/$DATABASE_USERNAME/" config/prod.secret.exs
-sed -i "s/password_placeholder/$DATABASE_PASSWORD/" config/prod.secret.exs
-sed -i "s/password_placeholder/$DATABASE_DATABASE/" config/prod.secret.exs
-sed -i "s/dbhost_placeholder/$DATABASE_HOST/" config/prod.secret.exs
+sed -i "s/username_placeholder/$DATABASE_USERNAME/" api/config/prod.secret.exs
+sed -i "s/password_placeholder/$DATABASE_PASSWORD/" api/config/prod.secret.exs
+sed -i "s/password_placeholder/$DATABASE_DATABASE/" api/config/prod.secret.exs
+sed -i "s/dbhost_placeholder/$DATABASE_HOST/" api/config/prod.secret.exs
 
 MIX_ENV=prod mix do deps.get, deps.compile, compile
 MIX_ENV=prod mix phoenix.digest
