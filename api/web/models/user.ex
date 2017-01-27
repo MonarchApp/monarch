@@ -7,7 +7,7 @@ defmodule TransSponsor.User do
     field :encrypted_password, :string
     field :name, :string
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(email encrypted_password name)
