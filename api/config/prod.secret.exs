@@ -1,4 +1,4 @@
-use Mix.Config 
+use Mix.Config
 
 config :trans_sponsor, TransSponsor.Repo,
   adapter: Ecto.Adapters.Postgres,
