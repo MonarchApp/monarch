@@ -1,0 +1,23 @@
+machine:
+
+  timezone:
+    America/Los_Angeles
+
+dependencies:
+  override:
+    - scripts/ci-build
+  cache_directories:
+    - ~/dependencies
+    - ~/.mix
+    - _build
+    - deps
+
+test:
+  override:
+    - scripts/ci-test
+
+deployment:
+  development:
+    branch: [develop, ci-integration]
+    override:
+      - scripts/ci-deploy
