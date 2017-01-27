@@ -1,0 +1,3 @@
+cd api
+mix dogma
+mix test
