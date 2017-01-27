@@ -7,7 +7,7 @@ MIX_ENV=prod mix do deps.get, deps.compile, compile
 MIX_ENV=prod mix phoenix.digest
 MIX ENV=prod mix release
 
-#MIX_ENV=prod mix ecto.migrate
+MIX_ENV=prod mix ecto.migrate
 
 eval "$( aws ecr get-login --region us-west-2 )"
 cd  api && docker build -t ts-api .
