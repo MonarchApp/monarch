@@ -1,6 +1,7 @@
 sed -i "s/username_placeholder/$DATABASE_USERNAME/" config/prod.secret.exs
 sed -i "s/password_placeholder/$DATABASE_PASSWORD/" config/prod.secret.exs
 sed -i "s/password_placeholder/$DATABASE_DATABASE/" config/prod.secret.exs
+sed -i "s/dbhost_placeholder/$DATABASE_HOST/" config/prod.secret.exs
 
 eval "$( aws ecr get-login --region us-west-2 )"
 cd  api && docker build -t ts-api .
