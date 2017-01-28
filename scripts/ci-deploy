@@ -6,7 +6,6 @@ sed -i "s/dbhost_placeholder/$DATABASE_HOST/" api/config/prod.secret.exs
 cd api
 
 MIX_ENV=prod mix do deps.get, deps.compile, compile
-brunch build --production
 MIX_ENV=prod mix phoenix.digest
 MIX_ENV=prod mix release
 

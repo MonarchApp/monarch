@@ -5,4 +5,3 @@ sudo apt-get install esl-erlang
 sudo apt-get install elixir
 #install elm
 npm install -g elm
-npm install -g brunch
