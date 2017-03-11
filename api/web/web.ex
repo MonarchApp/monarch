@@ -1,12 +1,12 @@
-defmodule TransSponsor.Web do
+defmodule Monarch.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use TransSponsor.Web, :controller
-      use TransSponsor.Web, :view
+      use Monarch.Web, :controller
+      use Monarch.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -30,12 +30,12 @@ defmodule TransSponsor.Web do
     quote do
       use Phoenix.Controller
 
-      alias TransSponsor.Repo
+      alias Monarch.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
-      import TransSponsor.Router.Helpers
-      import TransSponsor.Gettext
+      import Monarch.Router.Helpers
+      import Monarch.Gettext
     end
   end
 
@@ -46,9 +46,9 @@ defmodule TransSponsor.Web do
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
 
-      import TransSponsor.Router.Helpers
-      import TransSponsor.ErrorHelpers
-      import TransSponsor.Gettext
+      import Monarch.Router.Helpers
+      import Monarch.ErrorHelpers
+      import Monarch.Gettext
     end
   end
 
@@ -62,10 +62,10 @@ defmodule TransSponsor.Web do
     quote do
       use Phoenix.Channel
 
-      alias TransSponsor.Repo
+      alias Monarch.Repo
       import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
-      import TransSponsor.Gettext
+      import Monarch.Gettext
     end
   end
 

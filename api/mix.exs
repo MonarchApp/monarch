@@ -1,8 +1,8 @@
-defmodule TransSponsor.Mixfile do
+defmodule Monarch.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :trans_sponsor,
+    [app: :monarch,
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -17,7 +17,7 @@ defmodule TransSponsor.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {TransSponsor, []},
+    [mod: {Monarch, []},
      applications: [:phoenix, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex]]
   end
@@ -31,7 +31,7 @@ defmodule TransSponsor.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [{:phoenix, "~> 1.1.6"},
-     {:phoenix_ecto, "~> 2.0.1"},
+     {:phoenix_ecto, "~> 3.0.1"},
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},

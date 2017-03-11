@@ -1,7 +1,7 @@
-defmodule TransSponsor.UserTest do
-  use TransSponsor.ModelCase
+defmodule Monarch.UserTest do
+  use Monarch.ModelCase
 
-  alias TransSponsor.User
+  alias Monarch.User
 
   @valid_attrs %{email: "some content", encrypted_password: "some content", name: "some content"}
   @invalid_attrs %{}

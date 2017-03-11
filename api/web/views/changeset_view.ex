@@ -1,12 +1,12 @@
-defmodule TransSponsor.ChangesetView do
+defmodule Monarch.ChangesetView do
   @moduledoc false
-  use TransSponsor.Web, :view
+  use Monarch.Web, :view
 
   @doc """
   Traverses and translates changeset errors.
 
   See `Ecto.Changeset.traverse_errors/2` and
-  `TransSponsor.ErrorHelpers.translate_error/1` for more details.
+  `Monarch.ErrorHelpers.translate_error/1` for more details.
   """
   def translate_errors(changeset) do
     Ecto.Changeset.traverse_errors(changeset, &translate_error/1)

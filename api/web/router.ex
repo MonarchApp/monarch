@@ -1,12 +1,12 @@
-defmodule TransSponsor.Router do
+defmodule Monarch.Router do
   @moduledoc false
-  use TransSponsor.Web, :router
+  use Monarch.Web, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/", TransSponsor do
+  scope "/", Monarch do
     pipe_through :api
 
     scope "/v1", V1, as: :v1 do

@@ -1,4 +1,4 @@
-defmodule TransSponsor.UserSocket do
+defmodule Monarch.UserSocket do
   @moduledoc false
   use Phoenix.Socket
 

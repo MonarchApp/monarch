@@ -1,6 +1,6 @@
-defmodule TransSponsor.User do
+defmodule Monarch.User do
   @moduledoc false
-  use TransSponsor.Web, :model
+  use Monarch.Web, :model
 
   schema "users" do
     field :email, :string

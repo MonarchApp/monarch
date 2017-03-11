@@ -1,4 +1,4 @@
-defmodule TransSponsor.ModelCase do
+defmodule Monarch.ModelCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -16,18 +16,18 @@ defmodule TransSponsor.ModelCase do
 
   using do
     quote do
-      alias TransSponsor.Repo
+      alias Monarch.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
-      import TransSponsor.ModelCase
+      import Monarch.ModelCase
     end
   end
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(TransSponsor.Repo, [])
+      Ecto.Adapters.SQL.restart_test_transaction(Monarch.Repo, [])
     end
 
     :ok

@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :trans_sponsor, TransSponsor.Repo,
+config :monarch, Monarch.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "username_placeholder",
   password: "password_placeholder",

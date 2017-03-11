@@ -1,8 +1,8 @@
-defmodule TransSponsor.V1.UserController do
+defmodule Monarch.V1.UserController do
   @moduledoc false
-  use TransSponsor.Web, :controller
+  use Monarch.Web, :controller
 
-  alias TransSponsor.User
+  alias Monarch.User
 
   def index(conn, _params) do
     users = Repo.all(User)
@@ -21,7 +21,7 @@ defmodule TransSponsor.V1.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(TransSponsor.ChangesetView, "error.json", changeset: changeset)
+        |> render(Monarch.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -40,7 +40,7 @@ defmodule TransSponsor.V1.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(TransSponsor.ChangesetView, "error.json", changeset: changeset)
+        |> render(Monarch.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

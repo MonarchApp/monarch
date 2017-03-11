@@ -1,7 +1,7 @@
-defmodule TransSponsor.V1.UserControllerTest do
-  use TransSponsor.ConnCase
+defmodule Monarch.V1.UserControllerTest do
+  use Monarch.ConnCase
 
-  alias TransSponsor.User
+  alias Monarch.User
   @valid_attrs %{
     email: "jackburton@theporkchopexpress.com",
     encrypted_password: "itsallinthereflexes",

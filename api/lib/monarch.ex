@@ -1,4 +1,4 @@
-defmodule TransSponsor do
+defmodule Monarch do
   @moduledoc """
   This module is responsible for bootstrapping the entire application.
   """
@@ -8,16 +8,16 @@ defmodule TransSponsor do
     import Supervisor.Spec, warn: false
 
     children = [
-      supervisor(TransSponsor.Endpoint, []),
-      supervisor(TransSponsor.Repo, []),
+      supervisor(Monarch.Endpoint, []),
+      supervisor(Monarch.Repo, []),
     ]
 
-    opts = [strategy: :one_for_one, name: TransSponsor.Supervisor]
+    opts = [strategy: :one_for_one, name: Monarch.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   def config_change(changed, _new, removed) do
-    TransSponsor.Endpoint.config_change(changed, removed)
+    Monarch.Endpoint.config_change(changed, removed)
     :ok
   end
 end

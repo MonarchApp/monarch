@@ -1,7 +1,7 @@
 {
     "version": "0.0.1",
-    "summary": "The client for TransSponsor",
-    "repository": "https://github.com/TransSponsor/trans-sponsor.git",
+    "summary": "The client for Monarch",
+    "repository": "https://github.com/MonarchApp/monarch.git",
     "license": "MIT",
     "source-directories": [
         "src"
