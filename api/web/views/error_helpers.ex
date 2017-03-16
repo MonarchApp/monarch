@@ -15,7 +15,13 @@ defmodule Monarch.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(Monarch.Gettext, "errors", msg, msg, opts[:count], opts)
+    count = opts[:count]
+
+    if count do
+      Gettext.dngettext(Monarch.Gettext, "errors", msg, msg, opts[:count], opts)
+    else
+      Gettext.dgettext(Monarch.Gettext, "errors", msg, opts)
+    end
   end
 
   def translate_error(msg) do
