@@ -1,4 +1,5 @@
 dist
 elm-stuff
 repl-temp-*
-
+.DS_Store
+.sass-cache

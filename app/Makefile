@@ -9,7 +9,7 @@ all: build
 
 build:
 	@mkdir -p dist/
-	@elm-css src/styles/Stylesheets.elm -o dist/
+	@sass src/styles/* dist/global.css
 	@elm-make src/Main.elm --output=dist/bundle.js
 	@cp index.html dist/index.html
 

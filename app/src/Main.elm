@@ -3,7 +3,6 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.CssHelpers exposing (..)
 import Html.Attributes exposing (..)
-import Styles.GlobalCss exposing (..)
 import Json.Encode as Encode
 
 main : Html a
@@ -12,19 +11,22 @@ main =
         [
             header []
                 [
-                    img [ id "ReactiveLogo", src "http://heygirl.io/img/gosling-horiz-2.gif" ] []
-                ,
-                    nav []
-                        <| navElems ++ [ span [ id "BuyTickets" ] [ text "BUY TICKETS" ] ]
+                    nav [ class "navigation" ] <| navElems ++ [ span [ class "nav-link highlight" ] [ text "BUY TICKETS" ] ]
                 ]
         ,
-            div []
+            div [class "flexible"]
                 [
-                    img [ src "https://media.giphy.com/media/UBnp9TRCuffi0/giphy.gif" ] []
+                    img [ class "fill-width", src "http://media3.giphy.com/media/TWszQ81GTtQje/200.gif" ] []
+                ,
+                    img [ class "fill-width", src "http://media3.giphy.com/media/TWszQ81GTtQje/200.gif" ] []
+                ,
+                    img [ class "fill-width", src "http://media3.giphy.com/media/TWszQ81GTtQje/200.gif" ] []
+                ,
+                    img [ class "fill-width", src "http://media3.giphy.com/media/TWszQ81GTtQje/200.gif" ] []
                 ]
         ]
 
-
+navElems : List (Html msg)
 navElems =
     [ "SPEAKERS", "SCHEDULE", "WORKSHOPS", "VENUE", "BLOG", "CONTACT" ]
-        |> List.map (\name -> span [ class "TSNavLink" ] [ text name ])
+        |> List.map (\name -> span [ class "nav-link" ] [ text name ])
