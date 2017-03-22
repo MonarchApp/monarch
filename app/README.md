@@ -4,6 +4,7 @@
 
 0. Install ![Elm](https://guide.elm-lang.org/install.html).
 0. Install packages: `make install`
+0. Install SCSS: `sudo gem install sass`
 0. Make the project: `make`
 0. Run the server: `make run`
 

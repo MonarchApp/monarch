@@ -1,0 +1,30 @@
+$text-primary-color: #444;
+$background-primary-color: #333;
+
+body {
+    background: $background-primary-color;
+}
+
+#ReactiveLogo {
+    color: $text-primary-color;
+}
+
+.flexible {
+    display: flex;
+    .fill-width {
+        flex-grow: 1;
+    }
+}
+
+.navigation {
+    text-align: right;
+
+    .nav-link {
+        box-sizing: border-box;
+        margin: 0 1rem;
+
+        &.highlight {
+            text-decoration: underline;
+        }
+    }
+}
