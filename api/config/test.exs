@@ -2,7 +2,7 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :trans_sponsor, TransSponsor.Endpoint,
+config :monarch, Monarch.Endpoint,
   http: [port: 4001],
   server: false
 
@@ -10,10 +10,10 @@ config :trans_sponsor, TransSponsor.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :trans_sponsor, TransSponsor.Repo,
+config :monarch, Monarch.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "trans_sponsor_test",
+  database: "monarch_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

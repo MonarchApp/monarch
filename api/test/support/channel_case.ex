@@ -1,4 +1,4 @@
-defmodule TransSponsor.ChannelCase do
+defmodule Monarch.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -20,22 +20,24 @@ defmodule TransSponsor.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias TransSponsor.Repo
+      alias Monarch.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
 
 
       # The default endpoint for testing
-      @endpoint TransSponsor.Endpoint
+      @endpoint Monarch.Endpoint
     end
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Monarch.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(TransSponsor.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Monarch.Repo, {:shared, self()})
     end
 
-    :ok
+    {:ok, conn: Phoenix.ConnTest.conn()}
   end
 end

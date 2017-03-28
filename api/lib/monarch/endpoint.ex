@@ -1,11 +1,11 @@
-defmodule TransSponsor.Endpoint do
+defmodule Monarch.Endpoint do
   @moduledoc false
-  use Phoenix.Endpoint, otp_app: :trans_sponsor
+  use Phoenix.Endpoint, otp_app: :monarch
 
-  socket "/socket", TransSponsor.UserSocket
+  socket "/socket", Monarch.UserSocket
 
   plug Plug.Static,
-    at: "/", from: :trans_sponsor, gzip: false,
+    at: "/", from: :monarch, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   if code_reloading? do
@@ -25,8 +25,8 @@ defmodule TransSponsor.Endpoint do
 
   plug Plug.Session,
     store: :cookie,
-    key: "_trans_sponsor_key",
+    key: "_monarch_key",
     signing_salt: "TEfB7CSU"
 
-  plug TransSponsor.Router
+  plug Monarch.Router
 end

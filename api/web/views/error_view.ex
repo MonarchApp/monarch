@@ -1,8 +1,8 @@
-defmodule TransSponsor.ErrorView do
+defmodule Monarch.ErrorView do
   @moduledoc """
   This module defines default errors for resources.
   """
-  use TransSponsor.Web, :view
+  use Monarch.Web, :view
 
   def render("404.json", _assigns) do
     %{errors: %{detail: "Page not found"}}

@@ -5,14 +5,18 @@
 # is restricted to this project.
 use Mix.Config
 
+# Project config
+config :monarch,
+  ecto_repos: [Monarch.Repo]
+
 # Configures the endpoint
-config :trans_sponsor, TransSponsor.Endpoint,
-  url: [host: "localhost"],
+config :monarch, Monarch.Endpoint,
+  pubsub: [name: Monarch.PubSub,
+           adapter: Phoenix.PubSub.PG2],
+  render_errors: [accepts: ~w(json)],
   root: Path.dirname(__DIR__),
   secret_key_base: "4JMOAnIlu37jSdw/YMJilOk1MHbKS2ohBc4iHUxdA3w1jLl949yqfCZE2ywV/vVs",
-  render_errors: [accepts: ~w(json)],
-  pubsub: [name: TransSponsor.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  url: [host: "localhost"]
 
 # Configures Elixir's Logger
 config :logger, :console,

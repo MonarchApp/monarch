@@ -1,4 +1,4 @@
-defmodule TransSponsor.ErrorHelpers do
+defmodule Monarch.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -15,10 +15,16 @@ defmodule TransSponsor.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(TransSponsor.Gettext, "errors", msg, msg, opts[:count], opts)
+    count = opts[:count]
+
+    if count do
+      Gettext.dngettext(Monarch.Gettext, "errors", msg, msg, opts[:count], opts)
+    else
+      Gettext.dgettext(Monarch.Gettext, "errors", msg, opts)
+    end
   end
 
   def translate_error(msg) do
-    Gettext.dgettext(TransSponsor.Gettext, "errors", msg)
+    Gettext.dgettext(Monarch.Gettext, "errors", msg)
   end
 end

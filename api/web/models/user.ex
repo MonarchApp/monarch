@@ -1,6 +1,6 @@
-defmodule TransSponsor.User do
+defmodule Monarch.User do
   @moduledoc false
-  use TransSponsor.Web, :model
+  use Monarch.Web, :model
 
   schema "users" do
     field :email, :string
@@ -10,17 +10,15 @@ defmodule TransSponsor.User do
     timestamps()
   end
 
-  @required_fields ~w(email encrypted_password name)
-  @optional_fields ~w()
-
   @doc """
   Creates a changeset based on the `model` and `params`.
 
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, [:email, :encrypted_password, :name])
+    |> validate_required([:email, :encrypted_password, :name])
   end
 end

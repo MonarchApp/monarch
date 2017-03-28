@@ -1,4 +1,4 @@
-defmodule TransSponsor.Repo.Migrations.CreateUser do
+defmodule Monarch.Repo.Migrations.CreateUser do
   use Ecto.Migration
 
   def change do
