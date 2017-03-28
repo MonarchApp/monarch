@@ -1,0 +1,47 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="699" measuredH="617" mockupW="383" mockupH="597">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="316" y="20" w="383" h="597" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Login%20Page%0A/Login</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TextInput" x="392" y="288" w="218" h="-1" measuredW="45" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>email</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="392" y="337" w="218" h="-1" measuredW="71" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>password</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Paragraph" x="407" y="219" w="200" h="50" measuredW="200" measuredH="80" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <text>This%20is%20something%20about%20the%20app%20and/or%20logging%20in%20help.</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="425" y="162" w="-1" h="-1" measuredW="152" measuredH="32" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <align>center</align>
+        <size>24</size>
+        <text>TransSponsor</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="392" y="382" w="218" h="27" measuredW="54" measuredH="27" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>65535</color>
+        <href>User%20Dashboard%26bm%3BUser%20Dashboard.bmml%26bm%3BUser%20Dashboard.bmml%26bm%3BUser%20Dashboard.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%2276%2C362%2C294%2C389%22%20href%3D%22User%2520Dashboard.bmml%22%20alt%3D%22User%20Dashboard%22%20id%3D%226%22/%3E</map>
+        <text>Login</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::LinkBar" x="455" y="424" w="-1" h="-1" measuredW="155" measuredH="19" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <hrefs>Register%20Screen%26bm%3BRegister%20Screen.bmml%26bm%3BRegister%20Screen.bmml%26bm%3BRegister%20Screen.bmml%2C</hrefs>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22139%2C406%2C185%2C419%22%20href%3D%22Register%2520Screen.bmml%22%20alt%3D%22Register%20Screen%22%20id%3D%227%22/%3E</map>
+        <text>Sign%20up%2C%20reset%20password</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
