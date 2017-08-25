@@ -2,4 +2,4 @@
 
 # Install
 sudo apt-get update
-sudo apt-get install yarn
+sudo npm install -g yarn
