@@ -1,5 +1,0 @@
-cd api
-mix dogma
-mix test
-
-mix phoenix.server & sleep 10 && curl localhost:4000
