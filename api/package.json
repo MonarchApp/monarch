@@ -1,0 +1,20 @@
+{
+  "name": "monarch",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server",
+  "author": "Emma Bukacek",
+  "license": "MIT",
+  "dependencies": {
+    "hapi": "^16.5.2",
+    "yarn": "^0.27.5"
+  },
+  "scripts": {
+    "start": "node_modules/.bin/nodemon server.js",
+    "lint": "node_modules/.bin/eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^4.4.1",
+    "nodemon": "^1.11.0"
+  }
+}

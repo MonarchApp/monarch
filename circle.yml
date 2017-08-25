@@ -1,27 +1,22 @@
 machine:
-
+  node:
+    version: 6.11.2
   timezone:
     America/Los_Angeles
 
-  services:
-    - docker
-
 dependencies:
   override:
-    - scripts/ci-setup
-    - scripts/ci-build
+    - scripts/ci-setup.sh
+    - scripts/ci-build.sh
   cache_directories:
-    - ~/dependencies
-    - ~/.mix
-    - _build
-    - deps
+    - ~/node_modules
 
 test:
   override:
-    - scripts/ci-test
+    - scripts/ci-test.sh
 
 deployment:
   development:
     branch: [develop, ci-integration]
     commands:
-      - scripts/ci-deploy
+      - scripts/ci-deploy.sh
