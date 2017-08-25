@@ -3,18 +3,12 @@ machine:
   timezone:
     America/Los_Angeles
 
-  services:
-    - docker
-
 dependencies:
   override:
     - scripts/ci-setup
     - scripts/ci-build
   cache_directories:
-    - ~/dependencies
-    - ~/.mix
-    - _build
-    - deps
+    - ~/node_modules
 
 test:
   override:
