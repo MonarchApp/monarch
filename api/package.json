@@ -2,7 +2,7 @@
   "name": "monarch",
   "version": "0.0.0",
   "description": "",
-  "main": "server",
+  "main": "src/server",
   "author": "Emma Bukacek",
   "license": "MIT",
   "dependencies": {
