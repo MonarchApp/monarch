@@ -11,10 +11,15 @@
   },
   "scripts": {
     "start": "node_modules/.bin/nodemon server.js",
-    "lint": "node_modules/.bin/eslint ."
+    "lint": "node_modules/.bin/eslint .",
+    "test": "mocha"
   },
   "devDependencies": {
+    "chai": "^4.1.1",
     "eslint": "^4.4.1",
-    "nodemon": "^1.11.0"
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0",
+    "sinon": "^3.2.1",
+    "sinon-chai": "^2.13.0"
   }
 }
