@@ -10,15 +10,18 @@
     "yarn": "^0.27.5"
   },
   "scripts": {
+    "coverage": "nyc report --reporter=text-lcov",
     "start": "node_modules/.bin/nodemon src/server",
     "lint": "node_modules/.bin/eslint .",
-    "test": "mocha"
+    "test": "nyc --reporter=html mocha src/**/*_spec.js"
   },
   "devDependencies": {
     "chai": "^4.1.1",
+    "coveralls": "^2.13.1",
     "eslint": "^4.4.1",
     "mocha": "^3.5.0",
     "nodemon": "^1.11.0",
+    "nyc": "^11.1.0",
     "sinon": "^3.2.1",
     "sinon-chai": "^2.13.0"
   }
