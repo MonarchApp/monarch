@@ -16,9 +16,3 @@ test:
     - scripts/ci-test.sh
   post:
     - scripts/ci-test-report.sh
-
-deployment:
-  development:
-    branch: [develop, ci-integration]
-    commands:
-      - scripts/ci-deploy.sh
