@@ -1,8 +1,7 @@
-const {expect, sinon} = require('./../utils/test-utilities');
 const Hapi = require('hapi');
+const {expect, sinon} = require('./../utils/test-utilities');
 const localConfig = require('./../../config/local.json');
 
-// const server = require('./../server');
 const connectionSpy = sinon.spy(Hapi.Server.prototype, 'connection');
 const startSpy = sinon.spy(Hapi.Server.prototype, 'start');
 
