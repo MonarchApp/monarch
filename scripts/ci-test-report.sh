@@ -2,3 +2,4 @@
 
 cd api || exit
 yarn run coverage
+./node_modules/.bin/coverage
