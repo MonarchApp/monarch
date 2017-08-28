@@ -8,6 +8,7 @@
   "dependencies": {
     "hapi": "^16.5.2",
     "knex": "^0.13.0",
+    "pg": "^7.2.0",
     "yarn": "^0.27.5"
   },
   "scripts": {
