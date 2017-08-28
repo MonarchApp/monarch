@@ -7,6 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "hapi": "^16.5.2",
+    "knex": "^0.13.0",
     "yarn": "^0.27.5"
   },
   "scripts": {
