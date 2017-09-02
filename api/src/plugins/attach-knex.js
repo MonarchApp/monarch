@@ -1,11 +1,12 @@
 'use strict';
 
-const Knex = require('knex');
-const knexConfiguration = require('./../../knexfile.js');
+let Knex = require('knex');
+let knexConfiguration = require('./../../knexfile.js');
 
 const attachKnex = {};
 attachKnex.register = (server, options, next) => {
   const environment = process.env.NODE_ENV || 'development';
+  console.log(knexConfiguration[environment]);
   const knex = Knex(knexConfiguration[environment]);
 
   server.decorate('server', 'knex', knex);
