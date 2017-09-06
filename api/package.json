@@ -6,6 +6,8 @@
   "author": "Emma Bukacek",
   "license": "MIT",
   "dependencies": {
+    "app-root-path": "^2.0.1",
+    "co": "^4.6.0",
     "hapi": "^16.5.2",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
