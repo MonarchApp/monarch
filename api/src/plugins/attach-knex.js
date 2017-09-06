@@ -1,5 +1,3 @@
-'use strict';
-
 let Knex = require('knex');
 let knexConfiguration = require('./../../knexfile.js');
 
