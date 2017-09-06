@@ -11,13 +11,11 @@ describe('Add Users Migration', function() {
     before(co.wrap(function*() {
       yield userMigrations.up(knexConn);
 
-      const columns = [
+      hasAllColumns = [
         yield knexConn.schema.hasColumn('users', 'id'),
         yield knexConn.schema.hasColumn('users', 'email'),
         yield knexConn.schema.hasColumn('users', 'password')
-      ];
-
-      hasAllColumns = columns.every(exists => exists === true);
+      ].every(exists => exists === true);
     }));
 
     it('should create the users table with basic columns', function() {
