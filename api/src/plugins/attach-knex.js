@@ -9,7 +9,7 @@ attachKnex.register = (server, options, next) => {
   const knexConn = knex(knexConfiguration[environment]);
 
   server.decorate('server', 'knex', knexConn);
-  return next();
+  next();
 };
 
 attachKnex.register.attributes = {
