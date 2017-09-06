@@ -6,7 +6,6 @@ let knexConfiguration = require('./../../knexfile.js');
 const attachKnex = {};
 attachKnex.register = (server, options, next) => {
   const environment = process.env.NODE_ENV || 'development';
-  console.log(knexConfiguration);
   const knex = Knex(knexConfiguration[environment]);
 
   server.decorate('server', 'knex', knex);

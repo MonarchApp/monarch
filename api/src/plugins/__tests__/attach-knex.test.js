@@ -1,17 +1,17 @@
-const {expect, proxyquire, sinon} = require('./../../utils/test-utilities');
-const knexConfigPath = './../../../knexfile.js';
-let knexConfig = require(knexConfigPath);
-const attachKnexRegister = require('./../attach-knex').register;
+const {expect, mockRequire, sinon} = require('./../../utils/test-utilities');
+
+const knexStubValue = 'knex';
+const knexStub = sinon.stub();
+knexStub.returns(knexStubValue);
+mockRequire('knex', knexStub);
+
+const knexConfig = require('./../../../knexfile.js');
 knexConfig.testEnvironment = 'Damn it, Jim';
 knexConfig.development = "I'm a doctor, not a damn, unit test writer!";
-let knexStub = proxyquire('knex', sinon.stub());
 
-console.log(knexStub);
-const knexStubValue = 'knex';
-knexStub.returns(knexStubValue);
+const attachKnexRegister = require('./../attach-knex').register;
 
 describe('Register Attach Knex', function() {
-  let knexStub;
   let nextSpy;
   let serverStub;
 
@@ -51,8 +51,8 @@ describe('Register Attach Knex', function() {
       attachKnexRegister(serverStub, null, nextSpy);
     });
 
-    it('should load the knex configuration with the environment specified', function() {
-      expect(knexStub).to.have.been.calledWith(knexConfig.develop);
+    it('should load the knex configuration with the default environment', function() {
+      expect(knexStub).to.have.been.calledWith(knexConfig.development);
     });
   });
 });
