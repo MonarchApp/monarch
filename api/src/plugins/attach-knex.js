@@ -1,13 +1,14 @@
-const Knex = require('knex');
-const knexConfiguration = require('./../../knexfile.js');
+const knex = require('knex');
+const rootRequire = require('app-root-path').require;
+const knexConfiguration = rootRequire('knexfile');
 
 const attachKnex = {};
 
 attachKnex.register = (server, options, next) => {
   const environment = process.env.NODE_ENV || 'development';
-  const knex = Knex(knexConfiguration[environment]);
+  const knexConn = knex(knexConfiguration[environment]);
 
-  server.decorate('server', 'knex', knex);
+  server.decorate('server', 'knex', knexConn);
   return next();
 };
 
