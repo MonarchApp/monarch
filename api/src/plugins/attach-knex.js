@@ -1,7 +1,8 @@
-let Knex = require('knex');
-let knexConfiguration = require('./../../knexfile.js');
+const Knex = require('knex');
+const knexConfiguration = require('./../../knexfile.js');
 
 const attachKnex = {};
+
 attachKnex.register = (server, options, next) => {
   const environment = process.env.NODE_ENV || 'development';
   const knex = Knex(knexConfiguration[environment]);
