@@ -14,5 +14,4 @@ dependencies:
 test:
   override:
     - scripts/ci-test.sh
-  post:
     - scripts/ci-test-report.sh

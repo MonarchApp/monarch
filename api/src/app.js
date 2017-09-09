@@ -6,14 +6,18 @@ const localConfig = require('./../config/local.json');
 const server = new Hapi.Server();
 
 server.connection(localConfig);
-server.start(err => {
+server.register({
+  register: require('./plugins/attach-knex')
+}, (err) => {
   if (err) {
     // eslint-disable-next-line no-console
     return console.log(err);
   }
 
-  // eslint-disable-next-line no-console
-  console.log(`\nStarting Monarch on ${localConfig.port}...\n`);
+  server.start(function() {
+    // eslint-disable-next-line no-console
+    console.log(`\nMonarch started at ${server.info.uri}\n`);
+  });
 });
 
 module.exports = server;

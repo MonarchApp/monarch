@@ -6,20 +6,26 @@
   "author": "Emma Bukacek",
   "license": "MIT",
   "dependencies": {
+    "app-root-path": "^2.0.1",
+    "co": "^4.6.0",
     "hapi": "^16.5.2",
+    "knex": "^0.13.0",
+    "lodash": "^4.17.4",
+    "pg": "^7.2.0",
     "yarn": "^0.27.5"
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov",
     "start": "node_modules/.bin/nodemon src/app",
     "lint": "node_modules/.bin/eslint .",
-    "test": "nyc --reporter=html mocha src/**/*.test.js"
+    "test": "nyc --reporter=html mocha 'src/**/*.test.js'"
   },
   "devDependencies": {
     "chai": "^4.1.1",
     "coveralls": "^2.13.1",
     "eslint": "^4.4.1",
     "mocha": "^3.5.0",
+    "mock-require": "^2.0.2",
     "nodemon": "^1.11.0",
     "nyc": "^11.1.0",
     "sinon": "^3.2.1",
