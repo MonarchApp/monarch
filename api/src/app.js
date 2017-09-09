@@ -14,7 +14,7 @@ server.register({
     return console.log(err);
   }
 
-  server.start(function() {
+  server.start(() => {
     // eslint-disable-next-line no-console
     console.log(`\nMonarch started at ${server.info.uri}\n`);
   });
