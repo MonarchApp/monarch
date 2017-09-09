@@ -1,6 +1,5 @@
-'use strict';
-
 const Hapi = require('hapi');
+const co = require('co');
 const localConfig = require('./../config/local.json');
 
 const server = new Hapi.Server();
@@ -20,9 +19,10 @@ server.register({
   });
 });
 
-process.on('SIGINT', () => {
+process.on('SIGINT', co.wrap(function*() {
   // eslint-disable-next-line no-console
   console.log('Shutting down Monarch server...');
+  yield server.knex.destroy();
 
   server.stop(err => {
     // eslint-disable-next-line no-console
@@ -32,6 +32,6 @@ process.on('SIGINT', () => {
     }
     process.exit(0);
   });
-});
+}));
 
 module.exports = server;
