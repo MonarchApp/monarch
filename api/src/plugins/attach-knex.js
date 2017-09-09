@@ -8,7 +8,7 @@ attachKnex.register = (server, options, next) => {
   const environment = process.env.NODE_ENV || 'development';
   const knexConn = knex(knexConfiguration[environment]);
 
-  server.decorate('server', 'knex', knexConn);
+  server.bind({knex: knexConn});
   next();
 };
 
