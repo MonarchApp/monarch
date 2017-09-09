@@ -10,11 +10,11 @@
 
 ## Running Server
 
-1. `yarn run start`
+1. `yarn start`
 
 ## Running Tests
 
-1. `yarn run test`
+1. `yarn test`
 
 
 [postgres-setup]: https://www.postgresql.org/download/
