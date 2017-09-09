@@ -1,11 +1,11 @@
-'use strict';
-
 const Hapi = require('hapi');
 const localConfig = require('./../config/local.json');
+const routes = require('./routes');
 
 const server = new Hapi.Server();
 
 server.connection(localConfig);
+server.route(routes);
 server.register({
   register: require('./plugins/attach-knex')
 }, (err) => {
