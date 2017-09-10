@@ -6,10 +6,20 @@ Feature: Users
 
   Scenario: Create user
     When POST "/users"
+      """
+      {
+        "email": "testemail@email.com",
+        "password": "password"
+      }
+      """
     Then response status code is 201
     And response body is
       """
-      {}
+      {
+        "email": "testemail@email.com",
+        "id": 0,
+        "password": "password"
+      }
       """
 
   Scenario: Get all users
