@@ -17,7 +17,7 @@ describe('Register Attach Knex', function() {
 
   beforeEach(function() {
     nextSpy = sinon.spy();
-    serverStub = {bind: sinon.spy()};
+    serverStub = {decorate: sinon.spy()};
   });
 
   context('always', function() {
@@ -26,11 +26,15 @@ describe('Register Attach Knex', function() {
     });
 
     it('should call the provided next value', function() {
-      expect(nextSpy).to.have.been.calledAfter(serverStub.bind);
+      expect(nextSpy).to.have.been.calledAfter(serverStub.decorate);
     });
 
-    it('should bind the plugin context with the knex instance', function() {
-      expect(serverStub.bind).to.have.been.calledWith({knex: knexStubValue});
+    it('should decorate the request with knex', function() {
+      expect(serverStub.decorate).to.have.been.calledWith('request', 'knex', knexStubValue);
+    });
+
+    it('should decorate the server with knex', function() {
+      expect(serverStub.decorate).to.have.been.calledWith('server', 'knex', knexStubValue);
     });
   });
 
