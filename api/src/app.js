@@ -1,11 +1,14 @@
+const rootRequire = require('app-root-path').require;
+
 const Hapi = require('hapi');
-const localConfig = require('./../config/local.json');
+const localConfig = rootRequire('config/local');
 const routes = require('./routes');
 
 const server = new Hapi.Server();
 
 server.connection(localConfig);
 server.route(routes);
+
 server.register({
   register: require('./plugins/attach-knex')
 }, (err) => {
