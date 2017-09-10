@@ -1,4 +1,9 @@
 const Joi = require('joi');
+const Boom = require('boom');
+const co = require('co');
+const _ = require('lodash');
+
+const USER_FIELDS = ['email'];
 
 const Users = {
   delete: {},
@@ -13,12 +18,21 @@ Users.get.handler = (request, reply) => {
 };
 Users.getAll.handler = () => {};
 
-Users.post.handler = (request, reply) => {
-  reply({
-    email: 'testemail@domain.com',
-    id: 0
-  });
-};
+Users.post.handler = co.wrap(function*(request, reply) {
+  try {
+    const [userId] = yield request.knex('users').insert(request.payload);
+    const response = _(request.payload)
+      .pick(USER_FIELDS)
+      .set('id', userId)
+      .value();
+
+    reply(response);
+  } catch (error) {
+    console.log(error);
+    // TODO - Replace with better error response
+    reply(Boom.badImplementation);
+  }
+});
 
 Users.post.config = {
   validate: {
