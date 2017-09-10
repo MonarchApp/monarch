@@ -12,6 +12,7 @@ module.exports = [
     path: '/v1/users/{id}',
   },
   {
+    config: Users.post.config,
     handler: Users.post.handler,
     method: 'POST',
     path: '/v1/users',

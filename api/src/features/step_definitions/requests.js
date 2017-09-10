@@ -1,25 +1,36 @@
 const request = require('co-request');
 const {defineSupportCode} = require('cucumber');
 const {expect} = require('chai');
+const matchPattern = require('lodash-match-pattern');
+
+const parseJson = json => {
+  try {
+    return JSON.parse(json);
+  } catch (error) {
+    error.message = `Failed to parse JSON:\n\n${json} \
+      \n\nError:\n${error.message}`;
+    throw error;
+  }
+};
 
 defineSupportCode(function({When, Then}) {
-  When(/^GET "([^"]*)"$/, function*(requestPath) {
+  When(/^(DELETE|GET) "([^"]*)"$/, function*(method, requestPath) {
     const url = `${this.apiUrl}${requestPath}`;
-    const method = 'GET';
 
     try {
       this.activeRequest = yield request({method, url});
     } catch (error) {
-      error.message = `Failed to ${method} to ${url}.\n\n${error.message}`;
+      error.message = `Failed to ${method} ${url}.\n\n${error.message}`;
       throw error;
     }
   });
 
   When(/^(POST|PUT) "([^"]*)"$/, function*(method, requestPath, json) {
     const url = `${this.apiUrl}${requestPath}`;
+    const body = parseJson(json);
 
     try {
-      this.activeRequest = yield request({json, method, url});
+      this.activeRequest = yield request({body, json: true, method, url});
     } catch (error) {
       error.message = `Failed to ${method} to ${url}.\n\n${error.message}`;
       throw error;
@@ -31,16 +42,13 @@ defineSupportCode(function({When, Then}) {
   });
 
   Then('response body is', function(json) {
-    let body;
+    expect(parseJson(json)).to.eql(this.activeRequest.body);
+  });
 
-    try {
-      body = JSON.parse(json);
-    } catch (error) {
-      error.message = `Failed to parse JSON:\n\n${json} \
-        \n\nError:\n${error.message}`;
-      throw error;
-    }
+  Then('response body matches', function(json) {
+    const bodyMatchesPattern = matchPattern(this.activeRequest.body, json);
+    if (bodyMatchesPattern) { throw new Error(bodyMatchesPattern); }
 
-    expect(body).to.eql(this.activeRequest.body);
+    expect(bodyMatchesPattern).to.be.null;
   });
 });
