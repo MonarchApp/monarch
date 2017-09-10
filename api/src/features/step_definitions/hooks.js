@@ -5,7 +5,14 @@ const {defineSupportCode} = require('cucumber');
 defineSupportCode(function({Before, After}) {
   Before(function() {
     process.env.NODE_ENV = 'test';
+
     this.server = rootRequire('src/app');
+    this.knex = this.server.knex;
+    this.knex.migrate.latest();
+  });
+
+  Before(function() {
+    this.apiUrl = `${this.server.info.uri}/v1`;
   });
 
   After(function() {
