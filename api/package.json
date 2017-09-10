@@ -11,6 +11,7 @@
     "co-request": "^1.0.0",
     "hapi": "^16.5.2",
     "is-generator": "^1.0.3",
+    "joi": "^10.6.0",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
     "pg": "^7.2.0",
@@ -18,8 +19,8 @@
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov",
-    "start": "node_modules/.bin/nodemon src/app",
     "lint": "node_modules/.bin/eslint .",
+    "start": "node_modules/.bin/nodemon src/app",
     "test": "nyc --reporter=html mocha 'src/**/*.test.js'"
   },
   "devDependencies": {
