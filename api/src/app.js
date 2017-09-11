@@ -13,11 +13,7 @@ const goodOptions = {
     console: [{
       module: 'good-squeeze',
       name: 'Squeeze',
-      args: [{
-        error: '*',
-        log: '*',
-        response: '*'
-      }]
+      args: [{log: '*', response: '*'}]
     }, {
       module: 'good-console'
     }, 'stdout']
