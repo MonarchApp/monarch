@@ -7,7 +7,7 @@ const routes = require('./routes');
 
 const goodOptions = {
   ops: {
-    interval: 1000
+    interval: 5000
   },
   reporters: {
     console: [{
