@@ -3,7 +3,7 @@ Feature: Create user
   As a consumer of the Monarch API,
   I want to be able to create a user.
 
-  Scenario: Create user
+  Scenario: Creating a valid user
     When POST "/users"
       """
       {
@@ -16,13 +16,13 @@ Feature: Create user
       """
       {
         "email": "testemail@domain.com",
-        "id": 0,
+        "id": 1,
         "password": _.isOmitted
       }
       """
 
 
-  Scenario: Creating a user without an email
+  Scenario: Creating a user with a missing field
     When POST "/users"
       """
       {
@@ -34,7 +34,7 @@ Feature: Create user
       """
       {
         "error": _.isString,
-        "message": _.isString,
+        "message": _.isContainerFor|'"email" is required',
         "statusCode": 400,
         "validation": {
           "keys": [
@@ -46,11 +46,19 @@ Feature: Create user
       """
 
 
-  Scenario: Creating a user without a password
+  Scenario: Creating a user with an existing email
     When POST "/users"
       """
       {
-        "email": "testemail@domain.com"
+        "email": "testemail@domain.com",
+        "password": "password"
+      }
+      """
+    When POST "/users"
+      """
+      {
+        "email": "testemail@domain.com",
+        "password": "password"
       }
       """
     Then response status code is 400
@@ -58,13 +66,27 @@ Feature: Create user
       """
       {
         "error": _.isString,
-        "message": _.isString,
+        "message": "Email invalid or exists",
         "statusCode": 400,
-        "validation": {
-          "keys": [
-            "password"
-          ],
-          "source": "payload"
-        }
+      }
+      """
+
+
+  Scenario: Creating a user with unexpected error
+    When "users" table is dropped
+    And POST "/users"
+      """
+      {
+        "email": "testemail@domain.com",
+        "password": "password"
+      }
+      """
+    Then response status code is 500
+    And response body matches
+      """
+      {
+        "error": _.isString,
+        "message": "An internal server error occurred",
+        "statusCode": 500,
       }
       """

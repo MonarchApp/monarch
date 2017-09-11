@@ -15,7 +15,7 @@ const parseJson = json => {
 
 defineSupportCode(function({When, Then}) {
   When(/^(DELETE|GET) "([^"]*)"$/, function*(method, requestPath) {
-    const url = `${this.apiUrl}${requestPath}`;
+    const url = this.getRequestUrl(requestPath);
 
     try {
       this.activeRequest = yield request({method, url});
@@ -26,7 +26,7 @@ defineSupportCode(function({When, Then}) {
   });
 
   When(/^(POST|PUT) "([^"]*)"$/, function*(method, requestPath, json) {
-    const url = `${this.apiUrl}${requestPath}`;
+    const url = this.getRequestUrl(requestPath);
     const body = parseJson(json);
 
     try {
@@ -48,7 +48,5 @@ defineSupportCode(function({When, Then}) {
   Then('response body matches', function(json) {
     const bodyMatchesPattern = matchPattern(this.activeRequest.body, json);
     if (bodyMatchesPattern) { throw new Error(bodyMatchesPattern); }
-
-    expect(bodyMatchesPattern).to.be.null;
   });
 });

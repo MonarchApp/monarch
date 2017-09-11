@@ -9,13 +9,11 @@ defineSupportCode(function({Before, After}) {
   });
 
   Before(function() {
-    this.apiUrl = `${this.server.info.uri}/v1`;
+    this.getRequestUrl = path => `${this.server.info.uri}/v1${path}`;
   });
 
   After(function*() {
     yield this.knex.raw('DROP SCHEMA public CASCADE');
     yield this.knex.raw('CREATE SCHEMA public');
-
-    this.server.stop();
   });
 });
