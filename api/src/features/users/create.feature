@@ -11,15 +11,8 @@ Feature: Create user
         "password": "password"
       }
       """
-    Then response status code is 200
-    And response body matches
-      """
-      {
-        "email": "testemail@domain.com",
-        "id": 1,
-        "password": _.isOmitted
-      }
-      """
+    Then response status code is 201
+    And response body is empty
 
 
   Scenario: Creating a user with a missing field
@@ -61,15 +54,8 @@ Feature: Create user
         "password": "password"
       }
       """
-    Then response status code is 400
-    And response body matches
-      """
-      {
-        "error": _.isString,
-        "message": "Email invalid or exists",
-        "statusCode": 400,
-      }
-      """
+    Then response status code is 201
+    And response body is empty
 
 
   Scenario: Creating a user with unexpected error
