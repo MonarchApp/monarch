@@ -41,8 +41,8 @@ defineSupportCode(function({When, Then}) {
     expect(this.activeRequest.statusCode).to.equal(statusCode);
   });
 
-  Then('response body is', function(json) {
-    expect(parseJson(json)).to.eql(this.activeRequest.body);
+  Then('response body is empty', function() {
+    expect(this.activeRequest.body).to.be.undefined;
   });
 
   Then('response body matches', function(json) {
