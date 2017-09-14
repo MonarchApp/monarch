@@ -1,9 +1,14 @@
 const rootRequire = require('app-root-path').require;
 const {defineSupportCode} = require('cucumber');
 
+const SERVER_OPTIONS = {
+  serverOptions: {port: 3001}
+};
+
 defineSupportCode(function({Before, After}) {
   Before(function*() {
-    this.server = rootRequire('src/app');
+    const createServer = rootRequire('src/app');
+    this.server = yield createServer(SERVER_OPTIONS);
     this.knex = this.server.knex;
     yield this.knex.migrate.latest();
   });
