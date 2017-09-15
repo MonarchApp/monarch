@@ -30,11 +30,13 @@ describe('Register Attach Knex', function() {
     });
 
     it('should decorate the request with knex', function() {
-      expect(serverStub.decorate).to.have.been.calledWith('request', 'knex', knexStubValue);
+      expect(serverStub.decorate).to.have.been
+        .calledWith('request', 'knex', knexStubValue);
     });
 
     it('should decorate the server with knex', function() {
-      expect(serverStub.decorate).to.have.been.calledWith('server', 'knex', knexStubValue);
+      expect(serverStub.decorate).to.have.been
+        .calledWith('server', 'knex', knexStubValue);
     });
   });
 
