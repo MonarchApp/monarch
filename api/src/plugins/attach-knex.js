@@ -2,9 +2,9 @@ const Knex = require('knex');
 const RootRequire = require('app-root-path').require;
 const knexConfiguration = RootRequire('knexfile');
 
-const attachKnex = {};
+const AttachKnex = {};
 
-attachKnex.register = (server, options, next) => {
+AttachKnex.register = (server, options, next) => {
   const environment = process.env.NODE_ENV || 'development';
   const knexConn = Knex(knexConfiguration[environment]);
 
@@ -13,9 +13,9 @@ attachKnex.register = (server, options, next) => {
   next();
 };
 
-attachKnex.register.attributes = {
-  name: 'attachKnex',
+AttachKnex.register.attributes = {
+  name: 'AttachKnex',
   version: '0.0.0'
 };
 
-module.exports = attachKnex;
+module.exports = AttachKnex;
