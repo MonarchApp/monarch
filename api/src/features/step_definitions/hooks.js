@@ -7,7 +7,7 @@ const SERVER_OPTIONS = {
 
 defineSupportCode(function({Before, After}) {
   Before(function*() {
-    const createServer = rootRequire('src/app');
+    const createServer = rootRequire('src/server');
     this.server = yield createServer(SERVER_OPTIONS);
     this.knex = this.server.knex;
     yield this.knex.migrate.latest();
