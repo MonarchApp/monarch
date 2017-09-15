@@ -18,8 +18,10 @@ Users.post.handler = co.wrap(function*(request, reply) {
   const userCreatedMessage = `User created for "${email}"`;
 
   try {
+    // TODO: Hash password
     yield request.knex('users').insert(request.payload);
 
+    // TODO: Send user email
     reply.response().code(201);
   } catch (error) {
     if (error.message.indexOf('users_email_unique') > -1) {
