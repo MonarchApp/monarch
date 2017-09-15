@@ -1,11 +1,14 @@
-const {expect, mockRequire, sinon} = require('./../../utils/test-utilities');
+const rootRequire = require('app-root-path').require;
+
+const {expect, mockRequire, sinon} = rootRequire('src/utils/test-utilities');
+const knexConfig = rootRequire('knexfile');
 
 const knexStubValue = 'knex';
 const knexStub = sinon.stub();
+
 knexStub.returns(knexStubValue);
 mockRequire('knex', knexStub);
 
-const knexConfig = require('./../../../knexfile');
 knexConfig.testEnvironment = 'Damn it, Jim';
 knexConfig.development = "I'm a doctor, not a damn, unit test writer!";
 
