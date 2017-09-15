@@ -14,26 +14,21 @@ Users.get.handler = () => {};
 Users.getAll.handler = () => {};
 
 Users.post.handler = co.wrap(function*(request, reply) {
+  const {email} = request.payload;
+  const userCreatedMessage = `User created for "${email}"`;
+
   try {
-    const {email} = request.payload;
-    const userCreatedMessage = `User created for "${email}"`;
+    yield request.knex('users').insert(request.payload);
 
-    const [existingEmail] = yield request.knex
-      .select('email')
-      .from('users')
-      .where({email});
-
-    if (existingEmail) {
-      request.log(['info'], userCreatedMessage);
+    reply.response().code(201);
+  } catch (error) {
+    if (error.message.indexOf('users_email_unique') > -1) {
       return reply.response().code(201);
     }
 
-    yield request.knex('users').insert(request.payload);
-
-    request.log(['info'], userCreatedMessage);
-    reply.response().code(201);
-  } catch (error) {
     reply(Boom.badImplementation());
+  } finally {
+    request.log(['info'], userCreatedMessage);
   }
 });
 
