@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
 cd api || exit
-yarn run lint
-yarn run test
+yarn lint
+yarn test
+yarn features
