@@ -1,14 +1,14 @@
-const Co = require('co');
-const RootRequire = require('app-root-path').require;
+const co = require('co');
+const rootRequire = require('app-root-path').require;
 const userMigrations = require('./../20170827222619_users');
 
-const {expect, knexConn} = RootRequire('src/utils/test-utilities');
+const {expect, knexConn} = rootRequire('src/utils/test-utilities');
 
 describe('Add Users Migration', function() {
   context('when applying the migration', function() {
     let hasAllColumns = false;
 
-    before(Co.wrap(function*() {
+    before(co.wrap(function*() {
       yield userMigrations.up(knexConn);
 
       hasAllColumns = [
@@ -26,7 +26,7 @@ describe('Add Users Migration', function() {
   context('when rolling back the migration', function() {
     let hasTable = true;
 
-    before(Co.wrap(function*() {
+    before(co.wrap(function*() {
       yield userMigrations.down(knexConn);
       hasTable = yield knexConn.schema.hasTable('users');
     }));
