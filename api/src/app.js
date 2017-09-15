@@ -5,17 +5,17 @@ const co = require('co');
 const localConfig = rootRequire('config/local');
 const routes = require('./routes');
 
-module.exports = co.wrap(function* ({goodOptions, serverOptions}) {
+module.exports = co.wrap(function* (options) {
   const server = new Hapi.Server();
-  const serverConnOptions = Object.assign({}, localConfig.connection, serverOptions);
-  const goodOptionsWithDefaults = Object.assign({}, localConfig.good, goodOptions);
+  const optionsWithDefaults = Object.assign({}, localConfig, options);
+  const {connection: serverOptions, good: goodOptions} = optionsWithDefaults;
 
-  server.connection(serverConnOptions);
+  server.connection(serverOptions);
   server.route(routes);
 
   server.register([
     {register: require('./plugins/attach-knex')},
-    {register: require('good'), options: goodOptionsWithDefaults}
+    {register: require('good'), options: goodOptions}
   ], (err) => {
     if (err) {
       // eslint-disable-next-line no-console

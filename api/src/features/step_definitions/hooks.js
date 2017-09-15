@@ -2,7 +2,7 @@ const rootRequire = require('app-root-path').require;
 const {defineSupportCode} = require('cucumber');
 
 const SERVER_OPTIONS = {
-  serverOptions: {port: 3001}
+  connection: {port: 3001}
 };
 
 defineSupportCode(function({Before, After}) {
