@@ -2,7 +2,7 @@
   "name": "monarch",
   "version": "0.0.0",
   "description": "",
-  "main": "src/server",
+  "main": "index",
   "author": "Emma Bukacek",
   "license": "MIT",
   "dependencies": {
@@ -24,7 +24,7 @@
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov",
     "lint": "node_modules/.bin/eslint src/",
-    "start": "node_modules/.bin/nodemon src/app",
+    "start": "node_modules/.bin/nodemon index",
     "test": "nyc --reporter=html mocha 'src/**/*.test.js'",
     "features": "nyc --reporter=html cucumberjs src/features"
   },

@@ -1,9 +1,6 @@
 const Joi = require('joi');
 const Boom = require('boom');
 const co = require('co');
-const _ = require('lodash');
-
-const USER_FIELDS = ['email'];
 
 const Users = {
   delete: {},
@@ -17,33 +14,23 @@ Users.get.handler = () => {};
 Users.getAll.handler = () => {};
 
 Users.post.handler = co.wrap(function*(request, reply) {
-  try {
-    const [userEmail] = yield request.knex
-      .select('email')
-      .from('users')
-      .where({email: request.payload.email});
+  const {email} = request.payload;
+  const userCreatedMessage = `User created for "${email}"`;
 
-    if (userEmail) {
-      const errorMessage = `Email "${request.payload.email}" is invalid or \
-        it exists`;
-      request.log(['error'], errorMessage);
-      return reply(Boom.badRequest('Email invalid or exists'));
+  try {
+    // TODO: Hash password
+    yield request.knex('users').insert(request.payload);
+
+    // TODO: Send user email
+    reply.response().code(201);
+  } catch (error) {
+    if (error.message.indexOf('users_email_unique') > -1) {
+      return reply.response().code(201);
     }
 
-    const [userId] = yield request.knex('users')
-      .returning('id')
-      .insert(request.payload);
-
-    const response = _(request.payload)
-      .pick(USER_FIELDS)
-      .set('id', userId)
-      .value();
-
-    request.log(['info'], `User "${request.payload.email}" created`);
-
-    reply(response);
-  } catch (error) {
     reply(Boom.badImplementation());
+  } finally {
+    request.log(['info'], userCreatedMessage);
   }
 });
 

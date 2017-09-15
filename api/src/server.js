@@ -5,54 +5,43 @@ const co = require('co');
 const localConfig = rootRequire('config/local');
 const routes = require('./routes');
 
-const goodOptions = {
-  ops: {
-    interval: 5000
-  },
-  reporters: {
-    console: [{
-      module: 'good-squeeze',
-      name: 'Squeeze',
-      args: [{log: '*', response: '*'}]
-    }, {
-      module: 'good-console'
-    }, 'stdout']
-  }
-};
+const initServer = co.wrap(function(options) {
+  const server = new Hapi.Server();
+  const optionsWithDefaults = Object.assign({}, localConfig, options);
+  const {connection: serverOptions, good: goodOptions} = optionsWithDefaults;
 
-const server = new Hapi.Server();
+  server.connection(serverOptions);
+  server.route(routes);
 
-server.connection(localConfig);
-server.route(routes);
-
-server.register([
-  {register: require('./plugins/attach-knex')},
-  {register: require('good'), options: goodOptions}
-], (err) => {
-  if (err) {
+  server.register([
+    {register: require('./plugins/attach-knex')},
+    {register: require('good'), options: goodOptions}
+  ], (err) => {
     // eslint-disable-next-line no-console
-    return console.log(err);
-  }
+    if (err) { return console.log(err); }
 
-  server.start(() => {
-    // eslint-disable-next-line no-console
-    console.log(`\nMonarch started at ${server.info.uri}\n`);
+    server.start(() => {
+      // eslint-disable-next-line no-console
+      console.log(`\nMonarch started at ${server.info.uri}\n`);
+    });
   });
+
+  process.on('SIGINT', co.wrap(function*() {
+    // eslint-disable-next-line no-console
+    console.log('Shutting down Monarch server...');
+    yield server.knex.destroy();
+
+    server.stop(err => {
+      // eslint-disable-next-line no-console
+      console.log('Monarch has stopped.');
+      if (err) {
+        return process.exit(1);
+      }
+      process.exit(0);
+    });
+  }));
+
+  return server;
 });
 
-process.on('SIGINT', co.wrap(function*() {
-  // eslint-disable-next-line no-console
-  console.log('Shutting down Monarch server...');
-  yield server.knex.destroy();
-
-  server.stop(err => {
-    // eslint-disable-next-line no-console
-    console.log('Monarch has stopped.');
-    if (err) {
-      return process.exit(1);
-    }
-    process.exit(0);
-  });
-}));
-
-module.exports = server;
+module.exports = initServer;
