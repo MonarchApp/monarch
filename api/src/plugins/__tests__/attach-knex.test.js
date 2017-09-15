@@ -1,9 +1,9 @@
-const {expect, mockRequire, sinon} = require('./../../utils/test-utilities');
+const {expect, MockRequire, Sinon} = require('./../../utils/test-utilities');
 
 const knexStubValue = 'knex';
-const knexStub = sinon.stub();
+const knexStub = Sinon.stub();
 knexStub.returns(knexStubValue);
-mockRequire('knex', knexStub);
+MockRequire('knex', knexStub);
 
 const knexConfig = require('./../../../knexfile');
 knexConfig.testEnvironment = 'Damn it, Jim';
@@ -16,8 +16,8 @@ describe('Register Attach Knex', function() {
   let serverStub;
 
   beforeEach(function() {
-    nextSpy = sinon.spy();
-    serverStub = {decorate: sinon.spy()};
+    nextSpy = Sinon.spy();
+    serverStub = {decorate: Sinon.spy()};
   });
 
   context('always', function() {

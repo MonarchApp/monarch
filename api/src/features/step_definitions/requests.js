@@ -1,7 +1,7 @@
-const request = require('co-request');
+const Request = require('co-request');
 const {defineSupportCode} = require('cucumber');
 const {expect} = require('chai');
-const matchPattern = require('lodash-match-pattern');
+const MatchPattern = require('lodash-match-pattern');
 
 const parseJson = json => {
   try {
@@ -18,7 +18,7 @@ defineSupportCode(function({When, Then}) {
     const url = this.getRequestUrl(requestPath);
 
     try {
-      this.activeRequest = yield request({method, url});
+      this.activeRequest = yield Request({method, url});
     } catch (error) {
       error.message = `Failed to ${method} ${url}.\n\n${error.message}`;
       throw error;
@@ -30,7 +30,7 @@ defineSupportCode(function({When, Then}) {
     const body = parseJson(json);
 
     try {
-      this.activeRequest = yield request({body, json: true, method, url});
+      this.activeRequest = yield Request({body, json: true, method, url});
     } catch (error) {
       error.message = `Failed to ${method} to ${url}.\n\n${error.message}`;
       throw error;
@@ -46,7 +46,7 @@ defineSupportCode(function({When, Then}) {
   });
 
   Then('response body matches', function(json) {
-    const bodyMatchesPattern = matchPattern(this.activeRequest.body, json);
+    const bodyMatchesPattern = MatchPattern(this.activeRequest.body, json);
     if (bodyMatchesPattern) { throw new Error(bodyMatchesPattern); }
   });
 });

@@ -1,9 +1,9 @@
-const rootRequire = require('app-root-path').require;
+const RootRequire = require('app-root-path').require;
 const {defineSupportCode} = require('cucumber');
 
 defineSupportCode(function({Before, After}) {
   Before(function*() {
-    this.server = rootRequire('src/server');
+    this.server = RootRequire('src/server');
     this.knex = this.server.knex;
     yield this.knex.migrate.latest();
   });
