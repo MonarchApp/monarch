@@ -3,15 +3,8 @@ const Boom = require('boom');
 const co = require('co');
 
 const Users = {
-  delete: {},
-  get: {},
-  getAll: {},
   post: {}
 };
-
-Users.delete.handler = () => {};
-Users.get.handler = () => {};
-Users.getAll.handler = () => {};
 
 Users.post.handler = co.wrap(function*(request, reply) {
   const {email} = request.payload;
