@@ -23,8 +23,10 @@ Users.post.handler = co.wrap(function*(request, reply) {
       .from('users')
       .where({email: request.payload.email});
 
-    if(userEmail) {
-      request.log(['error'], `Email "${request.payload.email}" is invalid or it exists`);
+    if (userEmail) {
+      const errorMessage = `Email "${request.payload.email}" is invalid or \
+        it exists`;
+      request.log(['error'], errorMessage);
       return reply(Boom.badRequest('Email invalid or exists'));
     }
 

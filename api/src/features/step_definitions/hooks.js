@@ -3,7 +3,7 @@ const {defineSupportCode} = require('cucumber');
 
 defineSupportCode(function({Before, After}) {
   Before(function*() {
-    this.server = rootRequire('src/app');
+    this.server = rootRequire('src/server');
     this.knex = this.server.knex;
     yield this.knex.migrate.latest();
   });
