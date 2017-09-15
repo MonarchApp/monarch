@@ -5,6 +5,9 @@
   "main": "src/server",
   "author": "Emma Bukacek",
   "license": "MIT",
+  "engine": {
+    "node": ">= 8.0.0"
+  },
   "dependencies": {
     "app-root-path": "^2.0.1",
     "boom": "^5.2.0",
