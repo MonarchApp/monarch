@@ -26,7 +26,7 @@
     "lint": "node_modules/.bin/eslint .",
     "start": "node_modules/.bin/nodemon src/app",
     "test": "nyc --reporter=html mocha 'src/**/*.test.js'",
-    "features": "cucumberjs src/features"
+    "features": "nyc --reporter=html cucumberjs src/features"
   },
   "devDependencies": {
     "chai": "^4.1.1",
