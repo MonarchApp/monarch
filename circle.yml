@@ -1,7 +1,5 @@
 machine:
-  node:
-    version: 8.5
-  timezone
+  timezone:
     America/Los_Angeles
 
 dependencies:
