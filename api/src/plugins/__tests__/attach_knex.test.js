@@ -1,6 +1,6 @@
 const rootRequire = require('app-root-path').require;
 
-const {expect, mockRequire, sinon} = rootRequire('src/utils/test-utilities');
+const {expect, mockRequire, sinon} = rootRequire('src/utils/test_utilities');
 const knexConfig = rootRequire('knexfile');
 
 const knexStubValue = 'knex';
@@ -12,7 +12,7 @@ mockRequire('knex', knexStub);
 knexConfig.testEnvironment = 'Damn it, Jim';
 knexConfig.develop = "I'm a doctor, not a damn, unit test writer!";
 
-const attachKnexRegister = require('./../attach-knex').register;
+const attachKnexRegister = require('./../attach_knex').register;
 
 describe('Register Attach Knex', function() {
   let nextSpy;

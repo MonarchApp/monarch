@@ -10,7 +10,7 @@ const initServer = async () => {
   const server = new Hapi.Server();
 
   try {
-    await server.register({register: require('./plugins/attach-config')});
+    await server.register({register: require('./plugins/attach_config')});
   } catch (error) {
     error.message = `Failed to register configuration plugin.\n\nError:\n${error.message}`;
   }
@@ -20,7 +20,7 @@ const initServer = async () => {
 
   try {
     await server.register([
-      {register: require('./plugins/attach-knex')},
+      {register: require('./plugins/attach_knex')},
       {register: require('good'), options: server.config.get('good')}
     ]);
     await server.start();
