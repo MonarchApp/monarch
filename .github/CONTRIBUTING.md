@@ -1,6 +1,5 @@
 # Contributing to Monarch
 
-![]
 :heart: :green_heart: :purple_heart: :blue_heart: :yellow_heart: :black_heart:
 
 Yay!! Thank you for taking the time to contribute and to take a look at this guide!
@@ -34,8 +33,8 @@ This may change as the role of issues change, but for the time being:
 * Tag a few reviewers. Ideally, we would like two reviews per PR before we merge, but exceptions
   may be made.
 
-Also, don't be a dick. Take a look at our [Code of Conduct][codeofconduct]
-if you don't understand what that means. It would be quite unfortunate to have to actually
-enforce it. :smile:
+Lastly, don't be a dick. Take a look at our [Code of Conduct][codeofconduct]
+if you don't understand what that means. It would be unfortunate to
+actually have to enforce it. :smile:
 
 [codeofconduct]: ./CODE_OF_CONDUCT.md
