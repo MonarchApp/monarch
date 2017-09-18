@@ -6,7 +6,7 @@ const localConfig = rootRequire('config/local');
 const routes = require('./routes');
 
 const initServer = async (options) => {
-  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+  process.env.NODE_ENV = process.env.NODE_ENV || 'develop';
 
   const server = new Hapi.Server();
   const optionsWithDefaults = Object.assign({}, localConfig, options);

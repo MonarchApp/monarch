@@ -10,7 +10,7 @@ knexStub.returns(knexStubValue);
 mockRequire('knex', knexStub);
 
 knexConfig.testEnvironment = 'Damn it, Jim';
-knexConfig.development = "I'm a doctor, not a damn, unit test writer!";
+knexConfig.develop = "I'm a doctor, not a damn, unit test writer!";
 
 const attachKnexRegister = require('./../attach-knex').register;
 
