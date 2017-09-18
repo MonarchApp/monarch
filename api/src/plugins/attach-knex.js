@@ -5,8 +5,7 @@ const knexConfiguration = rootRequire('knexfile');
 const attachKnex = {};
 
 attachKnex.register = (server, options, next) => {
-  const environment = process.env.NODE_ENV || 'development';
-  const knexConn = knex(knexConfiguration[environment]);
+  const knexConn = knex(knexConfiguration[process.env.NODE_ENV]);
 
   server.decorate('request', 'knex', knexConn);
   server.decorate('server', 'knex', knexConn);

@@ -1,15 +1,11 @@
 const rootRequire = require('app-root-path').require;
 const {defineSupportCode} = require('cucumber');
 
-const SERVER_OPTIONS = {
-  connection: {port: 3001}
-};
-
 defineSupportCode(function({Before, After}) {
   Before(async function() {
     try {
       const createServer = rootRequire('src/server');
-      this.server = await createServer(SERVER_OPTIONS);
+      this.server = await createServer();
       this.knex = this.server.knex;
     } catch (error) {
       error.message = `Failed to initialize server.\n\nError:\n${error.message}`;

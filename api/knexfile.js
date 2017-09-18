@@ -1,5 +1,5 @@
 module.exports = {
-  development: {
+  develop: {
     client: 'pg',
     connection: {
       database: 'monarch_dev',
@@ -9,7 +9,7 @@ module.exports = {
       directory: __dirname + '/src//db/migrations'
     },
     seeds: {
-      directory: __dirname + '/src//db/seeds/development'
+      directory: __dirname + '/src//db/seeds/develop'
     }
   },
   test: {
@@ -22,7 +22,7 @@ module.exports = {
       directory: __dirname + '/src/db/migrations'
     },
     seeds: {
-      directory: __dirname + '/src/db/seeds/development'
+      directory: __dirname + '/src/db/seeds/develop'
     }
   }
 };

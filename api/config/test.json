@@ -1,0 +1,23 @@
+{
+  "connection": {
+    "port": 3001,
+    "host": "localhost"
+  },
+  "good": {
+    "ops": {
+      "interval": 5000
+    },
+    "reporters": {
+      "console": [{
+        "module": "good-squeeze",
+        "name": "Squeeze",
+        "args": [{
+          "log": "*",
+          "response": "*"
+        }]
+      }, {
+        "module": "good-console"
+      }, "stdout"]
+    }
+  }
+}
