@@ -28,10 +28,6 @@ describe('Register Attach Knex', function() {
       attachKnexRegister(serverStub, null, nextSpy);
     });
 
-    it('should call the provided next value', function() {
-      expect(nextSpy).to.have.been.calledAfter(serverStub.decorate);
-    });
-
     it('should decorate the request with knex', function() {
       expect(serverStub.decorate).to.have.been
         .calledWith('request', 'knex', knexStubValue);
@@ -40,6 +36,10 @@ describe('Register Attach Knex', function() {
     it('should decorate the server with knex', function() {
       expect(serverStub.decorate).to.have.been
         .calledWith('server', 'knex', knexStubValue);
+    });
+
+    it('should call the provided next value', function() {
+      expect(nextSpy).to.have.been.calledAfter(serverStub.decorate);
     });
   });
 
