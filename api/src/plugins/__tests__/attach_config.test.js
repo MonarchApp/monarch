@@ -1,6 +1,6 @@
 const rootRequire = require('app-root-path').require;
 
-const {expect, mockRequire, sinon} = rootRequire('src/utils/test-utilities');
+const {expect, mockRequire, sinon} = rootRequire('src/utils/test_utilities');
 
 const nconfStub = {};
 nconfStub.argv = sinon.stub().returns(nconfStub);
@@ -8,7 +8,7 @@ nconfStub.env = sinon.stub().returns(nconfStub);
 nconfStub.file = sinon.stub().returns(nconfStub);
 mockRequire('nconf', nconfStub);
 
-const attachConfigRegister = require('./../attach-config').register;
+const attachConfigRegister = require('./../attach_config').register;
 
 describe('Register Attach Config', function() {
   let nextSpy;
