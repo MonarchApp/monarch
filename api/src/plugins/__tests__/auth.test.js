@@ -34,7 +34,7 @@ describe('Register Auth', function() {
     it('should set the server authentication strategy to jwt', function() {
       expect(serverStub.auth.strategy).to.have.been.calledWith('jwt', {
         key: sinon.match.string,
-        verifyOptions: {algorithms: ['HS256']}
+        verifyOptions: {algorithms: ['RS256']}
       });
     });
 
