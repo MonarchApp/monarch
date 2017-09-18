@@ -24,7 +24,9 @@ describe('Register Attach Config', function() {
       try {
         process.env.NODE_ENV = 'develop';
         await attachConfigRegister(serverStub, null, nextSpy);
-      } catch (err) {}
+      } catch (err) {
+        throw err;
+      }
     });
 
     it('should load command line arguments first', function() {
@@ -49,18 +51,15 @@ describe('Register Attach Config', function() {
   });
 
   context('when the provided environment does not have a corresponding config file', function() {
-    let fnWrapper;
+    let attachConfigRegisterPromise;
 
-    beforeEach(async function() {
+    before(function() {
       process.env.NODE_ENV = "This file has lost it's way..";
-
-      fnWrapper = function() {
-        attachConfigRegister(serverStub, null, nextSpy);
-      };
+      attachConfigRegisterPromise = attachConfigRegister(serverStub, null, nextSpy);
     });
 
     it('should throw', function() {
-      expect(fnWrapper).to.throw('No config file available');
+      expect(attachConfigRegisterPromise).to.eventually.throw('No config file available');
     });
   });
 });
