@@ -6,19 +6,47 @@ const SERVER_OPTIONS = {
 };
 
 defineSupportCode(function({Before, After}) {
-  Before(function*() {
-    const createServer = rootRequire('src/server');
-    this.server = yield createServer(SERVER_OPTIONS);
-    this.knex = this.server.knex;
-    yield this.knex.migrate.latest();
+  Before(async function() {
+    try {
+      const createServer = rootRequire('src/server');
+      this.server = await createServer(SERVER_OPTIONS);
+      this.knex = this.server.knex;
+    } catch (error) {
+      error.message = `Failed to initialize server.\n\nError:\n${error.message}`;
+      throw error;
+    }
+  });
+
+  Before(async function() {
+    try {
+      await this.knex.migrate.latest();
+    } catch (error) {
+      error.message = `Failed to perform database migrations.\n\nError:\n${error.message}`;
+      throw error;
+    }
   });
 
   Before(function() {
     this.getRequestUrl = path => `${this.server.info.uri}/v1${path}`;
   });
 
-  After(function*() {
-    yield this.knex.raw('DROP SCHEMA public CASCADE');
-    yield this.knex.raw('CREATE SCHEMA public');
+  After(async function() {
+    try {
+      await this.knex.destroy();
+      await this.server.stop();
+    } catch (error) {
+      error.message = `Failed to stop server.\n\nError:\n${error.message}`;
+      throw error;
+    }
+  });
+
+  After(async function() {
+    try {
+      await this.knex.raw('DROP SCHEMA public CASCADE');
+      await this.knex.raw('CREATE SCHEMA public');
+    } catch (error) {
+      error.message = `Failed to reset database schema.\n\nError:\n${error.message}`;
+      throw error;
+    }
   });
 });
