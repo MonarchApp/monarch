@@ -1,16 +1,6 @@
 const rootRequire = require('app-root-path').require;
-const {expect, mockRequire, sinon} = require('./../../utils/test-utilities');
-const localConfig = rootRequire('config/local');
-
-const knexStubValue = 'knex';
-const knexStub = sinon.stub();
-knexStub.returns(knexStubValue);
-mockRequire('knex', knexStub);
-
-const mockSecret = 'This is a shitty secret';
-localConfig.auth.secret = mockSecret;
-
-const authRegister = require('./../auth').register;
+const {expect, mockRequire, sinon} = require('./../../utils/test_utilities');
+const registerAuth = require('./../auth').register;
 
 describe('Register Auth', function() {
   let nextSpy;
@@ -28,7 +18,7 @@ describe('Register Auth', function() {
 
   context('always', function() {
     beforeEach(function() {
-      authRegister(serverStub, null, nextSpy);
+      registerAuth(serverStub, null, nextSpy);
     });
 
     it('should set the server authentication strategy to jwt', function() {
