@@ -9,7 +9,7 @@ The better we follow standards in this document, the faster we can put your cont
 to good use.
 
 ## Issues
-This may change in the future as the role of issues change, but for the time being:
+This may change as the role of issues change, but for the time being:
 
 * Include a thorough description of your issue, including any details relevant to the
   machine you're on, i.e. your OS and your version of Node.
@@ -29,3 +29,13 @@ This may change in the future as the role of issues change, but for the time bei
     will be used as the commit body for your PR.
 * Include a gif. It can be relevant, weird, funny, or whatever you like. This isn't
   strictly necessary, but one may be added for you if you don't do it yourself.. :smile:
+* Include an applicable label from each label section. These help us organize our PRs and make
+  it easier to find them later.
+* Tag a few reviewers. Ideally, we would like two reviews per PR before we merge, but exceptions
+  may be made.
+
+Also, don't be a dick. Take a look at our [Code of Conduct][codeofconduct]
+if you don't understand what that means. It would be quite unfortunate to have to actually
+enforce it. :smile:
+
+[codeofconduct]: ./CODE_OF_CONDUCT.md
