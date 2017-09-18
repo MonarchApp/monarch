@@ -33,7 +33,7 @@ const initServer = async (options) => {
 
     try {
       await server.knex.destroy();
-      await server.stop()
+      await server.stop();
 
       // eslint-disable-next-line no-console
       console.log('Monarch has stopped.');
