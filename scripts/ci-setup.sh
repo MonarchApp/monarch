@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
+sudo apt-get update
+
 # Database
 createdb 'monarch_test'
 
 # Install
-sudo apt-get update
 npm install -g yarn

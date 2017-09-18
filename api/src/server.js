@@ -1,11 +1,11 @@
 const rootRequire = require('app-root-path').require;
 const Hapi = require('hapi');
-const co = require('co');
+require('hapi-bluebird');
 
 const localConfig = rootRequire('config/local');
 const routes = require('./routes');
 
-const initServer = co.wrap(function(options) {
+const initServer = async (options) => {
   const server = new Hapi.Server();
   const optionsWithDefaults = Object.assign({}, localConfig, options);
   const {connection: serverOptions, good: goodOptions} = optionsWithDefaults;
@@ -13,35 +13,38 @@ const initServer = co.wrap(function(options) {
   server.connection(serverOptions);
   server.route(routes);
 
-  server.register([
-    {register: require('./plugins/attach-knex')},
-    {register: require('good'), options: goodOptions}
-  ], (err) => {
-    // eslint-disable-next-line no-console
-    if (err) { return console.log(err); }
+  try {
+    await server.register([
+      {register: require('./plugins/attach-knex')},
+      {register: require('good'), options: goodOptions}
+    ]);
+    await server.start();
+  } catch (error) {
+    error.message = `Failed to register plugins.\n\nError:\n${error.message}`;
+    throw error;
+  }
 
-    server.start(() => {
-      // eslint-disable-next-line no-console
-      console.log(`\nMonarch started at ${server.info.uri}\n`);
-    });
-  });
+  // eslint-disable-next-line no-console
+  console.log(`\nMonarch started at ${server.info.uri}\n`);
 
-  process.on('SIGINT', co.wrap(function*() {
+  process.on('SIGINT', async () => {
     // eslint-disable-next-line no-console
     console.log('Shutting down Monarch server...');
-    yield server.knex.destroy();
 
-    server.stop(err => {
+    try {
+      await server.knex.destroy();
+      await server.stop();
+
       // eslint-disable-next-line no-console
       console.log('Monarch has stopped.');
-      if (err) {
-        return process.exit(1);
-      }
+
       process.exit(0);
-    });
-  }));
+    } catch (error) {
+      process.exit(1);
+    }
+  });
 
   return server;
-});
+};
 
 module.exports = initServer;

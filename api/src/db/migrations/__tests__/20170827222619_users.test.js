@@ -1,4 +1,3 @@
-const co = require('co');
 const rootRequire = require('app-root-path').require;
 const userMigrations = require('./../20170827222619_users');
 
@@ -8,15 +7,15 @@ describe('Add Users Migration', function() {
   context('when applying the migration', function() {
     let hasAllColumns = false;
 
-    before(co.wrap(function*() {
-      yield userMigrations.up(knexConn);
+    before(async function() {
+      await userMigrations.up(knexConn);
 
       hasAllColumns = [
-        yield knexConn.schema.hasColumn('users', 'id'),
-        yield knexConn.schema.hasColumn('users', 'email'),
-        yield knexConn.schema.hasColumn('users', 'password')
+        await knexConn.schema.hasColumn('users', 'id'),
+        await knexConn.schema.hasColumn('users', 'email'),
+        await knexConn.schema.hasColumn('users', 'password')
       ].every(exists => exists === true);
-    }));
+    });
 
     it('should create the users table with basic columns', function() {
       expect(hasAllColumns).to.be.true;
@@ -26,10 +25,10 @@ describe('Add Users Migration', function() {
   context('when rolling back the migration', function() {
     let hasTable = true;
 
-    before(co.wrap(function*() {
-      yield userMigrations.down(knexConn);
-      hasTable = yield knexConn.schema.hasTable('users');
-    }));
+    before(async function() {
+      await userMigrations.down(knexConn);
+      hasTable = await knexConn.schema.hasTable('users');
+    });
 
     it('should drop the users table', function() {
       expect(hasTable).to.be.false;

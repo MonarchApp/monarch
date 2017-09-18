@@ -1418,6 +1418,10 @@ handlebars@^4.0.3:
   optionalDependencies:
     uglify-js "^2.6"
 
+hapi-bluebird@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/hapi-bluebird/-/hapi-bluebird-2.0.0.tgz#194944bc97133e0cf64d7b22190df17926e86edb"
+
 hapi@^16.5.2:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/hapi/-/hapi-16.5.2.tgz#d1dadf33721c6ac3aaa905ce086d9c7ffb883092"
@@ -1670,7 +1674,7 @@ is-fullwidth-code-point@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz#a3b30a5c4f199183167aaab93beefae3ddfb654f"
 
-is-generator@^1.0.2, is-generator@^1.0.3:
+is-generator@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/is-generator/-/is-generator-1.0.3.tgz#c14c21057ed36e328db80347966c693f886389f3"
 
