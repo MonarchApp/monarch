@@ -12,7 +12,6 @@
     "app-root-path": "^2.0.1",
     "bluebird": "^3.5.0",
     "boom": "^5.2.0",
-    "chai-as-promised": "^7.1.1",
     "co-request": "^1.0.0",
     "good": "^7.3.0",
     "good-console": "^6.4.0",
@@ -35,6 +34,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.1",
+    "chai-as-promised": "^7.1.1",
     "coveralls": "^2.13.1",
     "cucumber": "^3.0.1",
     "eslint": "^4.4.1",
