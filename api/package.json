@@ -17,6 +17,7 @@
     "good-console": "^6.4.0",
     "good-squeeze": "^5.0.2",
     "hapi": "^16.5.2",
+    "hapi-bluebird": "^2.0.0",
     "is-generator": "^1.0.3",
     "joi": "^10.6.0",
     "knex": "^0.13.0",
