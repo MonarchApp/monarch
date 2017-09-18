@@ -1,6 +1,14 @@
 const auth = {};
 
-auth.register = (server, options, next) => {
+auth.register = async (server, options, next) => {
+  try {
+    await server.register(require('hapi-auth-jwt2'));
+  } catch (error) {
+    error.message = `Failed to load hapi-auth-jwt plugin.\n\nError:\n${error.message}`
+    throw error;
+  }
+
+  server.auth.strategy('jwt');
   next();
 };
 
