@@ -2,23 +2,26 @@ const rootRequire = require('app-root-path').require;
 const Hapi = require('hapi');
 require('hapi-bluebird');
 
-const localConfig = rootRequire('config/local');
 const routes = require('./routes');
 
-const initServer = async (options) => {
+const initServer = async () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'develop';
 
   const server = new Hapi.Server();
-  const optionsWithDefaults = Object.assign({}, localConfig, options);
-  const {connection: serverOptions, good: goodOptions} = optionsWithDefaults;
 
-  server.connection(serverOptions);
+  try {
+    await server.register({register: require('./plugins/attach-config')});
+  } catch (error) {
+    error.message = `Failed to register configuration plugin.\n\nError:\n${error.message}`;
+  }
+
+  server.connection(server.config.get('connection'));
   server.route(routes);
 
   try {
     await server.register([
       {register: require('./plugins/attach-knex')},
-      {register: require('good'), options: goodOptions}
+      {register: require('good'), options: server.config.get('good')}
     ]);
     await server.start();
   } catch (error) {
