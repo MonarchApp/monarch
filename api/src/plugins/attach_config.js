@@ -20,6 +20,7 @@ attachConfig.register = async (server, options, next) => {
     .env()
     .file(configPath);
 
+  server.decorate('request', 'config', nconf);
   server.decorate('server', 'config', nconf);
   next();
 };
