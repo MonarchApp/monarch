@@ -1,8 +1,18 @@
 exports.up = knex => {
-  return knex.schema.createTable('users', table => {
-    table.increments('id').primary();
-    table.string('email').notNullable().unique();
-    table.string('password').notNullable();
+  return knex.schema.createTable('users', (table) => {
+    table.timestamp('createDate')
+      .notNullable()
+      .defaultTo(new Date().toISOString());
+    table.string('email')
+      .notNullable()
+      .unique();
+    table.increments('id')
+      .primary();
+    table.timestamp('modifyDate')
+      .notNullable()
+      .defaultTo(new Date().toISOString());
+    table.string('password')
+      .notNullable();
   });
 };
 
