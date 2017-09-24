@@ -1,5 +1,6 @@
 {
   "auth": {
+    "jwtSecret": "developPrivateKey",
     "saltRounds": 12
   },
   "connection": {
