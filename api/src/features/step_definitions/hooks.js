@@ -24,15 +24,6 @@ defineSupportCode(function({Before, After}) {
 
   Before(function() {
     this.getRequestUrl = path => `${this.server.info.uri}/v1${path}`;
-    this.parseJson = json => {
-      try {
-        return JSON.parse(json);
-      } catch (error) {
-        error.message = `Failed to parse JSON:\n\n${json} \
-          \n\nError:\n${error.message}`;
-        throw error;
-      }
-    };
   });
 
   After(async function() {
