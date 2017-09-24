@@ -1,5 +1,8 @@
-## Issues Resolved
+## Issues
 *
 
 ## Changes
+*
+
+## Notes
 *
