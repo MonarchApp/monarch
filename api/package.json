@@ -21,6 +21,7 @@
     "hapi-auth-jwt2": "^7.3.0",
     "hapi-bluebird": "^2.0.0",
     "joi": "^10.6.0",
+    "jsonwebtoken": "^8.0.1",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
     "nconf": "^0.8.4",
