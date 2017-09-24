@@ -1,9 +1,11 @@
 const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
+const path = require('path');
 const rootRequire = require('app-root-path').require;
 
 const nodeEnvironment = process.env.NODE_ENV || 'test';
-const {saltRounds} = rootRequire(`src/config/${nodeEnvironment}`);
+const configPath = path.join('config', `${nodeEnvironment}.json`);
+const {saltRounds} = rootRequire(configPath).auth;
 const hash = Promise.promisify(bcrypt.hash);
 
 exports.seed = async knex => {
