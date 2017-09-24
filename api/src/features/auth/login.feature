@@ -21,3 +21,24 @@ Feature: Login
         token: _.isString
       }
       """
+
+  Scenario: Login with missing field
+    When POST "/login"
+      """
+      {
+        "email": "frankjaeger@foxhound"
+      }
+      """
+    Then response status code is 400
+    And response body matches
+      """
+      {
+        error: _.isString,
+        message: _.isContainerFor|'"password" is required',
+        statusCode: 400,
+        validation: {
+          keys: ["password"],
+          source: "payload"
+        }
+      }
+      """

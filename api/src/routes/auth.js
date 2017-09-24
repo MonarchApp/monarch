@@ -1,14 +1,15 @@
-const Auth = require('./../handlers/auth');
+const auth = require('./../handlers/auth');
 
 module.exports = [
   {
-    handler: Auth.login.handler,
-    method: 'GET',
+    config: auth.login.config,
+    handler: auth.login.handler,
+    method: 'POST',
     path: '/v1/login'
   },
   {
-    handler: Auth.logout.handler,
-    method: 'GET',
+    handler: auth.logout.handler,
+    method: 'POST',
     path: '/v1/logout'
   }
 ];
