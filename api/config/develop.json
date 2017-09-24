@@ -1,4 +1,7 @@
 {
+  "auth": {
+    "saltRounds": 12
+  },
   "connection": {
     "port": 3000,
     "host": "localhost"

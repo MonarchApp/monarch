@@ -1,5 +1,9 @@
-const Joi = require('joi');
-const Boom = require('boom');
+const Promise = require('bluebird');
+const bcrypt = require('bcrypt');
+const boom = require('boom');
+const joi = require('joi');
+
+const hash = Promise.promisify(bcrypt.hash);
 
 const Users = {
   delete: {},
@@ -13,21 +17,32 @@ Users.get.handler = () => {};
 Users.getAll.handler = () => {};
 
 Users.post.handler = async (request, reply) => {
-  const {email} = request.payload;
+  const {email, password} = request.payload;
+  const {saltRounds} = request.config.get('auth');
   const userCreatedMessage = `User created for "${email}"`;
+  let hashedPassword;
 
   try {
-    // TODO: Hash password
-    await request.knex('users').insert(request.payload);
+    hashedPassword = await hash(password, saltRounds);
+  } catch (error) {
+    const errorMessage = `Failed to generate hash while creating user for ${email}`;
+    reply(boom.badImplementation(errorMessage));
+  }
+
+  const userObject = {email, password: hashedPassword};
+
+  try {
+    await request.knex('users').insert(userObject);
 
     // TODO: Send user email
     reply.response().code(201);
   } catch (error) {
     if (error.message.indexOf('users_email_unique') > -1) {
-      return reply.response().code(201);
+      reply.response().code(201);
     }
 
-    reply(Boom.badImplementation());
+    reply(boom.badImplementation());
+    throw error;
   } finally {
     request.log(['info'], userCreatedMessage);
   }
@@ -36,8 +51,8 @@ Users.post.handler = async (request, reply) => {
 Users.post.config = {
   validate: {
     payload: {
-      email: Joi.string().email().required(),
-      password: Joi.string().required()
+      email: joi.string().email().required(),
+      password: joi.string().required()
     }
   }
 };
