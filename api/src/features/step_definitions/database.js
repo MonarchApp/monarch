@@ -11,8 +11,7 @@ defineSupportCode(function({Then, When}) {
   });
 
   Then('raw query result matches', async function(json) {
-    const result = this.parseJson(json);
-    const rawQueryResultMatchesPattern = matchPattern(this.rawQueryResult, result);
+    const rawQueryResultMatchesPattern = matchPattern(this.rawQueryResult.rows, json);
     if (rawQueryResultMatchesPattern) { throw new Error(rawQueryResultMatchesPattern); }
   });
 });
