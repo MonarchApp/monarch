@@ -1,5 +1,8 @@
 const auth = {};
 
+const strategyName = 'jwt';
+const schemeName = 'jwt';
+const requireJwtForAllRoutes = true;
 const authOptions = {
   key: 'ThisKeyIsNotSafe',
   validateFunc: validateToken,
@@ -19,7 +22,7 @@ auth.register = async (server, options, next) => {
     throw error;
   }
 
-  server.auth.strategy('jwt', 'jwt', authOptions);
+  server.auth.strategy(strategyName, schemeName, requireJwtForAllRoutes, authOptions);
   server.auth.default('jwt');
   next();
 };
