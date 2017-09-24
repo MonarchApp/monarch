@@ -22,8 +22,10 @@ Feature: Create user
     And raw query result matches
       """
         [{
-          id: 1,
+          createDate: _.isDate,
           email: "testemail@domain.com",
+          id: 1,
+          modifyDate: _.isDate,
           password: _.isSize|60
         }]
       """

@@ -29,7 +29,13 @@ Users.post.handler = async (request, reply) => {
     reply(boom.badImplementation(errorMessage));
   }
 
-  const userObject = {email, password: hashedPassword};
+  const now = request.knex.fn.now();
+  const userObject = {
+    createDate: now,
+    email,
+    modifyDate: now,
+    password: hashedPassword
+  };
 
   try {
     await request.knex('users').insert(userObject);
