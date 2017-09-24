@@ -1,4 +1,5 @@
 const matchPattern = require('lodash-match-pattern');
+const path = require('path');
 const rootRequire = require('app-root-path').require;
 const {defineSupportCode} = require('cucumber');
 
@@ -12,8 +13,9 @@ defineSupportCode(function({Then, When}) {
   });
 
   When('I seed {string}', async function(seedFilename) {
-    const pathToSeed = `src/db/seeds/${process.env.NODE_ENV}/${seedFilename}`;
-    await rootRequire(pathToSeed).seed(this.knex);
+    const pathToSeed = path.join('src/db/seeds', process.env.NODE_ENV, seedFilename);
+    const seedFunction = rootRequire(pathToSeed).seed;
+    await seedFunction(this.knex);
   });
 
   Then('raw query result matches', async function(json) {
