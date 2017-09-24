@@ -1,7 +1,9 @@
 const matchPattern = require('lodash-match-pattern');
 const request = require('co-request');
+const rootRequire = require('app-root-path').require;
 const {defineSupportCode} = require('cucumber');
 const {expect} = require('chai');
+const {throwWithMessage} = rootRequire('src/utils/throw');
 
 const parseJson = json => {
   try {
@@ -13,28 +15,29 @@ const parseJson = json => {
   }
 };
 
+const makeRequest = async function() {
+  const options = Object.assign({}, arguments[0], {time: true});
+  const {method, url} = options;
+
+  try {
+    return await request(options);
+  } catch (error) {
+    throwWithMessage(error, `Failed to ${method} ${url}.`);
+  }
+};
+
 defineSupportCode(function({When, Then}) {
   When(/^(DELETE|GET) "([^"]*)"$/, async function(method, requestPath) {
     const url = this.getRequestUrl(requestPath);
 
-    try {
-      this.activeRequest = await request({method, url});
-    } catch (error) {
-      error.message = `Failed to ${method} ${url}.\n\n${error.message}`;
-      throw error;
-    }
+    this.activeRequest = await makeRequest({method, url});
   });
 
   When(/^(POST|PUT) "([^"]*)"$/, async function(method, requestPath, json) {
     const url = this.getRequestUrl(requestPath);
     const body = parseJson(json);
 
-    try {
-      this.activeRequest = await request({body, json: true, method, url});
-    } catch (error) {
-      error.message = `Failed to ${method} to ${url}.\n\n${error.message}`;
-      throw error;
-    }
+    this.activeRequest = await makeRequest({body, json: true, method, url});
   });
 
   Then('response status code is {int}', function(statusCode) {
