@@ -21,13 +21,13 @@ Feature: Create user
       """
     And raw query result matches
       """
-        [{
-          createDate: _.isDate,
-          email: "testemail@domain.com",
-          id: 1,
-          modifyDate: _.isDate,
-          password: _.isSize|60
-        }]
+      [{
+        createDate: _.isDate,
+        email: "testemail@domain.com",
+        id: 1,
+        modifyDate: _.isDate,
+        password: _.isSize|60
+      }]
       """
 
 
@@ -42,14 +42,12 @@ Feature: Create user
     And response body matches
       """
       {
-        "error": _.isString,
-        "message": _.isContainerFor|'"email" is required',
-        "statusCode": 400,
-        "validation": {
-          "keys": [
-            "email"
-          ],
-          "source": "payload"
+        error: _.isString,
+        message: _.isContainerFor|'"email" is required',
+        statusCode: 400,
+        validation: {
+          keys: ["email"],
+          source: "payload"
         }
       }
       """
@@ -87,8 +85,8 @@ Feature: Create user
     And response body matches
       """
       {
-        "error": _.isString,
-        "message": "An internal server error occurred",
-        "statusCode": 500,
+        error: _.isString,
+        message: "An internal server error occurred",
+        statusCode: 500,
       }
       """
