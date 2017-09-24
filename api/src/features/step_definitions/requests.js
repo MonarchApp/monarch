@@ -52,4 +52,8 @@ defineSupportCode(function({When, Then}) {
     const bodyMatchesPattern = matchPattern(this.activeRequest.body, json);
     if (bodyMatchesPattern) { throw new Error(bodyMatchesPattern); }
   });
+
+  Then('response is delayed', function() {
+    expect(this.activeRequest.timingPhases.total).to.be.above(500);
+  });
 });
