@@ -3,16 +3,6 @@ const request = require('co-request');
 const {defineSupportCode} = require('cucumber');
 const {expect} = require('chai');
 
-const parseJson = json => {
-  try {
-    return JSON.parse(json);
-  } catch (error) {
-    error.message = `Failed to parse JSON:\n\n${json} \
-      \n\nError:\n${error.message}`;
-    throw error;
-  }
-};
-
 defineSupportCode(function({When, Then}) {
   When(/^(DELETE|GET) "([^"]*)"$/, async function(method, requestPath) {
     const url = this.getRequestUrl(requestPath);
@@ -27,7 +17,7 @@ defineSupportCode(function({When, Then}) {
 
   When(/^(POST|PUT) "([^"]*)"$/, async function(method, requestPath, json) {
     const url = this.getRequestUrl(requestPath);
-    const body = parseJson(json);
+    const body = this.parseJson(json);
 
     try {
       this.activeRequest = await request({body, json: true, method, url});
