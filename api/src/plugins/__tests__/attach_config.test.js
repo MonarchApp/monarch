@@ -41,7 +41,11 @@ describe('Register Attach Config', function() {
       expect(nconfStub.env).to.have.been.calledAfter(nconfStub.env);
     });
 
-    it('should decorate the server with the nconf instance', function() {
+    it('should decorate the request object with the nconf instance', function() {
+      expect(serverStub.decorate).to.have.been.calledWith('request', 'config', nconfStub);
+    });
+
+    it('should decorate the server object with the nconf instance', function() {
       expect(serverStub.decorate).to.have.been.calledWith('server', 'config', nconfStub);
     });
 

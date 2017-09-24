@@ -13,6 +13,20 @@ Feature: Create user
       """
     Then response status code is 201
     And response body is empty
+    When raw query
+      """
+        SELECT *
+        FROM users
+        WHERE email = 'testemail@domain.com'
+      """
+    And raw query result matches
+      """
+        [{
+          id: 1,
+          email: "testemail@domain.com",
+          password: _.isSize|60
+        }]
+      """
 
 
   Scenario: Creating a user with a missing field

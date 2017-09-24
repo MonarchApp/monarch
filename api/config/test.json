@@ -1,4 +1,7 @@
 {
+  "auth": {
+    "saltRounds": 1
+  },
   "connection": {
     "port": 3001,
     "host": "localhost"
@@ -7,17 +10,6 @@
     "ops": {
       "interval": 5000
     },
-    "reporters": {
-      "console": [{
-        "module": "good-squeeze",
-        "name": "Squeeze",
-        "args": [{
-          "log": "*",
-          "response": "*"
-        }]
-      }, {
-        "module": "good-console"
-      }, "stdout"]
-    }
+    "reporters": {}
   }
 }

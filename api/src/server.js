@@ -1,4 +1,3 @@
-const rootRequire = require('app-root-path').require;
 const Hapi = require('hapi');
 require('hapi-bluebird');
 
