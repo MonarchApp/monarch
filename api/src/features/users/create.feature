@@ -3,7 +3,7 @@ Feature: Create user
   As a consumer of the Monarch API,
   I want to be able to create a user.
 
-  Scenario: Creating a valid user
+  Scenario: Create a valid user
     When POST "/users"
       """
       {
@@ -19,7 +19,7 @@ Feature: Create user
         FROM users
         WHERE email = 'testemail@domain.com'
       """
-    And raw query result matches
+    Then raw query result matches
       """
       [{
         createDate: _.isDate,
@@ -31,7 +31,7 @@ Feature: Create user
       """
 
 
-  Scenario: Creating a user with a missing field
+  Scenario: Create a user with a missing field
     When POST "/users"
       """
       {
@@ -53,7 +53,7 @@ Feature: Create user
       """
 
 
-  Scenario: Creating a user with an existing email
+  Scenario: Create a user with an existing email
     When POST "/users"
       """
       {
@@ -72,7 +72,7 @@ Feature: Create user
     And response body is empty
 
 
-  Scenario: Creating a user with unexpected error
+  Scenario: Create a user with unexpected error
     When "users" table is dropped
     And POST "/users"
       """
