@@ -23,7 +23,7 @@ auth.register = async (server, options, next) => {
   }
 
   server.auth.strategy(strategyName, schemeName, requireJwtForAllRoutes, authOptions);
-  server.auth.default('jwt');
+  server.auth.default(strategyName);
   next();
 };
 
