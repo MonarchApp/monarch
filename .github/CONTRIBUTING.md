@@ -1,5 +1,7 @@
 # Contributing to Monarch
 
+![](https://media.giphy.com/media/JKfAk6hieK4uY/giphy.gif)
+
 :heart: :green_heart: :purple_heart: :blue_heart: :yellow_heart: :black_heart:
 
 Yay!! Thank you for taking the time to contribute and to take a look at this guide!
