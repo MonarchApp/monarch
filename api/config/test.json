@@ -1,4 +1,7 @@
 {
+  "auth": {
+    "saltRounds": 1
+  },
   "connection": {
     "port": 3001,
     "host": "localhost"
@@ -12,6 +15,7 @@
         "module": "good-squeeze",
         "name": "Squeeze",
         "args": [{
+          "error": "*",
           "log": "*",
           "response": "*"
         }]
