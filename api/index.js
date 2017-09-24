@@ -1,5 +1,5 @@
 const initServer = require('./src/server');
 
-(async function () {
+(async function() {
   await initServer();
 })();
