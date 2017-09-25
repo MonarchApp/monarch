@@ -16,6 +16,15 @@ Users.delete.handler = () => {};
 Users.get.handler = () => {};
 Users.getAll.handler = () => {};
 
+Users.post.config = {
+  validate: {
+    payload: {
+      email: joi.string().email().required(),
+      password: joi.string().required()
+    }
+  }
+};
+
 Users.post.handler = async (request, reply) => {
   const {email, password} = request.payload;
   const {saltRounds} = request.config.get('auth');
@@ -51,15 +60,6 @@ Users.post.handler = async (request, reply) => {
     throw error;
   } finally {
     request.log(['info'], userCreatedMessage);
-  }
-};
-
-Users.post.config = {
-  validate: {
-    payload: {
-      email: joi.string().email().required(),
-      password: joi.string().required()
-    }
   }
 };
 
