@@ -4,7 +4,7 @@
   "description": "",
   "main": "index",
   "author": "Emma Bukacek",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "engine": {
     "node": ">= 8.0.0"
   },
