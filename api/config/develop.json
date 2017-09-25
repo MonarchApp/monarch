@@ -1,6 +1,6 @@
 {
   "auth": {
-    "jwtSecret": "developPrivateKey",
+    "jwtAudience": "uiUrl",
     "saltRounds": 12
   },
   "connection": {
