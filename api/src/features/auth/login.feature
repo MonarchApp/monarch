@@ -6,6 +6,7 @@ Feature: Login
   Background:
     Given I seed "users"
 
+
   Scenario: Login with valid credentials
     When POST "/login"
       """
@@ -21,6 +22,7 @@ Feature: Login
         token: _.isString
       }
       """
+
 
   Scenario: Login with nonexistent user
     When POST "/login"
@@ -41,6 +43,7 @@ Feature: Login
         attributes: {error: 'invalid username or password'}}
       """
 
+
   Scenario: Login with incorrect password
     When POST "/login"
       """
@@ -59,6 +62,7 @@ Feature: Login
         message: 'invalid username or password',
         attributes: {error: 'invalid username or password'}}
       """
+
 
   Scenario Outline: Login with invalid payload
     When POST "/login"
@@ -84,3 +88,23 @@ Feature: Login
       |                          | password | "email" is not allowed to be empty    | "email"    |
       | frankjaeger@foxhound.com |          | "password" is not allowed to be empty | "password" |
       | frankjaeger              | password | "email" must be a valid email         | "email"    |
+
+
+  Scenario: Login with unexpected error
+    When "users" table is dropped
+    And POST "/login"
+      """
+      {
+        "email": "frankjaeger@foxhound.com",
+        "password": "password"
+      }
+      """
+    Then response status code is 500
+    And response body matches
+      """
+      {
+        error: _.isString,
+        message: "An internal server error occurred",
+        statusCode: 500,
+      }
+      """
