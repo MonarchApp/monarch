@@ -24,8 +24,7 @@ const replyWithInvalidCreds = async reply => {
 };
 
 const auth = {
-  login: {},
-  logout: {}
+  login: {}
 };
 
 auth.login.config = {
@@ -59,7 +58,5 @@ auth.login.handler = async (request, reply) => {
     reply(boom.badImplementation(errorMessage));
   }
 };
-
-auth.logout.handler = () => {};
 
 module.exports = auth;
