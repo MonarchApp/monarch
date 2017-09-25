@@ -12,7 +12,7 @@ exports.seed = async knex => {
   const users = [
     {
       email: 'frankjaeger@foxhound.com',
-      password: await hash('I forgot my password!', saltRounds)
+      password: await hash('password', saltRounds)
     }
   ];
 
