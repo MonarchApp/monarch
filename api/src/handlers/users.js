@@ -13,7 +13,19 @@ const Users = {
 };
 
 Users.delete.handler = () => {};
-Users.get.handler = () => {};
+
+Users.get.handler = async (request, reply) => {
+  const {id} = request.params;
+
+  try {
+    const [user] = await request.knex('users').select().where({id});
+
+    reply.response(user || {}).code(200);
+  } catch (error) {
+    reply(boom.badImplementation(`Failed to get user with id ${id}`));
+  }
+};
+
 Users.getAll.handler = () => {};
 
 Users.post.config = {

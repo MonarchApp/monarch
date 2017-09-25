@@ -45,7 +45,7 @@ defineSupportCode(function({When, Then}) {
   });
 
   Then('response body is empty', function() {
-    expect(this.activeRequest.body).to.be.undefined;
+    expect(this.activeRequest.body).to.be.empty;
   });
 
   Then('response body matches', function(json) {
