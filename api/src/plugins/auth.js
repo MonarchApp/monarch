@@ -3,8 +3,7 @@ const auth = {};
 const strategyName = 'jwt';
 const schemeName = 'jwt';
 const requireJwtForAllRoutes = true;
-const authOptions = {
-  key: 'ThisKeyIsNotSafe',
+const authOptionDefaults = {
   validateFunc: validateToken,
   verifyOptions: {algorithms: ['RS256']}
 };
@@ -21,6 +20,9 @@ auth.register = async (server, options, next) => {
     error.message = `Failed to load hapi-auth-jwt plugin.\n\nError:\n${error.message}`;
     throw error;
   }
+
+  const {jwtSecret} = server.config.get('auth');
+  const authOptions = Object.assign({}, authOptionDefaults, {key: jwtSecret});
 
   server.auth.strategy(strategyName, schemeName, requireJwtForAllRoutes, authOptions);
   server.auth.default(strategyName);

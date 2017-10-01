@@ -1,5 +1,6 @@
 {
   "auth": {
+    "jwtAudience": "uiUrl",
     "saltRounds": 12
   },
   "connection": {

@@ -2,3 +2,4 @@
 
 cd api || exit
 yarn
+yarn gen-keys
