@@ -1,12 +1,8 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    'react-hot-loader/patch',
-    path.resolve(__dirname, 'src', 'index.js')
-  ],
+  entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -29,8 +25,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
       allChunks: true,
       filename: 'style.css'
@@ -46,7 +40,6 @@ module.exports = {
     contentBase: 'dist',
     historyApiFallback: true,
     host: 'localhost',
-    hot: true,
     inline: true,
     port: 3000
   }
