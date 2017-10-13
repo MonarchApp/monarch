@@ -1,1 +1,44 @@
-$var: 'Foo';
+/*
+ * Raw Colors
+ */
+$color-grape-orchid: #AC6C82;
+$color-larkspur: #685C79;
+$color-marigold: #FFBC67;
+$color-oxford-blue: #445C7B;
+$color-sweet-pea: #DA727E;
+
+/*
+ * Colors
+ */
+$black: #000;
+
+$blue-primary: $color-oxford-blue;
+$blue-secondary: lighten($blue-primary, 9.25%);
+
+$grey-primary: #D1D1D1;
+$grey-secondary: #999999;
+
+$magenta-primary: $color-grape-orchid;
+$magenta-secondary: lighten($magenta-primary, 9%);
+
+$orange-primary: $color-marigold;
+$orange-secondary: lighten($orange-primary, 3.35%);;
+
+$pink-primary: $color-sweet-pea;
+$pink-secondary: lighten($pink-primary, 9.25%);
+
+$purple-primary: $color-larkspur;
+$purple-secondary: lighten($purple-primary, 9.39%);
+
+$teal: lighten($pink-primary, 9.25%);
+
+$white: #FFF;
+
+/*
+ * Gradients
+ */
+$pink-orange-gradient: linear-gradient(
+  to right,
+  $pink-primary,
+  $orange-primary
+  );
