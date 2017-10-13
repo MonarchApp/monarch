@@ -1,21 +1,22 @@
-/*
- * Raw Colors
- */
-$color-grape-orchid: #AC6C82;
-$color-larkspur: #685C79;
-$color-marigold: #FFBC67;
-$color-oxford-blue: #445C7B;
-$color-sweet-pea: #DA727E;
+//
+// Raw Colors
+//
 
-/*
- * Colors
- */
-$black: #000;
+$color-grape-orchid: #ac6c82;
+$color-larkspur: #685c79;
+$color-marigold: #ffbc67;
+$color-oxford-blue: #445c7b;
+$color-sweet-pea: #da727e;
+
+//
+// Colors
+//
+$black: #000000;
 
 $blue-primary: $color-oxford-blue;
 $blue-secondary: lighten($blue-primary, 9.25%);
 
-$grey-primary: #D1D1D1;
+$grey-primary: #d1d1d1;
 $grey-secondary: #999999;
 
 $magenta-primary: $color-grape-orchid;
@@ -32,11 +33,11 @@ $purple-secondary: lighten($purple-primary, 9.39%);
 
 $teal: lighten($pink-primary, 9.25%);
 
-$white: #FFF;
+$white: #ffffff;
 
-/*
- * Gradients
- */
+//
+// Gradients
+//
 $pink-orange-gradient: linear-gradient(
   to right,
   $pink-primary,

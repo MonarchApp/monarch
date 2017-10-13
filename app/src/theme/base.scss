@@ -1,9 +1,11 @@
 @import '~theme/vars';
 
 // TODO: Use Zona Bold / Tofino Book instead, respectively.
-@import url(https://fonts.googleapis.com/css?family=Montserrat|Droid+Sans);
+@import 'https://fonts.googleapis.com/css?family=Montserrat|Droid+Sans';
 
-*, *:before, *:after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -11,7 +13,10 @@ body {
   background: $pink-orange-gradient;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: 'Montserrat', sans-serif;
 }
 
