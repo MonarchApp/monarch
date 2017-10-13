@@ -35,7 +35,9 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "start": "./node_modules/.bin/webpack-dev-server --color --progress",
-    "lint": "./node_modules/.bin/eslint .",
-    "test": "./node_modules/.bin/mocha 'src/**/*.test.js'"
+    "lint": "yarn lint-js ; yarn lint-scss",
+    "test": "./node_modules/.bin/mocha 'src/**/*.test.js'",
+    "lint-scss": "./node_modules/.bin/sass-lint src/**/*.scss -v",
+    "lint-js": "./node_modules/.bin/eslint src/"
   }
 }
