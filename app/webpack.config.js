@@ -32,6 +32,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
+      actions: path.resolve(__dirname , 'src', 'actions'),
+      constants: path.resolve(__dirname , 'src', 'constants'),
       containers: path.resolve(__dirname , 'src', 'containers'),
       theme: path.resolve(__dirname, 'src', 'theme'),
     }
