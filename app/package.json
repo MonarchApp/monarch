@@ -34,7 +34,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "start": "./node_modules/.bin/webpack-dev-server --color --progress",
-    "lint": "./node_modules/.bin/eslint .",
+    "lint": "./node_modules/.bin/eslint src/",
     "test": "./node_modules/.bin/mocha 'src/**/*.test.js'"
   }
 }
