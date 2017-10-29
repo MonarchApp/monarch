@@ -1,7 +1,8 @@
-const rootRequire = require('app-root-path').require;
 const initialMigrations = require('./../20170827222619_init');
+const rootRequire = require('app-root-path').require;
+const sinon = require('sinon');
 
-const {expect, knexConn, sinon} = rootRequire('src/utils/test_utilities');
+const {knexConn} = rootRequire('src/utils/test_utilities');
 
 describe('Add Users Migration', function() {
   context('when applying the migration', function() {
