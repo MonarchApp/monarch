@@ -18,6 +18,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "css-loader": "^0.28.7",
     "eslint": "^4.8.0",
     "eslint-plugin-react": "^7.4.0",
@@ -35,6 +36,7 @@
     "build": "./node_modules/.bin/webpack",
     "start": "./node_modules/.bin/webpack-dev-server --color --progress",
     "lint": "./node_modules/.bin/eslint src/",
-    "test": "./node_modules/.bin/mocha 'src/**/*.test.js'"
+    "test": "yarn test-file 'src/**/*.test.js'",
+    "test-file": "NODE_PATH=./src ./node_modules/.bin/mocha"
   }
 }
