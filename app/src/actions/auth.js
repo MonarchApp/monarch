@@ -1,20 +1,17 @@
-import Actions from 'constants/actions';
+import ActionsConstants from 'constants/actions';
 
-export const loginRequest = (user, password) => ({
-  password,
-  type: Actions.Auth.LOGIN_REQUEST,
-  user
-});
+const Actions = {};
 
-export const loginFailure = (error) => ({
+Actions.loginRequest = () => ({type: ActionsConstants.Auth.LOGIN_REQUEST});
+
+Actions.loginFailure = (error) => ({
   error,
-  type: Actions.Auth.LOGIN_FAILURE
+  type: ActionsConstants.Auth.LOGIN_FAILURE
 });
 
-export const login = async (user, password) => async dispatch => {
-  dispatch(loginRequest, user, password);
+Actions.loginSuccess = (token) => ({
+  payload: {token},
+  type: ActionsConstants.Auth.LOGIN_SUCCESS
+});
 
-  const response = await Promise.resolve(new Response());
-
-  if (!response.ok) return dispatch(loginFailure, response.error().message);
-}
+export default Actions;
