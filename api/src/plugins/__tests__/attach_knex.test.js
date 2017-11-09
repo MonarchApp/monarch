@@ -1,6 +1,6 @@
+const mockRequire = require('mock-require');
 const rootRequire = require('app-root-path').require;
-
-const {expect, mockRequire, sinon} = rootRequire('src/utils/test_utilities');
+const sinon = require('sinon');
 const knexConfig = rootRequire('knexfile');
 
 const knexStubValue = 'knex';
