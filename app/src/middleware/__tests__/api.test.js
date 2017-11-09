@@ -2,6 +2,7 @@ import Api from 'middleware/api';
 import ApiPaths from 'constants/api_paths';
 import AuthActions from 'actions/auth';
 import Sinon from 'sinon';
+import 'whatwg-fetch';
 import {mockDispatch} from 'utils/test_utilities';
 
 describe('API Middleware', function() {
@@ -22,11 +23,11 @@ describe('API Middleware', function() {
         dispatchSpy = await mockDispatch(Api.login, user, password);
       });
 
-      it('should dispatch the login request action', function() {
+      it('dispatches the login request action', function() {
         expect(dispatchSpy).to.be.calledWith(AuthActions.loginRequest);
       });
 
-      it('should call fetch with the right parameters', function() {
+      it('calls fetch with the right parameters', function() {
         expect(window.fetch).to.be.calledWith(ApiPaths.LOGIN, {
           body: {user, password},
           method: 'POST'
@@ -42,7 +43,7 @@ describe('API Middleware', function() {
         dispatchSpy = await mockDispatch(Api.login, user, password);
       });
 
-      it('should dispatch the login fail action with the error message', function() {
+      it('dispatches the login fail action with the error message', function() {
         expect(dispatchSpy).to.be.calledWith(AuthActions.loginFailure, errorMessage);
       });
     });
@@ -55,7 +56,7 @@ describe('API Middleware', function() {
         dispatchSpy = await mockDispatch(Api.login, user, password);
       });
 
-      it('it should dispatch the login success action with the request token', function() {
+      it('dispatches the login success action with the request token', function() {
         expect(dispatchSpy).to.be.calledWith(AuthActions.loginSuccess, token);
       });
     });
