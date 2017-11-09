@@ -1,4 +1,6 @@
-const {expect, mockRequire, sinon} = require('./../../utils/test_utilities');
+const mockRequire = require('mock-require');
+const sinon = require('sinon');
+
 const hapiAuthJwt2Stub = {value: 'The plugin is alive, Jim.'};
 mockRequire('hapi-auth-jwt2', hapiAuthJwt2Stub);
 

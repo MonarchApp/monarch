@@ -1,7 +1,9 @@
-const rootRequire = require('app-root-path').require;
 const initialMigrations = require('./../20170827222619_init');
+const rootRequire = require('app-root-path').require;
+const sinon = require('sinon');
 
-const {expect, knexConn, sinon} = rootRequire('src/utils/test_utilities');
+const {getKnexConnection} = rootRequire('src/utils/test_utilities');
+const knex = getKnexConnection();
 
 describe('Add Users Migration', function() {
   context('when applying the migration', function() {
@@ -11,14 +13,14 @@ describe('Add Users Migration', function() {
 
     before(async function() {
       dateStub = sinon.useFakeTimers(now);
-      await initialMigrations.up(knexConn);
+      await initialMigrations.up(knex);
 
       hasAllColumns = [
-        await knexConn.schema.hasColumn('users', 'createDate'),
-        await knexConn.schema.hasColumn('users', 'email'),
-        await knexConn.schema.hasColumn('users', 'id'),
-        await knexConn.schema.hasColumn('users', 'modifyDate'),
-        await knexConn.schema.hasColumn('users', 'password')
+        await knex.schema.hasColumn('users', 'createDate'),
+        await knex.schema.hasColumn('users', 'email'),
+        await knex.schema.hasColumn('users', 'id'),
+        await knex.schema.hasColumn('users', 'modifyDate'),
+        await knex.schema.hasColumn('users', 'password')
       ].every(exists => exists === true);
     });
 
@@ -35,11 +37,11 @@ describe('Add Users Migration', function() {
       const password = 'Light salt, please...';
 
       before(async function() {
-        await knexConn('users').insert({email, password});
+        await knex('users').insert({email, password});
       });
 
       it('should populate default fields properly', async function() {
-        const [mockUser] = await knexConn.select().table('users').where({email});
+        const [mockUser] = await knex.select().table('users').where({email});
         expect(mockUser).to.eql({
           createDate: now,
           email,
@@ -55,8 +57,8 @@ describe('Add Users Migration', function() {
     let hasTable = true;
 
     before(async function() {
-      await initialMigrations.down(knexConn);
-      hasTable = await knexConn.schema.hasTable('users');
+      await initialMigrations.down(knex);
+      hasTable = await knex.schema.hasTable('users');
     });
 
     it('should drop the users table', function() {

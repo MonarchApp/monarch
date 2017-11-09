@@ -1,4 +1,3 @@
-const {expect} = require('./../../utils/test_utilities');
 const throwUtils = require('./../throw');
 
 describe('Throw Utils', function() {
