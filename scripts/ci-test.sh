@@ -5,5 +5,5 @@ yarn lint
 yarn test
 yarn features
 
-cd app || exit
+cd ../app || exit
 yarn lint

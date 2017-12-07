@@ -33,11 +33,11 @@
     "webpack-dev-server": "^2.9.1"
   },
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "start": "./node_modules/.bin/webpack-dev-server --color --progress",
+    "build": "webpack",
+    "start": "webpack-dev-server --color --progress",
     "lint": "yarn lint-js ; yarn lint-scss",
-    "test": "./node_modules/.bin/mocha 'src/**/*.test.js'",
-    "lint-scss": "./node_modules/.bin/sass-lint src/**/*.scss -v",
-    "lint-js": "./node_modules/.bin/eslint src/"
+    "test": "mocha 'src/**/*.test.js'",
+    "lint-scss": "sass-lint src/**/*.scss -v",
+    "lint-js": "eslint src/"
   }
 }
