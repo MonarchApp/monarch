@@ -29,6 +29,7 @@
     "mocha": "^3.5.3",
     "node-sass": "^4.5.3",
     "redux-async-await": "^1.0.1",
+    "sass-lint": "^1.12.0",
     "sass-loader": "^6.0.6",
     "sinon": "^3.3.0",
     "sinon-chai": "^2.13.0",
@@ -37,10 +38,12 @@
     "webpack-dev-server": "^2.9.1"
   },
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "start": "./node_modules/.bin/webpack-dev-server --color --progress",
-    "lint": "./node_modules/.bin/eslint src/",
-    "test": "yarn test-file 'src/**/*.test.js'",
-    "test-file": "NODE_PATH=./src ./node_modules/.bin/mocha"
+    "build": "webpack",
+    "start": "webpack-dev-server --color --progress",
+    "lint": "yarn lint-js ; yarn lint-scss",
+    "test": "mocha 'src/**/*.test.js'",
+    "test-file": "NODE_PATH=./src ./node_modules/.bin/mocha",
+    "lint-scss": "sass-lint src/**/*.scss -v",
+    "lint-js": "eslint src/"
   }
 }
