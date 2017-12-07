@@ -1,22 +1,37 @@
-import AuthActions from 'actions/auth';
-import ApiPaths from 'constants/api_paths';
+import ActionTypes from 'constants/actions';
+import {normalize} from 'normalizr';
 
-const Api = {};
+const callApi = async (endpoint, options, schema) => {
+  const response = await fetch(endpoint, options);
 
-Api.login = (user, password) => async dispatch => {
-  dispatch(AuthActions.loginRequest);
+  if (!response.ok) return Promise.reject(response.error());
 
-  const options = {
-    body: {user, password},
-    method: 'POST'
-  };
+  let json = await response.json();
+  if (schema) json = normalize(json, schema);
 
-  const response = await fetch(ApiPaths.LOGIN, options);
-
-  if (!response.ok) return dispatch(AuthActions.loginFailure, response.error().message);
-
-  const {token} = await response.json();
-  dispatch(AuthActions.loginSuccess, token);
+  return json;
 };
 
-export default Api;
+export default () => next => async action => {
+  if (action.type !== ActionTypes.Api.CALL) return next(action);
+
+  const {endpoint, options, schema, types} = action.payload;
+  const [requestType, successType, failureType] = types;
+
+  const actionWith = data => {
+    const updatedAction = Object.assign({}, action, data);
+    delete updatedAction[ActionTypes.Api.CALL];
+    return updatedAction;
+  };
+
+  next(actionWith({type: requestType}));
+
+  try {
+    next(actionWith({
+      payload: await callApi(endpoint, options, schema),
+      type: successType
+    }));
+  } catch (error) {
+    next(actionWith({error: error.message, type: failureType}));
+  }
+};
