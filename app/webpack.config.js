@@ -36,6 +36,7 @@ module.exports = {
       constants: path.resolve(__dirname , 'src', 'constants'),
       config: path.resolve(__dirname , 'src', 'config'),
       containers: path.resolve(__dirname , 'src', 'containers'),
+      reducers: path.resolve(__dirname , 'src', 'middleware'),
       middleware: path.resolve(__dirname , 'src', 'middleware'),
       theme: path.resolve(__dirname, 'src', 'theme'),
       utils: path.resolve(__dirname, 'src', 'utils'),
