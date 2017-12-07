@@ -6,11 +6,13 @@
   "author": "Emma Bukacek",
   "license": "AGPL-3.0",
   "dependencies": {
-    "immutable": "^3.8.1",
+    "immutable": "^3.8.2",
+    "normalizr": "^3.2.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-immutable-proptypes": "^2.1.0",
     "redux": "^3.7.2",
+    "redux-immutablejs": "^0.0.8",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
@@ -26,6 +28,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "mocha": "^3.5.3",
     "node-sass": "^4.5.3",
+    "redux-async-await": "^1.0.1",
     "sass-loader": "^6.0.6",
     "sinon": "^3.3.0",
     "sinon-chai": "^2.13.0",
