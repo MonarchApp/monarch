@@ -4,7 +4,7 @@ import {createStore, applyMiddleware} from 'redux';
 import asyncAwait from 'redux-async-await';
 import {combineReducers} from 'redux-immutablejs';
 import apiMiddleware from 'middleware/api';
-import * as reducers from 'reducers';
+import reducers from 'reducers';
 
 import 'theme/main.scss';
 import Root from 'containers/root';

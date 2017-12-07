@@ -33,11 +33,11 @@ module.exports = {
   resolve: {
     alias: {
       actions: path.resolve(__dirname , 'src', 'actions'),
-      constants: path.resolve(__dirname , 'src', 'constants'),
       config: path.resolve(__dirname , 'src', 'config'),
+      constants: path.resolve(__dirname , 'src', 'constants'),
       containers: path.resolve(__dirname , 'src', 'containers'),
-      reducers: path.resolve(__dirname , 'src', 'middleware'),
       middleware: path.resolve(__dirname , 'src', 'middleware'),
+      reducers: path.resolve(__dirname , 'src', 'reducers'),
       theme: path.resolve(__dirname, 'src', 'theme'),
       utils: path.resolve(__dirname, 'src', 'utils'),
     }
