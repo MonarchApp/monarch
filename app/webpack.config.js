@@ -31,16 +31,10 @@ module.exports = {
     })
   ],
   resolve: {
-    alias: {
-      actions: path.resolve(__dirname , 'src', 'actions'),
-      config: path.resolve(__dirname , 'src', 'config'),
-      constants: path.resolve(__dirname , 'src', 'constants'),
-      containers: path.resolve(__dirname , 'src', 'containers'),
-      middleware: path.resolve(__dirname , 'src', 'middleware'),
-      reducers: path.resolve(__dirname , 'src', 'reducers'),
-      theme: path.resolve(__dirname, 'src', 'theme'),
-      utils: path.resolve(__dirname, 'src', 'utils'),
-    }
+    modules: [
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'node_modules')
+    ]
   },
   devServer: {
     contentBase: 'dist',
