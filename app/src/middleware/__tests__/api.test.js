@@ -1,63 +1,120 @@
-import Api from 'middleware/api';
-import ApiPaths from 'constants/api_paths';
-import AuthActions from 'actions/auth';
+import ActionTypes from 'constants/actions';
+import ApiMiddleware from '../api';
 import Sinon from 'sinon';
 import 'whatwg-fetch';
-import {mockDispatch} from 'utils/test_utilities';
 
 describe('API Middleware', function() {
-  let dispatchSpy;
+  const endpoint = "It's a big hat. It's funny.";
+  const failureType = 'Celebrity Jeopardy';
+  const options = 'Turd Ferguson';
+  const requestType = 'The only month that starts with Feb';
+  const schema = 'Suck it, Trebek!';
+  const successType = 'Febtober!';
+  let fetchStub;
+
+  const action = {
+    type: ActionTypes.Api.CALL,
+    payload: {
+      endpoint,
+      options,
+      types: [requestType, successType, failureType]
+    }
+  };
+
+  const actionWithSchema = Object.assign({}, action, {payload: {schema}});
+
+  const nextSpy = Sinon.spy();
+  const dispatchWithApi = ApiMiddleware()(nextSpy);
 
   beforeEach(function() {
-    Sinon.stub(window, 'fetch');
+    fetchStub = Sinon.stub(global, 'fetch');
   });
 
-  describe('login', function() {
-    const errorMessage = 'Swords for 400';
-    const password = 'Andre the giant for...1000 dollars';
-    const token = "Yeah, it's a funny hat";
-    const user = 'Turd Ferguson';
+  afterEach(function() {
+    fetchStub.resetHistory();
+    nextSpy.reset();
+  });
 
+  context('when the action is not an API call', function() {
+    const otherAction = {type: 'Swords for 200'};
+
+    beforeEach(async function() {
+      await dispatchWithApi(otherAction);
+    });
+
+    it('passes the original action to the next middleware', function() {
+      expect(nextSpy).to.be.calledWith(otherAction);
+    });
+  });
+
+  context('when the action is an API call', function() {
     context('when making the request', function() {
       beforeEach(async function() {
-        dispatchSpy = await mockDispatch(Api.login, user, password);
+        await dispatchWithApi(action);
       });
 
-      it('dispatches the login request action', function() {
-        expect(dispatchSpy).to.be.calledWith(AuthActions.loginRequest);
+      it('passes an action with the provided request type to the next middleware', function() {
+        expect(nextSpy).to.be.calledWith(Object.assign({}, action, {type: requestType}));
       });
 
-      it('calls fetch with the right parameters', function() {
-        expect(window.fetch).to.be.calledWith(ApiPaths.LOGIN, {
-          body: {user, password},
-          method: 'POST'
-        });
+      it('calls fetch with the correct parameters', function() {
+        expect(fetchStub).to.be.calledWith(endpoint, options);
       });
     });
 
     context('when the request fails', function() {
+      const mockError = new Error('I know your mother, Trebek!');
+      const failedResponse = {error: mockError, ok: false};
+
       beforeEach(async function() {
-        const failedResponse = {error: () => errorMessage};
-        window.fetch.resolves(failedResponse);
-
-        dispatchSpy = await mockDispatch(Api.login, user, password);
+        fetchStub.resolves(failedResponse);
+        await dispatchWithApi(action);
       });
 
-      it('dispatches the login fail action with the error message', function() {
-        expect(dispatchSpy).to.be.calledWith(AuthActions.loginFailure, errorMessage);
-      });
+      it('passes an action with the error and provided failure type to the next middleware',
+        function() {
+          expect(nextSpy).to.be.calledWith({error: true, payload: mockError, type: failureType});
+        });
     });
 
     context('when the request succeeds', function() {
-      beforeEach(async function() {
-        const successResponse = {json: () => Promise.resolve({token})};
-        window.fetch.resolves(successResponse);
+      const formattedResponse = {body: 'Yes, Burt Reynolds?'};
+      const response = {body: "Yeah, I'll take the, uh, condom thing for, uh, 8,000"};
+      const json = () => Promise.resolve({response});
+      const successResponse = {ok: true, json};
 
-        dispatchSpy = await mockDispatch(Api.login, user, password);
+      beforeEach(function() {
+        fetchStub.resolves(successResponse);
       });
 
-      it('dispatches the login success action with the request token', function() {
-        expect(dispatchSpy).to.be.calledWith(AuthActions.loginSuccess, token);
+      // TODO - Figure out how to stub normalize
+      context.skip('and a schema is provided', function() {
+        const normalizeStub = Sinon.stub();
+
+        beforeEach(async function() {
+          normalizeStub.withArgs(response, schema).returns(formattedResponse);
+          await dispatchWithApi(actionWithSchema);
+        });
+
+        it('applies the schema to the return json', function() {
+          expect(normalizeStub).to.be.calledWith(response, schema);
+        });
+
+        it(`passes an action with the formatted payload and the provided success type
+            to the next middleware`, function() {
+            expect(nextSpy).to.be.calledWith({payload: formattedResponse, type: successType});
+          });
+      });
+
+      context('and a schema is not provided', function() {
+        beforeEach(async function() {
+          await dispatchWithApi(action);
+        });
+
+        it(`passes an action with the raw payload and the provided success type
+            to the next middleware`, function() {
+            expect(nextSpy).to.be.calledWith({payload: response, type: successType});
+          });
       });
     });
   });

@@ -18,11 +18,7 @@ export default () => next => async action => {
   const {endpoint, options, schema, types} = action.payload;
   const [requestType, successType, failureType] = types;
 
-  const actionWith = data => {
-    const updatedAction = Object.assign({}, action, data);
-    delete updatedAction[ActionTypes.Api.CALL];
-    return updatedAction;
-  };
+  const actionWith = data => Object.assign({}, action, data);
 
   next(actionWith({type: requestType}));
 
@@ -32,6 +28,6 @@ export default () => next => async action => {
       type: successType
     }));
   } catch (error) {
-    next(actionWith({error: error.message, type: failureType}));
+    next(actionWith({error: true, payload: error, type: failureType}));
   }
 };
