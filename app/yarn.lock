@@ -269,7 +269,7 @@ babel-code-frame@^6.11.0, babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
     esutils "^2.0.2"
     js-tokens "^3.0.2"
 
-babel-core@^6.26.0:
+babel-core@^6.26.0, babel-core@~6:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.26.0.tgz#af32f78b31a6fcef119c87b0fd8d9753f03a0bb8"
   dependencies:
@@ -434,6 +434,10 @@ babel-plugin-check-es2015-constants@^6.22.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz#35157b101426fd2ffd3da3f75c7d1e91835bbf8a"
   dependencies:
     babel-runtime "^6.22.0"
+
+babel-plugin-rewire@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-rewire/-/babel-plugin-rewire-1.1.0.tgz#a6b966d9d8c06c03d95dcda2eec4e2521519549b"
 
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
@@ -1011,12 +1015,6 @@ bytes@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
 
-caller-id@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/caller-id/-/caller-id-0.1.0.tgz#59bdac0893d12c3871408279231f97458364f07b"
-  dependencies:
-    stack-trace "~0.0.7"
-
 caller-path@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/caller-path/-/caller-path-0.1.0.tgz#94085ef63581ecd3daa92444a8fe94e82577751f"
@@ -1455,6 +1453,29 @@ css-loader@^0.28.7:
     postcss-modules-values "^1.1.0"
     postcss-value-parser "^3.3.0"
     source-list-map "^2.0.0"
+
+css-loader@~0.23.1:
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-0.23.1.tgz#9fa23f2b5c0965235910ad5ecef3b8a36390fe50"
+  dependencies:
+    css-selector-tokenizer "^0.5.1"
+    cssnano ">=2.6.1 <4"
+    loader-utils "~0.2.2"
+    lodash.camelcase "^3.0.1"
+    object-assign "^4.0.1"
+    postcss "^5.0.6"
+    postcss-modules-extract-imports "^1.0.0"
+    postcss-modules-local-by-default "^1.0.1"
+    postcss-modules-scope "^1.0.0"
+    postcss-modules-values "^1.1.0"
+    source-list-map "^0.1.4"
+
+css-selector-tokenizer@^0.5.1:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/css-selector-tokenizer/-/css-selector-tokenizer-0.5.4.tgz#139bafd34a35fd0c1428487049e0699e6f6a2c21"
+  dependencies:
+    cssesc "^0.1.0"
+    fastparse "^1.1.1"
 
 css-selector-tokenizer@^0.7.0:
   version "0.7.0"
@@ -2754,6 +2775,12 @@ ini@~1.3.0:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
 
+inject-loader@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/inject-loader/-/inject-loader-3.0.1.tgz#844a4596150cf6b864c2f79806d40a2caee4c2c7"
+  dependencies:
+    babel-core "~6"
+
 inquirer@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-0.12.0.tgz#1ef2bfd63504df0bc75785fff8c2c41df12f077e"
@@ -3227,6 +3254,15 @@ loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
+loader-utils@~0.2.2:
+  version "0.2.17"
+  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
+  dependencies:
+    big.js "^3.1.3"
+    emojis-list "^2.0.0"
+    json5 "^0.5.0"
+    object-assign "^4.0.1"
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -3253,6 +3289,13 @@ lodash._basecreate@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/lodash._basecreate/-/lodash._basecreate-3.0.3.tgz#1bc661614daa7fc311b7d03bf16806a0213cf821"
 
+lodash._createcompounder@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/lodash._createcompounder/-/lodash._createcompounder-3.0.0.tgz#5dd2cb55372d6e70e0e2392fb2304d6631091075"
+  dependencies:
+    lodash.deburr "^3.0.0"
+    lodash.words "^3.0.0"
+
 lodash._getnative@^3.0.0:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/lodash._getnative/-/lodash._getnative-3.9.1.tgz#570bc7dede46d61cdcde687d65d3eecbaa3aaff5"
@@ -3261,9 +3304,19 @@ lodash._isiterateecall@^3.0.0:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/lodash._isiterateecall/-/lodash._isiterateecall-3.0.9.tgz#5203ad7ba425fae842460e696db9cf3e6aac057c"
 
+lodash._root@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/lodash._root/-/lodash._root-3.0.1.tgz#fba1c4524c19ee9a5f8136b4609f017cf4ded692"
+
 lodash.assign@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.assign/-/lodash.assign-4.2.0.tgz#0d99f3ccd7a6d261d19bdaeb9245005d285808e7"
+
+lodash.camelcase@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-3.0.1.tgz#932c8b87f8a4377897c67197533282f97aeac298"
+  dependencies:
+    lodash._createcompounder "^3.0.0"
 
 lodash.camelcase@^4.3.0:
   version "4.3.0"
@@ -3284,6 +3337,12 @@ lodash.create@3.1.1:
     lodash._baseassign "^3.0.0"
     lodash._basecreate "^3.0.0"
     lodash._isiterateecall "^3.0.0"
+
+lodash.deburr@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.deburr/-/lodash.deburr-3.2.0.tgz#6da8f54334a366a7cf4c4c76ef8d80aa1b365ed5"
+  dependencies:
+    lodash._root "^3.0.0"
 
 lodash.get@^4.4.2:
   version "4.4.2"
@@ -3324,6 +3383,12 @@ lodash.tail@^4.1.1:
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
+
+lodash.words@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.words/-/lodash.words-3.2.0.tgz#4e2a8649bc08745b17c695b1a3ce8fee596623b3"
+  dependencies:
+    lodash._root "^3.0.0"
 
 lodash@^4.0.0, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.4:
   version "4.17.4"
@@ -3522,6 +3587,15 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
+mocha-loader@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/mocha-loader/-/mocha-loader-1.1.1.tgz#39c9b78c4ad69abc533ed02e2dab398244ca33ab"
+  dependencies:
+    css-loader "~0.23.1"
+    loader-utils "^1.0.2"
+    script-loader "~0.7.0"
+    style-loader "~0.13.1"
+
 mocha@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.5.3.tgz#1e0480fe36d2da5858d1eb6acc38418b26eaa20d"
@@ -3538,12 +3612,6 @@ mocha@^3.5.3:
     lodash.create "3.1.1"
     mkdirp "0.5.1"
     supports-color "3.1.2"
-
-mock-require@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/mock-require/-/mock-require-2.0.2.tgz#1eaa71aad23013773d127dc7e91a3fbb4837d60d"
-  dependencies:
-    caller-id "^0.1.0"
 
 moo-server@*, moo-server@1.3.x:
   version "1.3.0"
@@ -4426,6 +4494,10 @@ raw-body@2.3.2:
     iconv-lite "0.4.19"
     unpipe "1.0.0"
 
+raw-loader@~0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/raw-loader/-/raw-loader-0.5.1.tgz#0c3d0beaed8a01c966d9787bf778281252a979aa"
+
 rc@^1.1.7:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.1.tgz#2e03e8e42ee450b8cb3dce65be1bf8974e1dfd95"
@@ -4855,6 +4927,12 @@ schema-utils@^0.3.0:
   dependencies:
     ajv "^5.0.0"
 
+script-loader@~0.7.0:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/script-loader/-/script-loader-0.7.2.tgz#2016db6f86f25f5cf56da38915d83378bb166ba7"
+  dependencies:
+    raw-loader "~0.5.1"
+
 scss-tokenizer@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/scss-tokenizer/-/scss-tokenizer-0.2.3.tgz#8eb06db9a9723333824d3f5530641149847ce5d1"
@@ -5043,6 +5121,10 @@ sort-keys@^1.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
+source-list-map@^0.1.4:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
+
 source-list-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
@@ -5118,7 +5200,7 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
 
-stack-trace@0.0.x, stack-trace@~0.0.7:
+stack-trace@0.0.x:
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/stack-trace/-/stack-trace-0.0.10.tgz#547c70b347e8d32b4e108ea1a2a159e5fdde19c0"
 
@@ -5228,6 +5310,12 @@ style-loader@^0.19.0:
   dependencies:
     loader-utils "^1.0.2"
     schema-utils "^0.3.0"
+
+style-loader@~0.13.1:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.13.2.tgz#74533384cf698c7104c7951150b49717adc2f3bb"
+  dependencies:
+    loader-utils "^1.0.2"
 
 supports-color@3.1.2:
   version "3.1.2"
