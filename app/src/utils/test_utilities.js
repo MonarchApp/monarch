@@ -1,9 +1,11 @@
-import Sinon from 'sinon';
+import apiMiddleware from 'middleware/api';
+import configureStore from 'redux-mock-store';
+import promiseMiddleware from 'redux-promise-middleware';
+import thunk from 'redux-thunk';
 
-export const mockDispatch = async (action, ...args) => {
-  const actionToDispatch = await action(...args);
-  const dispatchSpy = Sinon.spy();
-  await actionToDispatch(dispatchSpy);
-
-  return dispatchSpy;
-};
+export const getMockStore = (additionalMiddleware = []) => configureStore([
+  ...additionalMiddleware,
+  thunk,
+  promiseMiddleware,
+  apiMiddleware
+]);
