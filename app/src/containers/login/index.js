@@ -1,6 +1,6 @@
 import ActionTypes from 'constants/actions';
 import React from 'react';
-import ui from 'react-ui';
+import ui from 'redux-ui';
 
 const Login = ({username, password}) => (
   <div>
