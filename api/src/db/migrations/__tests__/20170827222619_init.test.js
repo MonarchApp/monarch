@@ -2,7 +2,7 @@ const initialMigrations = require('./../20170827222619_init');
 const rootRequire = require('app-root-path').require;
 const sinon = require('sinon');
 
-const {getKnexConnection} = rootRequire('src/utils/test_utilities');
+const {getKnexConnection} = rootRequire('src/utils/test_utils');
 const knex = getKnexConnection();
 
 describe('Add Users Migration', function() {
