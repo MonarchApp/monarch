@@ -40,7 +40,8 @@ Feature: Login
         error: 'Unauthorized',
         statusCode: 401,
         message: 'invalid username or password',
-        attributes: {error: 'invalid username or password'}}
+        attributes: {error: 'invalid username or password'}
+      }
       """
 
 
@@ -60,34 +61,9 @@ Feature: Login
         error: 'Unauthorized',
         statusCode: 401,
         message: 'invalid username or password',
-        attributes: {error: 'invalid username or password'}}
-      """
-
-
-  Scenario Outline: Login with invalid payload
-    When POST "/login"
-      """
-      {
-        "email": "<EMAIL>",
-        "password": "<PASSWORD>"
+        attributes: {error: 'invalid username or password'}
       }
       """
-    Then response status code is 400
-    And response body matches
-      """
-      {
-        error: _.isString,
-        message: _.isContainerFor|'<MESSAGE>',
-        statusCode: 400,
-        validation: {keys: [<KEYS>], source: "payload"}
-      }
-      """
-
-    Examples:
-      | EMAIL                    | PASSWORD | MESSAGE                               | KEYS       |
-      |                          | password | "email" is not allowed to be empty    | "email"    |
-      | frankjaeger@foxhound.com |          | "password" is not allowed to be empty | "password" |
-      | frankjaeger              | password | "email" must be a valid email         | "email"    |
 
 
   Scenario: Login with unexpected error

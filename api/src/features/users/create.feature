@@ -31,28 +31,6 @@ Feature: Create user
       """
 
 
-  Scenario: Create a user with a missing field
-    When POST "/users"
-      """
-      {
-        "password": "password"
-      }
-      """
-    Then response status code is 400
-    And response body matches
-      """
-      {
-        error: _.isString,
-        message: _.isContainerFor|'"email" is required',
-        statusCode: 400,
-        validation: {
-          keys: ["email"],
-          source: "payload"
-        }
-      }
-      """
-
-
   Scenario: Create a user with an existing email
     When POST "/users"
       """
