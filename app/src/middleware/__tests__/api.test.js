@@ -1,7 +1,7 @@
 import ActionTypes from 'constants/actions';
 import ApiMiddleware from '../api';
 import Sinon from 'sinon';
-import 'whatwg-fetch';
+import configureStore from 'redux-mock-store';
 
 describe('API Middleware', function() {
   const endpoint = "It's a big hat. It's funny.";
@@ -22,68 +22,78 @@ describe('API Middleware', function() {
   };
 
   const actionWithSchema = Object.assign({}, action, {payload: {schema}});
+  const store = configureStore([ApiMiddleware])({});
 
-  const nextSpy = Sinon.spy();
-  const dispatchWithApi = ApiMiddleware()(nextSpy);
-
-  beforeEach(function() {
+  before(function() {
     fetchStub = Sinon.stub(global, 'fetch');
   });
 
   afterEach(function() {
     fetchStub.resetHistory();
-    nextSpy.reset();
+    store.clearActions();
   });
 
   context('when the action is not an API call', function() {
     const otherAction = {type: 'Swords for 200'};
+    let firstDispatchedAction;
 
     beforeEach(async function() {
-      await dispatchWithApi(otherAction);
+      await store.dispatch(otherAction);
+      [firstDispatchedAction] = store.getActions();
     });
 
-    it('passes the original action to the next middleware', function() {
-      expect(nextSpy).to.be.calledWith(otherAction);
+    it('dispatches the action unchanged', function() {
+      expect(firstDispatchedAction).to.eql(otherAction);
+    });
+
+    it('does not dispatch any other action', function() {
+      expect(store.getActions()).to.have.lengthOf(1);
     });
   });
 
   context('when the action is an API call', function() {
     context('when making the request', function() {
+      let firstDispatchedAction;
+
       beforeEach(async function() {
-        await dispatchWithApi(action);
+        await store.dispatch(action);
+        [firstDispatchedAction] = store.getActions();
       });
 
-      it('passes an action with the provided request type to the next middleware', function() {
-        expect(nextSpy).to.be.calledWith(Object.assign({}, action, {type: requestType}));
+      it('dispatches an action using the provided request type', function() {
+        expect(firstDispatchedAction).to.eql(Object.assign({}, action, {type: requestType}));
       });
 
-      it('calls fetch with the correct parameters', function() {
+      it('makes the request with the correct parameters', function() {
         expect(fetchStub).to.be.calledWith(endpoint, options);
       });
     });
 
     context('when the request fails', function() {
-      const mockError = new Error('I know your mother, Trebek!');
+      const mockError = () => 'I know your mother, Trebek!';
       const failedResponse = {error: mockError, ok: false};
+      let resultAction;
 
       beforeEach(async function() {
         fetchStub.resolves(failedResponse);
-        await dispatchWithApi(action);
+        await store.dispatch(action);
+        [, resultAction] = store.getActions();
       });
 
       it('passes an action with the error and provided failure type to the next middleware',
         function() {
-          expect(nextSpy).to.be.calledWith({error: true, payload: mockError, type: failureType});
+          expect(resultAction).to.eql({error: true, payload: mockError(), type: failureType});
         });
     });
 
     context('when the request succeeds', function() {
       const formattedResponse = {body: 'Yes, Burt Reynolds?'};
       const response = {body: "Yeah, I'll take the, uh, condom thing for, uh, 8,000"};
-      const json = () => Promise.resolve({response});
+      const json = () => Promise.resolve(response);
       const successResponse = {ok: true, json};
+      let resultAction;
 
-      beforeEach(function() {
+      before(function() {
         fetchStub.resolves(successResponse);
       });
 
@@ -93,7 +103,8 @@ describe('API Middleware', function() {
 
         beforeEach(async function() {
           normalizeStub.withArgs(response, schema).returns(formattedResponse);
-          await dispatchWithApi(actionWithSchema);
+          await store.dispatch(actionWithSchema);
+          [, resultAction] = store.getActions();
         });
 
         it('applies the schema to the return json', function() {
@@ -102,18 +113,19 @@ describe('API Middleware', function() {
 
         it(`passes an action with the formatted payload and the provided success type
             to the next middleware`, function() {
-            expect(nextSpy).to.be.calledWith({payload: formattedResponse, type: successType});
+            expect(resultAction).to.eql({payload: formattedResponse, type: successType});
           });
       });
 
       context('and a schema is not provided', function() {
         beforeEach(async function() {
-          await dispatchWithApi(action);
+          await store.dispatch(action);
+          [, resultAction] = store.getActions();
         });
 
         it(`passes an action with the raw payload and the provided success type
             to the next middleware`, function() {
-            expect(nextSpy).to.be.calledWith({payload: response, type: successType});
+            expect(resultAction).to.eql({payload: response, type: successType});
           });
       });
     });
