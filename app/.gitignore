@@ -1,5 +1,4 @@
-dist
-elm-stuff
-repl-temp-*
-.DS_Store
-.sass-cache
+node_modules/
+npm-debug.log
+dist/bundle.js
+dist/style.css

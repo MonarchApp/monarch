@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "hex-length": [2, {"style": "long"}],
+    "indentation": [2, {"size": 2}]
+  }
+}
