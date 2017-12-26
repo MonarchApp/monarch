@@ -1,9 +1,10 @@
 {
   "auth": {
+    "jwtAudience": "uiUrl",
     "saltRounds": 1
   },
   "connection": {
-    "port": 3001,
+    "port": 8081,
     "host": "localhost"
   },
   "good": {

@@ -1,0 +1,70 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "mocha": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "globals": {
+    "expect": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "array-bracket-spacing": ["error", "never"],
+    "block-spacing": ["error", "always"],
+    "indent": ["error", 2, {"SwitchCase": 1}],
+    "keyword-spacing": ["error", {
+      "before": true,
+      "after": true
+    }],
+    "key-spacing": ["error", {
+      "beforeColon": false,
+      "afterColon": true
+    }],
+    "jsx-quotes": ["error", "prefer-single"],
+    "linebreak-style": ["error", "unix"],
+    "max-len": ["error", 100],
+    "no-trailing-spaces": ["error"],
+    "no-whitespace-before-property": ["error"],
+    "object-curly-spacing": ["error", "never"],
+    "quotes": ["error", "single", {
+      "avoidEscape": true
+    }],
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
+    "react/no-unused-prop-types": "warn",
+    "react/react-in-jsx-scope": "error",
+    "react/sort-prop-types": "error",
+    "react/sort-comp": ["error", {
+      "order": [
+        "static-methods",
+        "lifecycle",
+        "render",
+        "everything-else"
+      ]
+    }],
+    "semi": ["error", "always"],
+    "space-before-blocks": ["error"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "never",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
+    "space-infix-ops": ["error"],
+    "space-in-parens": ["error", "never"],
+    "space-unary-ops": ["error", {
+      "words": true,
+      "nonwords": false
+    }]
+  }
+}
