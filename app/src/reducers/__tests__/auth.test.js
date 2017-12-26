@@ -11,8 +11,12 @@ describe('AuthReducer', function() {
       returnValue = AuthReducer(initialState, {type: ActionTypes.Auth.LOGIN_FAILURE});
     });
 
-    it('should set isAuthenticated to false', function() {
+    it('sets isAuthenticated to false', function() {
       expect(returnValue.get('isAuthenticated')).to.be.false;
+    });
+
+    it('clears the token', function() {
+      expect(returnValue.get('token')).to.be.null;
     });
   });
 
@@ -28,11 +32,11 @@ describe('AuthReducer', function() {
       });
     });
 
-    it('should set isAuthenticated to true', function() {
+    it('sets isAuthenticated to true', function() {
       expect(returnValue.get('isAuthenticated')).to.be.true;
     });
 
-    it('should set the token', function() {
+    it('sets the token', function() {
       expect(returnValue.get('token')).to.equal(token);
     });
   });
