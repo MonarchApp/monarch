@@ -31,10 +31,10 @@ module.exports = {
     })
   ],
   resolve: {
-    alias: {
-      containers: path.resolve(__dirname , 'src', 'containers'),
-      theme: path.resolve(__dirname, 'src', 'theme'),
-    }
+    modules: [
+      path.resolve(__dirname, 'node_modules'),
+      path.resolve(__dirname, 'src')
+    ]
   },
   devServer: {
     contentBase: 'dist',
