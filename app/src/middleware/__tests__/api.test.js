@@ -1,7 +1,12 @@
 import ActionTypes from 'constants/actions';
-import ApiMiddleware from '../api';
-import Sinon from 'sinon';
+import _ from 'lodash';
 import configureStore from 'redux-mock-store';
+import sinon from 'sinon';
+
+import apiInjector from 'inject-loader!../api';
+const normalizeStub = sinon.stub();
+const ApiMiddleware = apiInjector({normalizr: {normalize: normalizeStub}});
+
 
 describe('API Middleware', function() {
   const endpoint = "It's a big hat. It's funny.";
@@ -21,11 +26,11 @@ describe('API Middleware', function() {
     }
   };
 
-  const actionWithSchema = Object.assign({}, action, {payload: {schema}});
-  const store = configureStore([ApiMiddleware])({});
+  const actionWithSchema = _.merge({}, action, {payload: {schema}});
+  const store = configureStore([ApiMiddleware.default])({});
 
   before(function() {
-    fetchStub = Sinon.stub(global, 'fetch');
+    fetchStub = sinon.stub(global, 'fetch');
   });
 
   afterEach(function() {
@@ -80,10 +85,9 @@ describe('API Middleware', function() {
         [, resultAction] = store.getActions();
       });
 
-      it('passes an action with the error and provided failure type to the next middleware',
-        function() {
-          expect(resultAction).to.eql({error: true, payload: mockError(), type: failureType});
-        });
+      it('dispatches an action with the error and provided failure type', function() {
+        expect(resultAction).to.eql({error: true, payload: mockError(), type: failureType});
+      });
     });
 
     context('when the request succeeds', function() {
@@ -97,10 +101,7 @@ describe('API Middleware', function() {
         fetchStub.resolves(successResponse);
       });
 
-      // TODO - Figure out how to stub normalize
-      context.skip('and a schema is provided', function() {
-        const normalizeStub = Sinon.stub();
-
+      context('and a schema is provided', function() {
         beforeEach(async function() {
           normalizeStub.withArgs(response, schema).returns(formattedResponse);
           await store.dispatch(actionWithSchema);
@@ -111,8 +112,8 @@ describe('API Middleware', function() {
           expect(normalizeStub).to.be.calledWith(response, schema);
         });
 
-        it(`passes an action with the formatted payload and the provided success type
-            to the next middleware`, function() {
+        it('dispatches an action with the normalized payload and the provided success type',
+          function() {
             expect(resultAction).to.eql({payload: formattedResponse, type: successType});
           });
       });
@@ -123,10 +124,9 @@ describe('API Middleware', function() {
           [, resultAction] = store.getActions();
         });
 
-        it(`passes an action with the raw payload and the provided success type
-            to the next middleware`, function() {
-            expect(resultAction).to.eql({payload: response, type: successType});
-          });
+        it('dispatches an action with the raw payload and the provided success type', function() {
+          expect(resultAction).to.eql({payload: response, type: successType});
+        });
       });
     });
   });
