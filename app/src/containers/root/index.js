@@ -2,10 +2,6 @@ import React from 'react';
 import Login from 'containers/login';
 import './root.scss';
 
-const Root = () => (
-  <div>
-    <Login />
-  </div>
-);
+const Root = () => <Login />;
 
 export default Root;

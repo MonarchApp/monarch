@@ -3,9 +3,10 @@ import AuthReducer from '../auth';
 import Immutable from 'immutable';
 
 describe('AuthReducer', function() {
+  let returnValue;
+
   context('when the user fails to login', function() {
     const initialState = Immutable.Map({isAuthenticated: true});
-    let returnValue;
 
     before(function() {
       returnValue = AuthReducer(initialState, {type: ActionTypes.Auth.LOGIN_FAILURE});
@@ -23,7 +24,6 @@ describe('AuthReducer', function() {
   context('when the user logins successfully', function() {
     const initialState = Immutable.Map({isAuthenticated: false, token: ''});
     const token = 'token';
-    let returnValue;
 
     before(function() {
       returnValue = AuthReducer(initialState, {

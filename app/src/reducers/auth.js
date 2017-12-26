@@ -5,7 +5,7 @@ import {createReducer} from 'redux-immutablejs';
 const initialState = Immutable.Map({isAuthenticated: false});
 
 export default createReducer(initialState, {
-  [ActionTypes.Auth.LOGIN_FAILURE]: (state) => state.merge({
+  [ActionTypes.Auth.LOGIN_FAILURE]: state => state.merge({
     isAuthenticated: false,
     token: null
   }),
