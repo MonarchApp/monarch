@@ -1,3 +1,4 @@
+import 'isomorphic-fetch';
 import Chai from 'chai';
 import ChaiAsPromised from 'chai-as-promised';
 import SinonChai from 'sinon-chai';
