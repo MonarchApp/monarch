@@ -7,4 +7,6 @@ yarn features
 
 cd ../app || exit
 yarn lint
+yarn test
+
 cd ../ || exit
