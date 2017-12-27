@@ -1,9 +1,9 @@
-const auth = require('./../handlers/auth');
+const login = require('./../handlers/login');
 
 module.exports = [
   {
-    config: auth.login.config,
-    handler: auth.login.handler,
+    config: login.post.config,
+    handler: login.post.handler,
     method: 'POST',
     path: '/v1/login'
   }
