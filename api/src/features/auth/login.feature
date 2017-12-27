@@ -7,6 +7,7 @@ Feature: Login
     Given I seed "users"
 
 
+  @StubDate
   Scenario: Login with valid credentials
     When POST "/login"
       """
@@ -22,6 +23,7 @@ Feature: Login
         token: _.isString
       }
       """
+    And returned token lasts for thirty minutes
 
 
   Scenario: Login with nonexistent user
