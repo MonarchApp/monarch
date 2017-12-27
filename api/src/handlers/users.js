@@ -58,7 +58,7 @@ Users.post.config = {
   validate: {
     payload: {
       email: joi.string().email().required(),
-      password: joi.string().required()
+      password: joi.string().max(72).required()
     }
   }
 };
