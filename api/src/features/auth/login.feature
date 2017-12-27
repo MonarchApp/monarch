@@ -66,6 +66,34 @@ Feature: Login
       """
 
 
+  Scenario Outline: Login with invalid payload
+    When POST "/login"
+      """
+      {
+        "email": <EMAIL>,
+        "password": <PASSWORD>
+      }
+      """
+    Then response status code is 400
+    And response body matches
+      """
+      {
+        error: _.isString,
+        message: _.isContainerFor|'<MESSAGE>',
+        statusCode: 400,
+        validation: {keys: [<KEYS>], source: "payload"}
+      }
+      """
+
+    Examples:
+      | EMAIL                      | PASSWORD   | MESSAGE                               | KEYS       |
+      | ""                         | "password" | "email" is not allowed to be empty    | "email"    |
+      | "frankjaeger@foxhound.com" | ""         | "password" is not allowed to be empty | "password" |
+      | null                       | "password" | "email" must be a string              | "email"    |
+      | "frankjaeger@foxhound.com" | null       | "password" must be a string           | "password" |
+      | "frankjaeger"              | "password" | "email" must be a valid email         | "email"    |
+
+
   Scenario: Login with unexpected error
     When "users" table is dropped
     And POST "/login"
