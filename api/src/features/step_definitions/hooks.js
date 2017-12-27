@@ -18,8 +18,6 @@ defineSupportCode(function({Before, BeforeAll, After, AfterAll}) {
   Before(function() {
     this.server = server;
     this.knex = this.server.knex;
-
-    this.getRequestUrl = path => `${this.server.info.uri}/v1${path}`;
   });
 
   Before(async function() {
