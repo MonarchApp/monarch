@@ -1,4 +1,4 @@
 module.exports = [].concat(
-  require('./auth'),
+  require('./login'),
   require('./users')
 );
