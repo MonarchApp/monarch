@@ -7,6 +7,7 @@ Feature: Login
     Given I seed "users"
 
 
+  @StubDate
   Scenario: Login with valid credentials
     When POST "/login"
       """
@@ -22,6 +23,7 @@ Feature: Login
         token: _.isString
       }
       """
+    And returned token lasts for thirty minutes
 
 
   Scenario: Login with nonexistent user
@@ -40,7 +42,8 @@ Feature: Login
         error: 'Unauthorized',
         statusCode: 401,
         message: 'invalid username or password',
-        attributes: {error: 'invalid username or password'}}
+        attributes: {error: 'invalid username or password'}
+      }
       """
 
 
@@ -60,7 +63,8 @@ Feature: Login
         error: 'Unauthorized',
         statusCode: 401,
         message: 'invalid username or password',
-        attributes: {error: 'invalid username or password'}}
+        attributes: {error: 'invalid username or password'}
+      }
       """
 
 
@@ -68,8 +72,8 @@ Feature: Login
     When POST "/login"
       """
       {
-        "email": "<EMAIL>",
-        "password": "<PASSWORD>"
+        "email": <EMAIL>,
+        "password": <PASSWORD>
       }
       """
     Then response status code is 400
@@ -84,10 +88,12 @@ Feature: Login
       """
 
     Examples:
-      | EMAIL                    | PASSWORD | MESSAGE                               | KEYS       |
-      |                          | password | "email" is not allowed to be empty    | "email"    |
-      | frankjaeger@foxhound.com |          | "password" is not allowed to be empty | "password" |
-      | frankjaeger              | password | "email" must be a valid email         | "email"    |
+      | EMAIL                      | PASSWORD   | MESSAGE                               | KEYS       |
+      | ""                         | "password" | "email" is not allowed to be empty    | "email"    |
+      | "frankjaeger@foxhound.com" | ""         | "password" is not allowed to be empty | "password" |
+      | null                       | "password" | "email" must be a string              | "email"    |
+      | "frankjaeger@foxhound.com" | null       | "password" must be a string           | "password" |
+      | "frankjaeger"              | "password" | "email" must be a valid email         | "email"    |
 
 
   Scenario: Login with unexpected error

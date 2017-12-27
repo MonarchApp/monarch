@@ -31,11 +31,12 @@ Feature: Create user
       """
 
 
-  Scenario: Create a user with a missing field
+  Scenario Outline: Create a user with invalid payload
     When POST "/users"
       """
       {
-        "password": "password"
+        "email": <EMAIL>,
+        "password": <PASSWORD>
       }
       """
     Then response status code is 400
@@ -43,12 +44,37 @@ Feature: Create user
       """
       {
         error: _.isString,
-        message: _.isContainerFor|'"email" is required',
+        message: _.isContainerFor|'<MESSAGE>',
         statusCode: 400,
-        validation: {
-          keys: ["email"],
-          source: "payload"
-        }
+        validation: {keys: [<KEYS>], source: "payload"}
+      }
+      """
+
+  Examples:
+      | EMAIL | PASSWORD | MESSAGE | KEYS |
+      | ""                         | "password" | "email" is not allowed to be empty    | "email"    |
+      | "spikey_hands23@yahoo.com" | ""         | "password" is not allowed to be empty | "password" |
+      | null                       | "password" | "email" must be a string              | "email"    |
+      | "spikey_hands23@yahoo.com" | null       | "password" must be a string           | "password" |
+      | "spike"                    | "password" | "email" must be a valid email         | "email"    |
+
+
+  Scenario: Create a user with a password that is too long
+    When POST "/users"
+      """
+      {
+        "email": "rough_ravenh8r@msn.com",
+        "password": "Apparently this is gonna be the safest damn password the world has ever seen"
+      }
+      """
+    Then response status code is 400
+    And response body matches
+      """
+      {
+        error: _.isString,
+        message: _.isContainerFor|'"password" length must be less than or equal to 72 characters long',
+        statusCode: 400,
+        validation: {keys: ["password"], source: "payload"}
       }
       """
 

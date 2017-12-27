@@ -1,4 +1,5 @@
 const rootRequire = require('app-root-path').require;
+const sinon = require('sinon');
 const {defineSupportCode} = require('cucumber');
 const createServer = rootRequire('src/server');
 
@@ -48,5 +49,13 @@ defineSupportCode(function({Before, BeforeAll, After, AfterAll}) {
       error.message = `Failed to stop server.\n\nError:\n${error.message}`;
       throw error;
     }
+  });
+
+  Before('@StubDate', function() {
+    this.stubClock = sinon.useFakeTimers();
+  });
+
+  After('@StubDate', function() {
+    this.stubClock.restore();
   });
 });
