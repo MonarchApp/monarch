@@ -1,24 +1,24 @@
-const Users = require('./../handlers/users');
+const users = require('./../handlers/users');
 
 module.exports = [
   {
-    handler: Users.getAll.handler,
+    handler: users.getAll.handler,
     method: 'GET',
     path: '/v1/users'
   },
   {
-    handler: Users.get.handler,
+    handler: users.get.handler,
     method: 'GET',
     path: '/v1/users/{id}'
   },
   {
-    config: Users.post.config,
-    handler: Users.post.handler,
+    config: users.post.config,
+    handler: users.post.handler,
     method: 'POST',
     path: '/v1/users'
   },
   {
-    handler: Users.delete.handler,
+    handler: users.delete.handler,
     method: 'DELETE',
     path: '/v1/users/{id}'
   }
