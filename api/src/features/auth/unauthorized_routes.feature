@@ -5,12 +5,13 @@ Feature: Unauthorized routes
 
   Scenario Outline: Request without token
     When <METHOD> "<URL>"
+    And response body is parsed as json
     Then response status code is 401
     And response body matches
       """
       {
         error: _.isString,
-        message: _.isContainerFor|'I have no idea yet',
+        message: _.isContainerFor|'Missing authentication',
         statusCode: 401
       }
       """
