@@ -20,7 +20,10 @@
           "response": "*"
         }]
       }, {
-        "module": "good-console"
+        "module": "good-console",
+        "args": [{
+          "format": "MM/DD/YYYY: HH:mm:ss.SSS"
+        }]
       }, "stdout"]
     }
   }

@@ -13,7 +13,6 @@
     "bcrypt": "^1.0.3",
     "bluebird": "^3.5.0",
     "boom": "^5.2.0",
-    "co-request": "^1.0.0",
     "good": "^7.3.0",
     "good-console": "^6.4.0",
     "good-squeeze": "^5.0.2",
@@ -26,24 +25,26 @@
     "lodash": "^4.17.4",
     "nconf": "^0.8.4",
     "pg": "^7.2.0",
+    "request-promise": "^4.2.2",
     "yarn": "^0.27.5"
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov",
-    "features": "nyc --reporter=html cucumberjs src/features",
+    "feature": "nyc --reporter=html cucumberjs",
+    "features": "yarn feature src/features",
     "gen-keys": "yarn private-key && yarn public-key",
     "lint": "node_modules/.bin/eslint src/",
     "private-key": "openssl genrsa 4096 > rsa-private.pem",
     "public-key": "openssl rsa -in rsa-private.pem -pubout > rsa-public.pem",
     "start": "node_modules/.bin/nodemon index",
-    "test": "yarn test-file 'src/**/*.test.js'",
-    "test-file": "nyc --reporter=html node_modules/.bin/mocha"
+    "test": "nyc --reporter=html node_modules/.bin/mocha",
+    "tests": "yarn test 'src/**/*.test.js'"
   },
   "devDependencies": {
     "chai": "^4.1.1",
     "chai-as-promised": "^7.1.1",
     "coveralls": "^2.13.1",
-    "cucumber": "^3.0.1",
+    "cucumber": "^3.2.0",
     "eslint": "^4.7.1",
     "lodash-match-pattern": "^2.0.1",
     "mocha": "^3.5.0",
