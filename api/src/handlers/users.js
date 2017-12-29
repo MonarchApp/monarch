@@ -12,9 +12,9 @@ const users = {
   post: {}
 };
 
-Users.delete.handler = () => {};
+users.delete.handler = () => {};
 
-Users.get.handler = async (request, reply) => {
+users.get.handler = async (request, reply) => {
   const {id} = request.params;
 
   try {
@@ -26,7 +26,7 @@ Users.get.handler = async (request, reply) => {
   }
 };
 
-Users.getAll.handler = () => {};
+users.getAll.handler = () => {};
 
 users.post.handler = async (request, reply) => {
   const {email, password} = request.payload;
