@@ -1,4 +1,4 @@
-const throwUtils = require('./../throw');
+const throwUtils = require('../throw');
 
 describe('Throw Utils', function() {
   describe('throwWithMessage', function() {

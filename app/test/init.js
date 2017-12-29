@@ -7,4 +7,3 @@ Chai.use(SinonChai);
 Chai.use(ChaiAsPromised);
 
 global.expect = Chai.expect;
-global.window = {};

@@ -31,7 +31,7 @@ auth.login.config = {
   validate: {
     payload: {
       email: joi.string().email().required(),
-      password: joi.string().max(72).required()
+      password: joi.string().required()
     }
   }
 };

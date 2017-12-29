@@ -1,4 +1,5 @@
 const rootRequire = require('app-root-path').require;
+const sinon = require('sinon');
 const {defineSupportCode} = require('cucumber');
 
 defineSupportCode(function({Before, After}) {
@@ -44,5 +45,13 @@ defineSupportCode(function({Before, After}) {
       error.message = `Failed to reset database schema.\n\nError:\n${error.message}`;
       throw error;
     }
+  });
+
+  Before('@StubDate', function() {
+    this.stubClock = sinon.useFakeTimers();
+  });
+
+  After('@StubDate', function() {
+    this.stubClock.restore();
   });
 });
