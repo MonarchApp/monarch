@@ -6,7 +6,7 @@ defineSupportCode(function({When, Then}) {
   When('{getOrDelete} {string}', async function(method, requestPath) {
     const url = this.utils.getRequestUrl(requestPath);
 
-    this.activeRequest = await this.utils.request({method, url}, this.token);
+    this.activeRequest = await this.utils.request({method, json: true, url}, this.token);
   });
 
   When('{postOrPut} {string}', async function(method, requestPath, json) {
@@ -16,16 +16,12 @@ defineSupportCode(function({When, Then}) {
     this.activeRequest = await this.utils.request({body, json: true, method, url}, this.token);
   });
 
-  When('response body is parsed as json', function() {
-    this.activeRequest.body = this.utils.parseJson(this.activeRequest.body);
-  });
-
   Then('response status code is {int}', function(statusCode) {
     expect(this.activeRequest.statusCode).to.equal(statusCode);
   });
 
-  Then('response body is empty', function() {
-    expect(this.activeRequest.body).to.be.empty;
+  Then('response body is undefined', function() {
+    expect(this.activeRequest.body).to.be.undefined;
   });
 
   Then('response body matches', function(json) {

@@ -5,7 +5,6 @@ Feature: Unauthorized routes
 
   Scenario Outline: Request without token
     When <METHOD> "<URL>"
-    And response body is parsed as json
     Then response status code is 401
     And response body matches
       """

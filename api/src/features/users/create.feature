@@ -12,7 +12,7 @@ Feature: Create user
       }
       """
     Then response status code is 201
-    And response body is empty
+    And response body is undefined
     When raw query
       """
         SELECT *
@@ -95,7 +95,7 @@ Feature: Create user
       }
       """
     Then response status code is 201
-    And response body is empty
+    And response body is undefined
 
 
   Scenario: Create a user with unexpected error
