@@ -19,6 +19,7 @@ const initServer = async () => {
 
   try {
     await server.register([
+      {register: require('./plugins/auth')},
       {register: require('./plugins/attach_knex')},
       {register: require('good'), options: server.config.get('good')}
     ]);

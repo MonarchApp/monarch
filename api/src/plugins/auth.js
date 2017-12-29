@@ -3,15 +3,11 @@ const auth = {};
 const strategyName = 'jwt';
 const schemeName = 'jwt';
 const requireJwtForAllRoutes = true;
-const authOptionDefaults = {
-  validateFunc: validateToken,
-  verifyOptions: {algorithms: ['RS256']}
-};
 
-function validateToken(decoded, request, callback) {
+const validateToken = (decoded, request, callback) => {
   // Validate against user
   return callback(null, true);
-}
+};
 
 auth.register = async (server, options, next) => {
   try {
@@ -22,7 +18,7 @@ auth.register = async (server, options, next) => {
   }
 
   const {jwtSecret} = server.config.get('auth');
-  const authOptions = Object.assign({}, authOptionDefaults, {key: jwtSecret});
+  const authOptions = {key: jwtSecret, validateFunc: validateToken};
 
   server.auth.strategy(strategyName, schemeName, requireJwtForAllRoutes, authOptions);
   next();
