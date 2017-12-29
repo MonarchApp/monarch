@@ -7,7 +7,7 @@ mockRequire('hapi-auth-jwt2', hapiAuthJwt2Stub);
 const registerAuth = require('./../auth').register;
 
 describe('Register Auth', function() {
-  const jwtSecret = 'Be vewwwy vewwwwwy quieeeet';
+  const jwtPublicKey = 'Be vewwwy vewwwwwy quieeeet';
   let nextSpy;
   let serverStub;
 
@@ -16,7 +16,7 @@ describe('Register Auth', function() {
     serverStub = {
       auth: {strategy: sinon.spy()},
       config: {
-        get: sinon.stub().withArgs('auth').returns({jwtSecret})
+        get: sinon.stub().withArgs('auth:jwtPublicKey').returns(jwtPublicKey)
       },
       register: sinon.spy()
     };
@@ -33,7 +33,7 @@ describe('Register Auth', function() {
 
     it('should set the server authentication strategy to jwt', function() {
       expect(serverStub.auth.strategy).to.have.been.calledWith('jwt', 'jwt', true, {
-        key: jwtSecret,
+        key: jwtPublicKey,
         validateFunc: sinon.match.func,
         verifyOptions: {algorithms: ['RS256']}
       });

@@ -17,9 +17,9 @@ auth.register = async (server, options, next) => {
     throw error;
   }
 
-  const {jwtSecret} = server.config.get('auth');
+  const jwtPublicKey = server.config.get('auth:jwtPublicKey');
   const authOptions = {
-    key: jwtSecret,
+    key: jwtPublicKey,
     validateFunc: validateToken,
     verifyOptions: {algorithms: ['RS256']}
   };
