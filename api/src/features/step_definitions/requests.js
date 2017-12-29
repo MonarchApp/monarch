@@ -3,13 +3,13 @@ const {defineSupportCode} = require('cucumber');
 const {expect} = require('chai');
 
 defineSupportCode(function({When, Then}) {
-  When(/^(DELETE|GET) "([^"]*)"$/, async function(method, requestPath) {
+  When('{getOrDelete} {string}', async function(method, requestPath) {
     const url = this.utils.getRequestUrl(requestPath);
 
     this.activeRequest = await this.utils.request({method, url});
   });
 
-  When(/^(POST|PUT) "([^"]*)"$/, async function(method, requestPath, json) {
+  When('{postOrPut} {string}', async function(method, requestPath, json) {
     const url = this.utils.getRequestUrl(requestPath);
     const body = this.utils.parseJson(json);
 
