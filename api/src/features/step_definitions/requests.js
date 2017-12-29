@@ -13,11 +13,7 @@ defineSupportCode(function({When, Then}) {
     const url = this.utils.getRequestUrl(requestPath);
     const body = this.utils.parseJson(json);
 
-    this.activeRequest = await this.utils.request({body, json: true, method, url}, this.token);
-  });
-
-  When('response body is parsed as json', function() {
-    this.activeRequest.body = this.utils.parseJson(this.activeRequest.body);
+    this.activeRequest = await this.utils.request({body, method, url}, this.token);
   });
 
   Then('response status code is {int}', function(statusCode) {
@@ -25,6 +21,10 @@ defineSupportCode(function({When, Then}) {
   });
 
   Then('response body is empty', function() {
+    expect(this.activeRequest.body).to.be.empty;
+  });
+
+  Then('response body is undefined', function() {
     expect(this.activeRequest.body).to.be.undefined;
   });
 

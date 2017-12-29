@@ -25,8 +25,8 @@ attachConfig.register = async (server, options, next) => {
     .file(configPath);
 
   try {
-    nconf.set('auth:jwtPrivateKey', await readFile('rsa-private.pem'));
-    nconf.set('auth:jwtPublicKey', await readFile('rsa-public.pem'));
+    nconf.set('auth:jwtPrivateKey', await readFile('rsa-private.pem', 'utf8'));
+    nconf.set('auth:jwtPublicKey', await readFile('rsa-public.pem', 'utf8'));
   } catch (error) {
     throwWithMessage(error, 'Unable to get retrieve JWT private and/or public keys.');
   }
