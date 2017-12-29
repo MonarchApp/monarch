@@ -25,7 +25,6 @@ auth.register = async (server, options, next) => {
   const authOptions = Object.assign({}, authOptionDefaults, {key: jwtSecret});
 
   server.auth.strategy(strategyName, schemeName, requireJwtForAllRoutes, authOptions);
-  server.auth.default(strategyName);
   next();
 };
 
