@@ -14,10 +14,10 @@ Feature: Get user
     And response body matches
       """
       {
-        createDate: _.isDate,
+        createDate: _.isDateString,
         email: "frankjaeger@foxhound.com",
         id: 1,
-        modifyDate: _.isDate,
+        modifyDate: _.isDateString,
         password: _.isSize|60
       }
       """
