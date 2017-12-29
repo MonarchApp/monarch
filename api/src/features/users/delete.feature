@@ -14,11 +14,6 @@ Feature: Delete user
     And response body is undefined
 
 
-  Scenario: Delete user with missing user id
-    When DELETE "/users"
-    Then response status code is 404
-
-
   Scenario: Delete nonexisting user
     When DELETE "/users/1337"
     Then response status code is 404
