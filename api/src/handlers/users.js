@@ -12,7 +12,18 @@ const users = {
   post: {}
 };
 
-users.delete.handler = () => {};
+users.delete.handler = async (request, reply) => {
+  const {id} = request.params;
+
+  try {
+    await request.knex('users').delete().where({id});
+  } catch (error) {
+    // reply(boom.notFound(`User with id "${id}" does not exist`));
+    reply(boom.badImplementation(`Failed to delete user with id "${id}"`));
+  }
+
+  reply.response().code(201);
+};
 
 users.get.handler = async (request, reply) => {
   const {id} = request.params;
