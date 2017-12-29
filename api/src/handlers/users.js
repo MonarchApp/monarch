@@ -5,18 +5,18 @@ const joi = require('joi');
 
 const hash = Promise.promisify(bcrypt.hash);
 
-const Users = {
+const users = {
   delete: {},
   get: {},
   getAll: {},
   post: {}
 };
 
-Users.delete.handler = () => {};
-Users.get.handler = () => {};
-Users.getAll.handler = () => {};
+users.delete.handler = () => {};
+users.get.handler = () => {};
+users.getAll.handler = () => {};
 
-Users.post.handler = async (request, reply) => {
+users.post.handler = async (request, reply) => {
   const {email, password} = request.payload;
   const {saltRounds} = request.config.get('auth');
   const userCreatedMessage = `User created for "${email}"`;
@@ -54,7 +54,7 @@ Users.post.handler = async (request, reply) => {
   }
 };
 
-Users.post.config = {
+users.post.config = {
   validate: {
     payload: {
       email: joi.string().email().required(),
@@ -63,4 +63,4 @@ Users.post.config = {
   }
 };
 
-module.exports = Users;
+module.exports = users;
