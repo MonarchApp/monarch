@@ -28,6 +28,7 @@ const login = {
 };
 
 login.post.config = {
+  auth: false,
   validate: {
     payload: {
       email: joi.string().email().required(),

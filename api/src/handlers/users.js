@@ -55,6 +55,7 @@ users.post.handler = async (request, reply) => {
 };
 
 users.post.config = {
+  auth: false,
   validate: {
     payload: {
       email: joi.string().email().required(),
