@@ -14,8 +14,12 @@ utils.parseJson = json => {
   }
 };
 
-utils.request = async options => {
-  const fullOptions = Object.assign({}, options, {
+utils.request = async (options, token) => {
+  let tokenOptions = {};
+
+  if (token) tokenOptions = {headers: {Authentication: `Bearer ${token}`}};
+
+  const fullOptions = Object.assign({}, options, tokenOptions, {
     resolveWithFullResponse: true,
     simple: false,
     time: true
