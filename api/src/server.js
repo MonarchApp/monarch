@@ -19,6 +19,7 @@ const initServer = async () => {
 
   try {
     await server.register([
+      {register: require('./plugins/auth')},
       {register: require('./plugins/attach_knex')},
       {register: require('good'), options: server.config.get('good')}
     ]);
@@ -29,11 +30,11 @@ const initServer = async () => {
   }
 
   // eslint-disable-next-line no-console
-  console.log(`\nMonarch started at ${server.info.uri}\n`);
+  server.log(['info'], `\nMonarch started at ${server.info.uri}\n`);
 
   process.on('SIGINT', async () => {
     // eslint-disable-next-line no-console
-    console.log('Shutting down Monarch server...');
+    server.log(['info'], 'Shutting down Monarch server...');
 
     try {
       await server.knex.destroy();

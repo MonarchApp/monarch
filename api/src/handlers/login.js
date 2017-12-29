@@ -23,20 +23,21 @@ const replyWithInvalidCreds = async reply => {
   reply(boom.unauthorized('invalid username or password', 'jwt'));
 };
 
-const auth = {
-  login: {}
+const login = {
+  post: {}
 };
 
-auth.login.config = {
+login.post.config = {
+  auth: false,
   validate: {
     payload: {
       email: joi.string().email().required(),
-      password: joi.string().max(72).required()
+      password: joi.string().required()
     }
   }
 };
 
-auth.login.handler = async (request, reply) => {
+login.post.handler = async (request, reply) => {
   const {email, password} = request.payload;
   const {jwtAudience, jwtPrivateKey} = request.config.get('auth');
 
@@ -59,4 +60,4 @@ auth.login.handler = async (request, reply) => {
   }
 };
 
-module.exports = auth;
+module.exports = login;

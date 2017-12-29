@@ -2,7 +2,7 @@
 
 cd api || exit
 yarn lint
-yarn test
+yarn tests
 yarn features
 
 cd ../app || exit

@@ -14,10 +14,7 @@ describe('Register Auth', function() {
   beforeEach(function() {
     nextSpy = sinon.spy();
     serverStub = {
-      auth: {
-        default: sinon.spy(),
-        strategy: sinon.spy()
-      },
+      auth: {strategy: sinon.spy()},
       config: {
         get: sinon.stub().withArgs('auth').returns({jwtSecret})
       },
@@ -42,12 +39,8 @@ describe('Register Auth', function() {
       });
     });
 
-    it('should set the default server authentication strategy to jwt', function() {
-      expect(serverStub.auth.default).to.have.been.calledWith('jwt');
-    });
-
     it('should call the next callback', function() {
-      expect(nextSpy).to.have.been.calledAfter(serverStub.auth.default);
+      expect(nextSpy).to.have.been.calledAfter(serverStub.auth.strategy);
     });
   });
 
