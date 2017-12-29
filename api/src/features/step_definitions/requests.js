@@ -20,6 +20,10 @@ defineSupportCode(function({When, Then}) {
     expect(this.activeRequest.statusCode).to.equal(statusCode);
   });
 
+  Then('response body is empty', function() {
+    expect(this.activeRequest.body).to.be.empty;
+  });
+
   Then('response body is undefined', function() {
     expect(this.activeRequest.body).to.be.undefined;
   });
