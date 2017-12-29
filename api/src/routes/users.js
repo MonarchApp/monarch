@@ -21,5 +21,10 @@ module.exports = [
     handler: users.post.handler,
     method: 'POST',
     path: '/v1/users'
+  },
+  {
+    handler: users.put.handler,
+    method: 'PUT',
+    path: '/v1/users/{id}'
   }
 ];

@@ -9,7 +9,8 @@ const users = {
   delete: {},
   get: {},
   getAll: {},
-  post: {}
+  post: {},
+  put: {}
 };
 
 users.delete.handler = () => {};
@@ -74,6 +75,22 @@ users.post.config = {
       password: joi.string().max(72).required()
     }
   }
+};
+
+users.put.handler = async (request, reply) => {
+  const {id} = request.params;
+  const updatedValues = request.payload;
+  const now = request.knex.fn.now();
+  const newValues = Object.assign({}, {modifyDate: now}, updatedValues);
+
+  try {
+    await request.knex('users').update(newValues).where({id});
+  } catch (error) {
+    reply(boom.badImplementation(`Failed to update user with id "${id}"`));
+    throw error;
+  }
+
+  reply.response().code(201);
 };
 
 module.exports = users;
