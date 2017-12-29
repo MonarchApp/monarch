@@ -18,7 +18,11 @@ auth.register = async (server, options, next) => {
   }
 
   const {jwtSecret} = server.config.get('auth');
-  const authOptions = {key: jwtSecret, validateFunc: validateToken};
+  const authOptions = {
+    key: jwtSecret,
+    validateFunc: validateToken,
+    verifyOptions: {algorithms: ['RS256']}
+  };
 
   server.auth.strategy(strategyName, schemeName, requireJwtForAllRoutes, authOptions);
   next();
