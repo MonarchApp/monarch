@@ -5,6 +5,7 @@ Feature: Get user
 
   Background:
     Given I seed "users"
+    And I get a token
 
 
   Scenario: Get a valid user
