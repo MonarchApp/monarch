@@ -4,10 +4,10 @@ const {getTokenFromRequest} = require('./request');
 const userUtils = {};
 
 userUtils.enforceSelfActionOnly = (request, reply) => {
-  const tokenId = parseInt(getTokenFromRequest(request).id);
-  const requestId = parseInt(request.params.id);
+  const userIdFromToken = parseInt(getTokenFromRequest(request).id);
+  const userIdFromRequest = parseInt(request.params.id);
 
-  if (requestId !== tokenId) {
+  if (userIdFromRequest !== userIdFromToken) {
     reply(boom.forbidden('This action may only be performed by the same user'));
     return;
   }
