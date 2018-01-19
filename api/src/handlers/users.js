@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
 const boom = require('boom');
 const joi = require('joi');
+const {enforceSelfActionOnly} = require('../utils/user');
 
 const hash = Promise.promisify(bcrypt.hash);
 
@@ -12,17 +13,19 @@ const users = {
   post: {}
 };
 
+users.delete.config = {
+  pre: [enforceSelfActionOnly],
+};
+
 users.delete.handler = async (request, reply) => {
   const {id} = request.params;
 
   try {
-    await request.knex('users').delete().where({id});
+    await request.knex('users').where({id}).delete();
+    reply.response().code(204);
   } catch (error) {
-    // reply(boom.notFound(`User with id "${id}" does not exist`));
     reply(boom.badImplementation(`Failed to delete user with id "${id}"`));
   }
-
-  reply.response().code(201);
 };
 
 users.get.handler = async (request, reply) => {

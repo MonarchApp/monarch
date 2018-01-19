@@ -18,6 +18,7 @@ module.exports = [
     path: '/v1/users'
   },
   {
+    config: users.delete.config,
     handler: users.delete.handler,
     method: 'DELETE',
     path: '/v1/users/{id}'

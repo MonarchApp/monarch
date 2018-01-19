@@ -8,21 +8,21 @@ Feature: Delete user
     And I get a token
 
 
-  Scenario: Delete user
+  Scenario: Delete self
     When DELETE "/users/1"
-    Then response status code is 201
+    Then response status code is 204
     And response body is undefined
 
 
-  Scenario: Delete nonexisting user
+  Scenario: Delete another user
     When DELETE "/users/1337"
-    Then response status code is 404
+    Then response status code is 403
     And response body matches
       """
       {
-        error: "Not found",
-        message: "User with id "1" does not exist",
-        statusCode: 404,
+        error: "Forbidden",
+        message: "This action may only be performed by the same user",
+        statusCode: 403,
       }
       """
 
