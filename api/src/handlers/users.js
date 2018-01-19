@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
 const boom = require('boom');
 const joi = require('joi');
+const {enforceSelfActionOnly} = require('../utils/user');
 
 const hash = Promise.promisify(bcrypt.hash);
 
@@ -13,7 +14,20 @@ const users = {
   put: {}
 };
 
-users.delete.handler = () => {};
+users.delete.config = {
+  pre: [enforceSelfActionOnly],
+};
+
+users.delete.handler = async (request, reply) => {
+  const {id} = request.params;
+
+  try {
+    await request.knex('users').where({id}).delete();
+    reply.response().code(204);
+  } catch (error) {
+    reply(boom.badImplementation(`Failed to delete user with id "${id}"`));
+  }
+};
 
 users.get.handler = async (request, reply) => {
   const {id} = request.params;
@@ -32,7 +46,6 @@ users.getAll.handler = () => {};
 users.post.handler = async (request, reply) => {
   const {email, password} = request.payload;
   const {saltRounds} = request.config.get('auth');
-  const userCreatedMessage = `User created for "${email}"`;
   let hashedPassword;
 
   try {
@@ -57,13 +70,10 @@ users.post.handler = async (request, reply) => {
     reply.response().code(201);
   } catch (error) {
     if (error.message.indexOf('users_email_unique') > -1) {
-      reply.response().code(201);
+      return reply.response().code(201);
     }
 
     reply(boom.badImplementation());
-    throw error;
-  } finally {
-    request.log(['info'], userCreatedMessage);
   }
 };
 
