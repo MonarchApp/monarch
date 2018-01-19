@@ -18,14 +18,15 @@ module.exports = [
     path: '/v1/users/{id}'
   },
   {
+    config: users.patch.config,
+    handler: users.patch.handler,
+    method: 'PATCH',
+    path: '/v1/users/{id}'
+  },
+  {
     config: users.post.config,
     handler: users.post.handler,
     method: 'POST',
     path: '/v1/users'
-  },
-  {
-    handler: users.put.handler,
-    method: 'PUT',
-    path: '/v1/users/{id}'
   }
 ];

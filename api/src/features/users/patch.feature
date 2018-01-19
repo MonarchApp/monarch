@@ -1,4 +1,4 @@
-Feature: Put user
+Feature: Patch user
 
   As a consumer of the Monarch API,
   I want to be able to update a user from the database.
@@ -8,8 +8,8 @@ Feature: Put user
     And I get a token
 
 
-  Scenario: Update user
-    When PUT "/users/1"
+  Scenario: Update self
+    When PATCH "/users/1"
       """
       {
         newValue: 'More...MORE!!'
@@ -36,18 +36,15 @@ Feature: Put user
       """
 
 
-  Scenario: Update nonexisting user
-    When PUT "/users/1337"
-      """
-      {}
-      """
-    Then response status code is 404
+  Scenario: Update another user
+    When PATCH "/users/1337"
+    Then response status code is 403
     And response body matches
       """
       {
-        error: "Not found",
-        message: "User with id "1337" does not exist",
-        statusCode: 404,
+        error: "Forbidden",
+        message: "This action may only be performed by the same user",
+        statusCode: 403,
       }
       """
 

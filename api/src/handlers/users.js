@@ -10,8 +10,8 @@ const users = {
   delete: {},
   get: {},
   getAll: {},
-  post: {},
-  put: {}
+  patch: {},
+  post: {}
 };
 
 users.delete.config = {
@@ -42,6 +42,26 @@ users.get.handler = async (request, reply) => {
 };
 
 users.getAll.handler = () => {};
+
+users.patch.config = {
+  pre: [enforceSelfActionOnly],
+};
+
+users.patch.handler = async (request, reply) => {
+  const {id} = request.params;
+  const updatedValues = request.payload;
+  const now = request.knex.fn.now();
+  const newValues = Object.assign({}, {modifyDate: now}, updatedValues);
+
+  try {
+    await request.knex('users').update(newValues).where({id});
+  } catch (error) {
+    reply(boom.badImplementation(`Failed to update user with id "${id}"`));
+    throw error;
+  }
+
+  reply.response().code(201);
+};
 
 users.post.handler = async (request, reply) => {
   const {email, password} = request.payload;
@@ -85,22 +105,6 @@ users.post.config = {
       password: joi.string().max(72).required()
     }
   }
-};
-
-users.put.handler = async (request, reply) => {
-  const {id} = request.params;
-  const updatedValues = request.payload;
-  const now = request.knex.fn.now();
-  const newValues = Object.assign({}, {modifyDate: now}, updatedValues);
-
-  try {
-    await request.knex('users').update(newValues).where({id});
-  } catch (error) {
-    reply(boom.badImplementation(`Failed to update user with id "${id}"`));
-    throw error;
-  }
-
-  reply.response().code(201);
 };
 
 module.exports = users;
