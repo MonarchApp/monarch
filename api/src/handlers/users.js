@@ -31,7 +31,6 @@ users.getAll.handler = () => {};
 users.post.handler = async (request, reply) => {
   const {email, password} = request.payload;
   const {saltRounds} = request.config.get('auth');
-  const userCreatedMessage = `User created for "${email}"`;
   let hashedPassword;
 
   try {
@@ -56,13 +55,10 @@ users.post.handler = async (request, reply) => {
     reply.response().code(201);
   } catch (error) {
     if (error.message.indexOf('users_email_unique') > -1) {
-      reply.response().code(201);
+      return reply.response().code(201);
     }
 
     reply(boom.badImplementation());
-    throw error;
-  } finally {
-    request.log(['info'], userCreatedMessage);
   }
 };
 
