@@ -55,7 +55,13 @@
     "sinon-chai": "^2.13.0"
   },
   "nyc": {
-    "exclude": ["src/routes", "src/features", "src/seeds"],
-    "include": ["src/**/*"]
+    "exclude": [
+      "src/routes",
+      "src/features",
+      "src/seeds"
+    ],
+    "include": [
+      "src/**/*"
+    ]
   }
 }
