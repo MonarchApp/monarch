@@ -16,6 +16,7 @@ describe('Add Users Migration', function() {
       await initialMigrations.up(knex);
 
       hasAllColumns = [
+        await knex.schema.hasColumn('users', 'bio'),
         await knex.schema.hasColumn('users', 'createDate'),
         await knex.schema.hasColumn('users', 'email'),
         await knex.schema.hasColumn('users', 'id'),
@@ -43,6 +44,7 @@ describe('Add Users Migration', function() {
       it('should populate default fields properly', async function() {
         const [mockUser] = await knex.select().table('users').where({email});
         expect(mockUser).to.eql({
+          bio: null,
           createDate: now,
           email,
           id: 1,
