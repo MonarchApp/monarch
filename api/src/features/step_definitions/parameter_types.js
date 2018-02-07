@@ -7,7 +7,12 @@ defineSupportCode(({defineParameterType}) => {
   });
 
   defineParameterType({
-    regexp: /(POST|PUT)/,
-    name: 'postOrPut'
+    regexp: /(PATCH|POST|PUT)/,
+    name: 'patchPostOrPut'
+  });
+
+  defineParameterType({
+    regexp: /(\d+)(?:st|nd|rd|th)/,
+    name: 'ordinalInt'
   });
 });

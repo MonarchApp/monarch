@@ -14,6 +14,7 @@ Feature: Get user
     And response body matches
       """
       {
+        bio: null,
         createDate: _.isDateString,
         email: "frankjaeger@foxhound.com",
         id: 1,

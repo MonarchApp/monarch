@@ -56,4 +56,8 @@ defineSupportCode(function({Before, BeforeAll, After, AfterAll}) {
   After('@StubDate', function() {
     this.stubClock.restore();
   });
+
+  After(function() {
+    require('lodash-match-pattern').getLodashModule().clearMemos();
+  });
 });
