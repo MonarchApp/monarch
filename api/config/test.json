@@ -7,10 +7,8 @@
     "port": 8081,
     "host": "localhost"
   },
-  "good": {
-    "ops": {
-      "interval": 5000
-    },
-    "reporters": {}
-  }
+  "debug": {
+    "log": "*"
+  },
+  "good": {}
 }
