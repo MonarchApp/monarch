@@ -1,8 +1,10 @@
 const Promise = require('bluebird');
+const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const boom = require('boom');
 const joi = require('joi');
 const {enforceSelfActionOnly} = require('../utils/user');
+const {getTokenFromRequest} = require('../utils/request');
 
 const hash = Promise.promisify(bcrypt.hash);
 
@@ -29,6 +31,7 @@ users.delete.handler = async (request, reply) => {
   }
 };
 
+// TODO: Show specific fields only and only allow gets from current user
 users.get.handler = async (request, reply) => {
   const {id} = request.params;
 
@@ -45,22 +48,29 @@ users.getAll.handler = () => {};
 
 users.patch.config = {
   pre: [enforceSelfActionOnly],
+  validate: {
+    payload: {
+      bio: joi.string().max(500)
+    }
+  }
 };
 
 users.patch.handler = async (request, reply) => {
-  const {id} = request.params;
-  const updatedValues = request.payload;
+  const id = parseInt(getTokenFromRequest(request).id);
+
+  if (_.isEmpty(request.payload)) return reply.response().code(200);
+
   const now = request.knex.fn.now();
-  const newValues = Object.assign({}, {modifyDate: now}, updatedValues);
+  const newValues = Object.assign({}, request.payload, {modifyDate: now});
 
   try {
-    await request.knex('users').update(newValues).where({id});
+    await request.knex('users').where({id}).update(newValues);
   } catch (error) {
     reply(boom.badImplementation(`Failed to update user with id "${id}"`));
     throw error;
   }
 
-  reply.response().code(201);
+  reply.response().code(200);
 };
 
 users.post.handler = async (request, reply) => {
@@ -75,11 +85,8 @@ users.post.handler = async (request, reply) => {
     reply(boom.badImplementation(errorMessage));
   }
 
-  const now = request.knex.fn.now();
   const userObject = {
-    createDate: now,
     email,
-    modifyDate: now,
     password: hashedPassword
   };
 

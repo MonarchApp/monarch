@@ -22,11 +22,13 @@ Feature: Create user
     Then raw query result matches
       """
       [{
+        bio: null,
         createDate: _.isDate,
         email: "testemail@domain.com",
         id: 1,
         modifyDate: _.isDate,
         password: _.isSize|60
+        ...
       }]
       """
 
@@ -43,7 +45,7 @@ Feature: Create user
     And response body matches
       """
       {
-        error: _.isString,
+        error: "Bad Request",
         message: _.isContainerFor|'<MESSAGE>',
         statusCode: 400,
         validation: {keys: [<KEYS>], source: "payload"}
@@ -51,7 +53,7 @@ Feature: Create user
       """
 
   Examples:
-      | EMAIL | PASSWORD | MESSAGE | KEYS |
+      | EMAIL                      | PASSWORD   | MESSAGE                               | KEYS       |
       | ""                         | "password" | "email" is not allowed to be empty    | "email"    |
       | "spikey_hands23@yahoo.com" | ""         | "password" is not allowed to be empty | "password" |
       | null                       | "password" | "email" must be a string              | "email"    |
