@@ -1,8 +1,5 @@
 @import '~theme/vars';
 
-// TODO: Use Zona Bold / Tofino Book instead, respectively.
-// @import 'https://fonts.googleapis.com/css?family=Montserrat|Droid+Sans';
-
 *,
 *::before,
 *::after {
@@ -10,23 +7,23 @@
 }
 
 body {
-  background: $pink-orange-gradient;
+  background: $red-orange-gradient;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Zona Bold', sans-serif;
 }
 
 p {
   color: $grey-primary;
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Tofino Personal Book', sans-serif;
 }
 
 h1 {
-  color: $pink-primary;
+  color: $red-primary;
 }
 
 h2 {

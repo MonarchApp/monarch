@@ -4,8 +4,11 @@
     "saltRounds": 12
   },
   "connection": {
+    "host": "localhost",
     "port": 8080,
-    "host": "localhost"
+    "routes": {
+      "cors": true
+    }
   },
   "good": {
     "ops": {

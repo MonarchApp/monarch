@@ -7,6 +7,7 @@ $color-larkspur: #685c79;
 $color-marigold: #ffbc67;
 $color-oxford-blue: #445c7b;
 $color-sweet-pea: #da727e;
+$color-teal: #58c08e;
 
 //
 // Colors
@@ -25,21 +26,64 @@ $magenta-secondary: lighten($magenta-primary, 9%);
 $orange-primary: $color-marigold;
 $orange-secondary: lighten($orange-primary, 3.35%);;
 
-$pink-primary: $color-sweet-pea;
-$pink-secondary: lighten($pink-primary, 9.25%);
+$red-primary: $color-sweet-pea;
+$red-secondary: lighten($red-primary, 9.25%);
 
 $purple-primary: $color-larkspur;
 $purple-secondary: lighten($purple-primary, 9.39%);
 
-$teal: lighten($pink-primary, 9.25%);
+$success-primary: $color-teal;
+$success-secondary:  lighten($color-teal, 9%);
 
 $white: #ffffff;
 
 //
 // Gradients
 //
-$pink-orange-gradient: linear-gradient(
+
+$error-gradient: linear-gradient(
   to right,
-  $pink-primary,
+  $red-secondary
+  $red-primary
+  );
+
+$neutral-gradient: linear-gradient(
+  to right,
+  $blue-primary
+  $purple-primary
+  );
+
+$red-orange-gradient: linear-gradient(
+  to right,
+  $red-primary,
   $orange-primary
   );
+
+$success-gradient: linear-gradient(
+  to right,
+  $success-primary
+  $success-secondary
+  );
+
+$warning-gradient: linear-gradient(
+  to right,
+  $orange-primary
+  $orange-secondary
+  );
+
+//
+// Borders
+//
+$base-border: 1px solid;
+$error-border: $base-border $red-primary;
+
+//
+// Sizes
+//
+$theme-space: 1rem;
+
+$theme-space-large: $theme-space * 2;
+$theme-space-xlarge: $theme-space * 4;
+
+$theme-space-small: $theme-space / 2;
+$theme-space-xsmall: $theme-space / 4;

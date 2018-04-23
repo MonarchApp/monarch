@@ -5,9 +5,16 @@
     "mocha": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
   "globals": {
-    "expect": true
+    "expect": true,
+    "mount": true,
+    "render": true,
+    "shallow": true
   },
   "parserOptions": {
     "ecmaVersion": 8,
@@ -17,6 +24,7 @@
     }
   },
   "plugins": [
+    "jsx-a11y",
     "react"
   ],
   "rules": {

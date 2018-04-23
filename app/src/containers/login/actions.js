@@ -3,12 +3,14 @@ import ApiPaths from 'constants/api_paths';
 
 const Actions = {};
 
-Actions.login = (user, password) => ({
+Actions.login = (email, password) => ({
   type: ActionTypes.Api.CALL,
   payload: {
     endpoint: ApiPaths.LOGIN,
+    isForm: true,
+    hasJoiValidation: true,
     options: {
-      body: {user, password},
+      body: {email, password},
       method: 'POST'
     },
     types: [

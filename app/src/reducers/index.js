@@ -1,5 +1,4 @@
-
 import auth from './auth';
-import ui from './ui';
+import {reducer as form} from 'redux-form/immutable';
 
-export default {auth, ui};
+export default {auth, form};

@@ -8,7 +8,7 @@ const hash = Promise.promisify(bcrypt.hash);
 exports.seed = async knex => {
   const users = [
     {
-      email: 'frankjaeger@foxhound.com',
+      email: 'jill@abc.com',
       password: await hash('password', saltRounds)
     }
   ];
