@@ -1,0 +1,47 @@
+@import '~theme/vars';
+
+.login-form-wrapper {
+  margin-top: $space;
+  width: 100%;
+
+  .svg-full-logo {
+    fill: $white;
+    margin-bottom: $space;
+    width: 80%;
+  }
+
+  .login-form {
+    background: $white;
+    padding: $space-xlarge;
+
+    .field {
+      &:last-of-type {
+        margin-bottom: $space-xlarge;
+      }
+    }
+  }
+
+  .field {
+    width: 100%;
+
+    .input {
+      width: 100%;
+    }
+  }
+
+  .button {
+    &.primary {
+      width: 100%;
+    }
+  }
+
+  // Corresponds to width value
+  @media only screen and (min-width: 385px) {
+    left: 50%;
+    margin-top: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: $space * 24;
+  }
+}

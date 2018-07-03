@@ -1,0 +1,42 @@
+.field {
+  margin-bottom: $space-large;
+
+  .error-message {
+    color: $red-primary;
+    display: block;
+    font-size: $font-small;
+    line-height: $space-large;
+    text-align: left;
+  }
+
+  .label {
+    color: $grey-primary;
+    display: block;
+    font-family: $font-heading;
+    font-size: $font-xsmall;
+    padding-bottom: $space;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .input {
+    border-image: $red-orange-gradient 1;
+    border-width: $border-width;
+    color: $red-primary;
+    font-family: $font-body;
+    font-size: $font-small;
+    padding: $space-xsmall + $space-nudge;
+
+    &:focus {
+      border: $border-base $red-primary;
+      outline: 0;
+    };
+  }
+
+  &.error {
+    .input {
+      border: $border-base $red-primary;
+    }
+  }
+}
+

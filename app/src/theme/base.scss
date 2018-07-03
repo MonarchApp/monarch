@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   background: $red-orange-gradient;
 }
@@ -14,12 +18,12 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Zona Bold', sans-serif;
+  font-family: $font-heading;
 }
 
 p {
   color: $grey-primary;
-  font-family: 'Tofino Personal Book', sans-serif;
+  font-family: $font-body;
 }
 
 h1 {

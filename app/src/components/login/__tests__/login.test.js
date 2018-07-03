@@ -1,6 +1,8 @@
 import Login from '../';
 import React from 'react';
 import Sinon from 'sinon';
+import {InlineErrorNotification} from 'components/inline_notifications';
+import {PrimaryButton} from 'components/buttons';
 
 const sandbox = Sinon.createSandbox();
 
@@ -12,24 +14,37 @@ describe('Login', function() {
   });
 
   describe('rendering', function() {
-    context('when the form is submitting', function() {
+    context('when there is an error', function() {
+      const props = {
+        error: "Where you goin' with that gun in your hand?",
+        handleSubmit: () => {}
+      };
+      let renderedErrorMessage;
+
+      beforeEach(function() {
+        loginForm = shallow(<Login {...props} />);
+        renderedErrorMessage = loginForm.find(InlineErrorNotification).prop('message');
+      });
+
+      it('renders an inline error notification', function() {
+        expect(renderedErrorMessage).to.equal(props.error);
+      });
+    });
+
+    context('when the field is submitting', function() {
       const props = {
         handleSubmit: () => {},
         submitting: true
       };
-      let submitButton;
+      let isButtonDisabled;
 
       beforeEach(function() {
         loginForm = shallow(<Login {...props} />);
-        submitButton = loginForm.find('button[type="submit"]');
+        isButtonDisabled = loginForm.find(PrimaryButton).prop('disabled');
       });
 
       it('disables the submit button', function() {
-        expect(submitButton.prop('disabled')).to.be.true;
-      });
-
-      it('styles the button', function() {
-        expect(submitButton.hasClass('submitting')).to.be.true;
+        expect(isButtonDisabled).to.be.true;
       });
     });
   });

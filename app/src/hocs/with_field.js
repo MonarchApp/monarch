@@ -1,50 +1,59 @@
+import Classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Classnames from 'classnames';
+import * as recompose from 'recompose';
 
 const getDisplayName = input => `WithField(${ typeof input === 'string' ?
   input :
   input.displayName || input.name || 'Component'
 })`;
 
-
-const withField = Input => {
-  const FieldWrapper = ({
+const withField = (Input) => {
+  const FieldWrapperComponent = ({
+    className,
+    errorId,
+    id,
     input,
     label,
-    meta: {error, warning},
+    meta: {error},
     type
   }) =>
-    <div className={Classnames({error, warning}, 'field')}>
-      <label htmlFor={input.name}>
-        {label}
-        <Input {...input} type={type}/>
+    <div className={Classnames({className, error}, 'field')}>
+      <label htmlFor={id}>
+        <span className='label'>{label}</span>
+        <Input {...input} aria-describedby={errorId} className='input' id={id} type={type}/>
       </label>
-      {error && <span className='error-message'>{error}</span>}
-      {warning && <span className='warning-message'>{warning}</span>}
+      {error && <span className='error-message' id={errorId}>{error}</span>}
     </div>;
 
-  FieldWrapper.displayName = getDisplayName(Input);
+  FieldWrapperComponent.propTypes = {
+    className: PropTypes.string,
+    errorId: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    input: PropTypes.shape({
+      name: PropTypes.string.isRequired
+    }),
+    label: PropTypes.string.isRequired,
+    meta: PropTypes.shape({
+      error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+    }),
+    type: PropTypes.string.isRequired
+  };
 
-  FieldWrapper.defaultProps = {
+  FieldWrapperComponent.displayName = getDisplayName(Input);
+
+  FieldWrapperComponent.defaultProps = {
     meta: {}
   };
 
-  FieldWrapper.propTypes = {
-    input: PropTypes.object.isRequired,
-    label: PropTypes.string.isRequired,
-    meta: PropTypes.shape({
-      error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-      warning: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    }),
-    type: PropTypes.string
-  };
+  const enhance = recompose.mapProps(props => Object.assign({}, {
+    errorId: `form-message-${props.input.name}`,
+    id: `form-${props.input.name}`
+  }, props));
+
+  const FieldWrapper = enhance(FieldWrapperComponent);
 
   return FieldWrapper;
-};
-
-withField.propTypes = {
-  Component: PropTypes.element
 };
 
 export default withField;

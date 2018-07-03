@@ -4,6 +4,7 @@ import Login from 'components/login';
 import validate from './validate';
 import {connect} from 'react-redux';
 import {reduxForm, stopSubmit, SubmissionError} from 'redux-form/immutable';
+import './login.scss';
 
 const FORM_NAME = 'login';
 
