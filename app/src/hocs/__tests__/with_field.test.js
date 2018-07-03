@@ -1,23 +1,25 @@
 import React from 'react';
 import withField from '../with_field.js';
 
-describe('withField', function() {
-  const InputField = withField('input');
-  const label = 'label';
-  const name = 'name';
-  const type = 'type';
-  let wrappedField;
+const InputField = withField('input');
+const id = 'rusty-shackleford@see-eye-ay.gov';
+const label = 'Use your *real* email';
+const name = 'Email';
+const type = 'email';
+let wrappedField;
 
-  const input = {name};
+const input = {name};
 
+describe.only('withField', function() {
   describe('rendering', function() {
     context('always', function() {
       beforeEach(function() {
-        wrappedField = shallow(<InputField input={input} label={label} type={type} />);
+        wrappedField = shallow(<InputField id={id} input={input} label={label} type={type} />);
       });
 
+
       it('renders a single label with the provided label content and name', function() {
-        const labelComponent = wrappedField.find('label');
+        const labelComponent = wrappedField.find('.field');
         expect(labelComponent).to.have.length(1);
         expect(labelComponent.text()).to.equal(label);
         expect(labelComponent.prop('htmlFor')).to.equal(name);

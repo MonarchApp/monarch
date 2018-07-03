@@ -2,12 +2,26 @@
 
 ## Setup
 
-1. Install [Yarn][yarn-setup].
-1. Install [Postgres][postgres-setup].
-1. Install NPM dependencies: `yarn`
-1. Generate JWT keys: `yarn gen-keys`
-1. Create database tables: `psql -U postgres -h localhost -c 'CREATE TABLE monarch_dev; CREATE TABLE monarch_test'`
-1. Establish table schema: `knex migrations:latest`
+* Install [Yarn][yarn-setup].
+* Install [Postgres][postgres-setup].
+* Install NPM dependencies: `yarn`
+* Generate JWT keys: `yarn gen-keys`
+* Create database tables:
+
+```bash
+
+psql -U postgres -h localhost -c 'CREATE DATABASE monarch_dev;' &&
+psql -U postgres -h localhost -c 'CREATE DATABASE monarch_test;'
+
+```
+* Establish table schema:
+
+```bash
+
+knex migrate:latest --env develop &&
+knex migrate:latest --env test
+
+```
 
 ## Running Server
 

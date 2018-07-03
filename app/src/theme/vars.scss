@@ -6,7 +6,7 @@ $color-grape-orchid: #ac6c82;
 $color-larkspur: #685c79;
 $color-marigold: #ffbc67;
 $color-oxford-blue: #445c7b;
-$color-sweet-pea: #da727e;
+$color-sweet-pea: #db737e;
 $color-teal: #58c08e;
 
 //
@@ -16,6 +16,7 @@ $black: #000000;
 
 $blue-primary: $color-oxford-blue;
 $blue-secondary: lighten($blue-primary, 9.25%);
+$blue-disabled: lighten($blue-primary, 15%);
 
 $grey-primary: #d1d1d1;
 $grey-secondary: #999999;
@@ -43,14 +44,20 @@ $white: #ffffff;
 
 $error-gradient: linear-gradient(
   to right,
-  $red-secondary
+  darken($red-secondary, 5%),
   $red-primary
   );
 
 $neutral-gradient: linear-gradient(
   to right,
-  $blue-primary
+  $blue-primary,
   $purple-primary
+  );
+
+$red-gradient: linear-gradient(
+  to right,
+  $red-primary,
+  $red-primary
   );
 
 $red-orange-gradient: linear-gradient(
@@ -61,29 +68,46 @@ $red-orange-gradient: linear-gradient(
 
 $success-gradient: linear-gradient(
   to right,
-  $success-primary
+  $success-primary,
   $success-secondary
   );
 
 $warning-gradient: linear-gradient(
   to right,
-  $orange-primary
+  $orange-primary,
   $orange-secondary
   );
 
 //
 // Borders
 //
-$base-border: 1px solid;
-$error-border: $base-border $red-primary;
+$border-width: 2px;
+$border-base: $border-width solid;
 
 //
 // Sizes
 //
-$theme-space: 1rem;
+$space: 1rem;
 
-$theme-space-large: $theme-space * 2;
-$theme-space-xlarge: $theme-space * 4;
+$space-nudge: $space / 10;
+$space-xxxsmall: $space / 8;
+$space-xsmall: $space / 2;
+$space-small: $space * .75;
 
-$theme-space-small: $theme-space / 2;
-$theme-space-xsmall: $theme-space / 4;
+$space-large: $space * 1.5;
+$space-xlarge: $space * 2;
+$space-xxlarge: $space * 3;
+$space-xxxlarge: $space * 4;
+
+//
+// Animation Time
+//
+$animation-speed: .125s;
+
+//
+// Font
+//
+$font-heading: 'Zona Bold', sans-serif;
+$font-body: 'Tofino Book', sans-serif;
+$font-xsmall: .625rem;
+$font-small: .75rem;

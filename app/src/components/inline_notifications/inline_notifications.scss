@@ -1,0 +1,14 @@
+@import '~theme/vars';
+
+.inline-notification {
+  color: $white;
+  font-family: $font-body;
+  font-size: $font-small;
+  margin-bottom: $space-large;
+  padding: $space-xsmall + $space-nudge;
+  text-align: left;
+
+  &.error {
+    background: $error-gradient;
+  }
+}
