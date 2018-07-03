@@ -1,5 +1,4 @@
-dist/bundle.js
-dist/style.css
+dist/
 node_modules/
 npm-debug.log
 yarn-error.log
