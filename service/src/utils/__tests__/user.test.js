@@ -32,11 +32,11 @@ describe('userUtils', function() {
         userUtils.enforceSelfActionOnly(mockRequest, mockReply);
       });
 
-      it('should continue the response', function() {
+      it('continues the response', function() {
         expect(mockReply.continue).to.be.called;
       });
 
-      it('should not call reply directly', function() {
+      it('does not reply', function() {
         expect(mockReply).to.not.be.called;
       });
     });
@@ -56,11 +56,11 @@ describe('userUtils', function() {
         userUtils.enforceSelfActionOnly(mockRequest, mockReply);
       });
 
-      it('should respond with forbidden', function() {
+      it('responds with forbidden', function() {
         expect(mockReply).to.be.calledWith(forbiddenError);
       });
 
-      it('should not continue', function() {
+      it('does not continue', function() {
         expect(mockReply.continue).to.not.be.called;
       });
     });

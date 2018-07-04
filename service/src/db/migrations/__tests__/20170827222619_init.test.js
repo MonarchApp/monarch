@@ -29,7 +29,7 @@ describe('Add Users Migration', function() {
       dateStub.restore();
     });
 
-    it('should create the users table with basic columns', function() {
+    it('creates the users table with basic columns', function() {
       expect(hasAllColumns).to.be.true;
     });
 
@@ -41,7 +41,7 @@ describe('Add Users Migration', function() {
         await knex('users').insert({email, password});
       });
 
-      it('should populate default fields properly', async function() {
+      it('populates default fields properly', async function() {
         const [mockUser] = await knex.select().table('users').where({email});
         expect(mockUser).to.eql({
           bio: null,
@@ -63,7 +63,7 @@ describe('Add Users Migration', function() {
       hasTable = await knex.schema.hasTable('users');
     });
 
-    it('should drop the users table', function() {
+    it('drops the users table', function() {
       expect(hasTable).to.be.false;
     });
   });
