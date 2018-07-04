@@ -25,21 +25,21 @@ describe('Register Attach Knex', function() {
     attachKnexRegister(serverStub, null, nextSpy);
   });
 
-  it('should load the knex configuration with the specified environment', function() {
-    expect(knexStub).to.have.been.calledWith(knexConfig.testEnvironment);
+  it('loads the knex configuration with the specified environment', function() {
+    expect(knexStub).to.be.calledWith(knexConfig.testEnvironment);
   });
 
-  it('should decorate the request with knex', function() {
-    expect(serverStub.decorate).to.have.been
+  it('decorates the request with knex', function() {
+    expect(serverStub.decorate).to.be
       .calledWith('request', 'knex', knexStubValue);
   });
 
-  it('should decorate the server with knex', function() {
-    expect(serverStub.decorate).to.have.been
+  it('decorates the server with knex', function() {
+    expect(serverStub.decorate).to.be
       .calledWith('server', 'knex', knexStubValue);
   });
 
-  it('should call the provided next value', function() {
-    expect(nextSpy).to.have.been.calledAfter(serverStub.decorate);
+  it('calls the provided next value', function() {
+    expect(nextSpy).to.be.calledAfter(serverStub.decorate);
   });
 });

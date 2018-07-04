@@ -2,11 +2,9 @@ const Promise = require('bluebird');
 const fs = require('fs');
 const nconf = require('nconf');
 const path = require ('path');
-const rootRequire = require('app-root-path').require;
-const {throwWithMessage} = rootRequire('src/utils/throw');
 
-const stat = Promise.promisify(fs.stat);
 const readFile = Promise.promisify(fs.readFile);
+const stat = Promise.promisify(fs.stat);
 
 const attachConfig = {};
 
@@ -16,7 +14,8 @@ attachConfig.register = async (server, options, next) => {
   try {
     await stat(configPath);
   } catch (error) {
-    throwWithMessage(`No config file available at "${configPath}".`);
+    server.log(['error', 'config'], `Failed to load configuration with path: ${configPath}`);
+    throw error;
   }
 
   nconf
@@ -28,7 +27,8 @@ attachConfig.register = async (server, options, next) => {
     nconf.set('auth:jwtPrivateKey', await readFile('rsa-private.pem', 'utf8'));
     nconf.set('auth:jwtPublicKey', await readFile('rsa-public.pem', 'utf8'));
   } catch (error) {
-    throwWithMessage(error, 'Unable to get retrieve JWT private and/or public keys.');
+    server.log(['error', 'config'], 'The private or public JWT key is missing.');
+    throw error;
   }
 
   server.decorate('request', 'config', nconf);

@@ -18,7 +18,7 @@ const mockRequest = {
 
 describe('requestUtils', function() {
   describe('getTokenFromRequest', function() {
-    it('should return the decoded token from the provided request', function() {
+    it('returns the decoded token from the provided request', function() {
       expect(requestUtils.getTokenFromRequest(mockRequest)).to.eql(mockTokenPayload);
     });
   });

@@ -8,18 +8,17 @@ const registerAuth = require('./../auth').register;
 
 describe('Register Auth', function() {
   const jwtPublicKey = 'Be vewwwy vewwwwwy quieeeet';
-  let nextSpy;
-  let serverStub;
+  const nextSpy = sinon.spy();
+  const serverStub = {
+    auth: {strategy: sinon.spy()},
+    config: {
+      get: sinon.stub().withArgs('auth:jwtPublicKey').returns(jwtPublicKey)
+    },
+    register: sinon.spy()
+  };
 
-  beforeEach(function() {
-    nextSpy = sinon.spy();
-    serverStub = {
-      auth: {strategy: sinon.spy()},
-      config: {
-        get: sinon.stub().withArgs('auth:jwtPublicKey').returns(jwtPublicKey)
-      },
-      register: sinon.spy()
-    };
+  afterEach(function() {
+    sinon.resetHistory();
   });
 
   context('when the hapi auth jwt plugin succesfully loads', function() {
@@ -27,33 +26,34 @@ describe('Register Auth', function() {
       await registerAuth(serverStub, null, nextSpy);
     });
 
-    it('should be registered with the server', function() {
-      expect(serverStub.register).to.have.been.calledWith(sinon.match.same(hapiAuthJwt2Stub));
+    it('register with the server', function() {
+      expect(serverStub.register).to.be.calledWith(sinon.match.same(hapiAuthJwt2Stub));
     });
 
-    it('should set the server authentication strategy to jwt', function() {
-      expect(serverStub.auth.strategy).to.have.been.calledWith('jwt', 'jwt', true, {
+    it('sets the server authentication strategy to jwt', function() {
+      expect(serverStub.auth.strategy).to.be.calledWith('jwt', 'jwt', true, {
         key: jwtPublicKey,
         validateFunc: sinon.match.func,
         verifyOptions: {algorithms: ['RS256']}
       });
     });
 
-    it('should call the next callback', function() {
-      expect(nextSpy).to.have.been.calledAfter(serverStub.auth.strategy);
+    it('calls the next callback', function() {
+      expect(nextSpy).to.be.calledAfter(serverStub.auth.strategy);
     });
   });
 
   context('when the server fails to register the hapi-auth-jwt2 plugin', function() {
     let registerAuthPluginPromise;
 
-    before(function() {
+    beforeEach(function() {
       serverStub.register = () => { throw new Error(); };
       registerAuthPluginPromise = registerAuth(serverStub, null, nextSpy);
     });
 
-    it('should throw', function() {
-      expect(registerAuthPluginPromise).to.eventually.throw('Failed to load hapi-auth-jwt plugin.');
+    it('throws', function() {
+      return expect(registerAuthPluginPromise).to.be.eventually
+        .rejectedWith('Failed to load hapi-auth-jwt plugin.');
     });
   });
 });

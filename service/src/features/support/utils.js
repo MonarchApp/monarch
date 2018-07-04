@@ -1,8 +1,5 @@
-const rootRequire = require('app-root-path').require;
-
 const request = require('request-promise');
 const {defineSupportCode} = require('cucumber');
-const {throwWithMessage} = rootRequire('src/utils/throw');
 
 const utils = {};
 
@@ -10,7 +7,8 @@ utils.parseJson = json => {
   try {
     return JSON.parse(json);
   } catch (error) {
-    throwWithMessage(error, `Failed to parse JSON:\n\n${json}`);
+    utils.consoleError(`Failed to parse JSON:\n\n${json}`);
+    throw error;
   }
 };
 
@@ -31,9 +29,13 @@ utils.request = async (options, token) => {
   try {
     return await request(fullOptions);
   } catch (error) {
-    throwWithMessage(error, `Failed to ${method} ${url}.`);
+    utils.consoleError(`Failed to ${method} ${url}.`);
+    throw error;
   }
 };
+
+// eslint-disable-next-line no-console
+utils.consoleError = (...args) => console.error(...args);
 
 defineSupportCode(({Before}) => {
   Before(function() {

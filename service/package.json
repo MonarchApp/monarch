@@ -30,15 +30,14 @@
   },
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov",
-    "feature": "nyc --reporter=html cucumberjs",
-    "features": "yarn feature src/features",
     "gen-keys": "yarn private-key && yarn public-key",
     "lint": "node_modules/.bin/eslint src/",
     "private-key": "openssl genrsa 4096 > rsa-private.pem",
     "public-key": "openssl rsa -in rsa-private.pem -pubout > rsa-public.pem",
+    "test:unit": "nyc --reporter=html node_modules/.bin/mocha 'src/**/*.test.js'",
+    "test:feature": "nyc --reporter=html cucumberjs src/features",
     "start": "node_modules/.bin/nodemon index",
-    "test": "nyc --reporter=html node_modules/.bin/mocha",
-    "tests": "yarn test 'src/**/*.test.js'"
+    "test": "yarn test:unit && yarn test:feature"
   },
   "devDependencies": {
     "chai": "^4.1.1",
@@ -51,7 +50,7 @@
     "mock-require": "^2.0.2",
     "nodemon": "^1.11.0",
     "nyc": "^11.1.0",
-    "sinon": "^3.2.1",
+    "sinon": "^6.1.0",
     "sinon-chai": "^2.13.0"
   },
   "nyc": {
