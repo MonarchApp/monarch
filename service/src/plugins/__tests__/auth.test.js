@@ -1,45 +1,45 @@
 const mockRequire = require('mock-require');
 const sinon = require('sinon');
 
-const hapiAuthJwt2Stub = {value: 'The plugin is alive, Jim.'};
-mockRequire('hapi-auth-jwt2', hapiAuthJwt2Stub);
+const hapiAuthJwtStub = {value: 'The plugin is alive, Jim.'};
+mockRequire('hapi-auth-jwt2', hapiAuthJwtStub);
 
 const registerAuth = require('./../auth').register;
 
 describe('Register Auth', function() {
   const jwtPublicKey = 'Be vewwwy vewwwwwy quieeeet';
-  const nextSpy = sinon.spy();
   const serverStub = {
-    auth: {strategy: sinon.spy()},
-    config: {
-      get: sinon.stub().withArgs('auth:jwtPublicKey').returns(jwtPublicKey)
+    auth: {
+      default: sinon.spy(),
+      strategy: sinon.spy()
     },
-    register: sinon.spy()
+    register: sinon.stub(),
+    log: () => {}
   };
 
   afterEach(function() {
     sinon.resetHistory();
   });
 
-  context('when the hapi auth jwt plugin succesfully loads', function() {
+  context('when the hapi auth jwt plugin successfully loads', function() {
     beforeEach(async function() {
-      await registerAuth(serverStub, null, nextSpy);
+      await registerAuth(serverStub, {jwtPublicKey});
     });
 
     it('register with the server', function() {
-      expect(serverStub.register).to.be.calledWith(sinon.match.same(hapiAuthJwt2Stub));
+      expect(serverStub.register).to.be.calledWith(sinon.match.same(hapiAuthJwtStub));
     });
 
     it('sets the server authentication strategy to jwt', function() {
-      expect(serverStub.auth.strategy).to.be.calledWith('jwt', 'jwt', true, {
+      expect(serverStub.auth.strategy).to.be.calledWith('jwt', 'jwt', {
         key: jwtPublicKey,
-        validateFunc: sinon.match.func,
+        validate: sinon.match.func,
         verifyOptions: {algorithms: ['RS256']}
       });
     });
 
-    it('calls the next callback', function() {
-      expect(nextSpy).to.be.calledAfter(serverStub.auth.strategy);
+    it('sets the default server authentication strategy to jwt', function() {
+      expect(serverStub.auth.default).to.be.calledWith('jwt');
     });
   });
 
@@ -47,13 +47,12 @@ describe('Register Auth', function() {
     let registerAuthPluginPromise;
 
     beforeEach(function() {
-      serverStub.register = () => { throw new Error(); };
-      registerAuthPluginPromise = registerAuth(serverStub, null, nextSpy);
+      serverStub.register.rejects();
+      registerAuthPluginPromise = registerAuth(serverStub, {jwtPublicKey});
     });
 
     it('throws', function() {
-      return expect(registerAuthPluginPromise).to.be.eventually
-        .rejectedWith('Failed to load hapi-auth-jwt plugin.');
+      return expect(registerAuthPluginPromise).to.be.eventually.rejected;
     });
   });
 });

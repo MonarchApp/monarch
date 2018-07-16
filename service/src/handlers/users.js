@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const boom = require('boom');
+const bounce = require('bounce');
 const joi = require('joi');
 const {enforceSelfActionOnly} = require('../utils/user');
 const {getTokenFromRequest} = require('../utils/request');
@@ -11,7 +12,6 @@ const hash = Promise.promisify(bcrypt.hash);
 const users = {
   delete: {},
   get: {},
-  getAll: {},
   patch: {},
   post: {}
 };
@@ -20,31 +20,37 @@ users.delete.config = {
   pre: [enforceSelfActionOnly],
 };
 
-users.delete.handler = async (request, reply) => {
+users.delete.handler = async (request, h) => {
   const {id} = request.params;
 
   try {
     await request.knex('users').where({id}).delete();
-    reply.response().code(204);
+    return h.response().code(204);
   } catch (error) {
-    reply(boom.badImplementation(`Failed to delete user with id "${id}"`));
+    bounce.rethrow(error, 'system');
+    request.log(['error', 'user', 'delete'], `Failed to delete user with id "${id}"`);
+
+    return boom.badImplementation();
   }
 };
 
-// TODO: Show specific fields only and only allow gets from current user
-users.get.handler = async (request, reply) => {
+users.get.config = {
+  pre: [enforceSelfActionOnly],
+};
+
+users.get.handler = async (request, h) => {
   const {id} = request.params;
 
   try {
     const [user] = await request.knex('users').select().where({id});
-
-    reply.response(user || {}).code(200);
+    return h.response(user || {}).code(200);
   } catch (error) {
-    reply(boom.badImplementation(`Failed to get user with id ${id}`));
+    bounce.rethrow(error, 'system');
+    request.log(['error', 'user', 'get'], `Failed to get user with id "${id}"`);
+
+    return boom.badImplementation();
   }
 };
-
-users.getAll.handler = () => {};
 
 users.patch.config = {
   pre: [enforceSelfActionOnly],
@@ -55,25 +61,26 @@ users.patch.config = {
   }
 };
 
-users.patch.handler = async (request, reply) => {
+users.patch.handler = async (request, h) => {
   const id = parseInt(getTokenFromRequest(request).id);
 
-  if (_.isEmpty(request.payload)) return reply.response().code(200);
+  if (_.isEmpty(request.payload)) return h.response().code(200);
 
   const now = request.knex.fn.now();
   const newValues = Object.assign({}, request.payload, {modifyDate: now});
 
   try {
     await request.knex('users').where({id}).update(newValues);
+    return h.response().code(200);
   } catch (error) {
-    reply(boom.badImplementation(`Failed to update user with id "${id}"`));
-    throw error;
-  }
+    bounce.rethrow(error, 'system');
+    request.log(['error', 'user', 'patch'], `Failed to update user with id "${id}"`);
 
-  reply.response().code(200);
+    return boom.badImplementation();
+  }
 };
 
-users.post.handler = async (request, reply) => {
+users.post.handler = async (request, h) => {
   const {email, password} = request.payload;
   const {saltRounds} = request.config.get('auth');
   let hashedPassword;
@@ -81,8 +88,13 @@ users.post.handler = async (request, reply) => {
   try {
     hashedPassword = await hash(password, saltRounds);
   } catch (error) {
-    const errorMessage = `Failed to generate hash while creating user for ${email}`;
-    reply(boom.badImplementation(errorMessage));
+    bounce.rethrow(error, 'system');
+    request.log(
+      ['error', 'user', 'post'],
+      `Failed to generate hash while creating user for ${email}`
+    );
+
+    return boom.badImplementation();
   }
 
   const userObject = {
@@ -94,13 +106,20 @@ users.post.handler = async (request, reply) => {
     await request.knex('users').insert(userObject);
 
     // TODO: Send user email
-    reply.response().code(201);
+    return h.response().code(201);
   } catch (error) {
+    bounce.rethrow(error, 'system');
+
     if (error.message.indexOf('users_email_unique') > -1) {
-      return reply.response().code(201);
+      return h.response().code(201);
     }
 
-    reply(boom.badImplementation());
+    request.log(
+      ['error', 'user', 'post'],
+      `Failed to create user with email "${email}"`
+    );
+
+    return boom.badImplementation();
   }
 };
 

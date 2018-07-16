@@ -1,36 +1,25 @@
-const auth = {};
+const validateToken = async () => ({isValid: true});
 
-const strategyName = 'jwt';
-const schemeName = 'jwt';
-const requireJwtForAllRoutes = true;
-
-const validateToken = (decoded, request, callback) => {
-  // Validate against user
-  return callback(null, true);
-};
-
-auth.register = async (server, options, next) => {
+const register = async (server, {jwtPublicKey}) => {
   try {
     await server.register(require('hapi-auth-jwt2'));
   } catch (error) {
-    error.message = `Failed to load hapi-auth-jwt plugin.\n\nError:\n${error.message}`;
+    server.log(['error', 'init', 'auth'], 'Failed to load hapi-auth-jwt2');
     throw error;
   }
 
-  const jwtPublicKey = server.config.get('auth:jwtPublicKey');
   const authOptions = {
     key: jwtPublicKey,
-    validateFunc: validateToken,
+    validate: validateToken,
     verifyOptions: {algorithms: ['RS256']}
   };
 
-  server.auth.strategy(strategyName, schemeName, requireJwtForAllRoutes, authOptions);
-  next();
+  server.auth.strategy('jwt', 'jwt', authOptions);
+  server.auth.default('jwt');
 };
 
-auth.register.attributes = {
+module.exports = {
+  register,
   name: 'auth',
   version: '0.0.0'
 };
-
-module.exports = auth;

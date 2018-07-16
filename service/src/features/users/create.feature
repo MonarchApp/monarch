@@ -45,20 +45,19 @@ Feature: Create user
     And response body matches
       """
       {
-        error: "Bad Request",
-        message: _.isContainerFor|'<MESSAGE>',
         statusCode: 400,
-        validation: {keys: [<KEYS>], source: "payload"}
+        error: 'Bad Request',
+        message: 'Invalid request payload input'
       }
       """
 
   Examples:
-      | EMAIL                      | PASSWORD   | MESSAGE                               | KEYS       |
-      | ""                         | "password" | "email" is not allowed to be empty    | "email"    |
-      | "spikey_hands23@yahoo.com" | ""         | "password" is not allowed to be empty | "password" |
-      | null                       | "password" | "email" must be a string              | "email"    |
-      | "spikey_hands23@yahoo.com" | null       | "password" must be a string           | "password" |
-      | "spike"                    | "password" | "email" must be a valid email         | "email"    |
+      | EMAIL                      | PASSWORD   |
+      | ""                         | "password" |
+      | "spikey_hands23@yahoo.com" | ""         |
+      | null                       | "password" |
+      | "spikey_hands23@yahoo.com" | null       |
+      | "spike"                    | "password" |
 
 
   Scenario: Create a user with a password that is too long
@@ -73,10 +72,9 @@ Feature: Create user
     And response body matches
       """
       {
-        error: _.isString,
-        message: _.isContainerFor|'"password" length must be less than or equal to 72 characters long',
         statusCode: 400,
-        validation: {keys: ["password"], source: "payload"}
+        error: 'Bad Request',
+        message: 'Invalid request payload input'
       }
       """
 

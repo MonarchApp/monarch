@@ -1,7 +1,7 @@
 Feature: Patch user
 
-  As a consumer of the Monarch API,
-  I want to be able to update a user from the database.
+  As a user of the Monarch service,
+  I want to be able to update my information.
 
   Background:
     Given I seed "users"
@@ -55,23 +55,22 @@ Feature: Patch user
     And response body matches
       """
       {
-        error: "Bad Request",
-        message: _.isContainerFor|'<MESSAGE>',
         statusCode: 400,
-        validation: {keys: ["<KEY>"], source: "payload",}
+        error: 'Bad Request',
+        message: 'Invalid request payload input'
       }
       """
 
 
   Examples:
-    | KEY        | VALUE                                             | MESSAGE                     |
-    | createDate | 1998                                              | "createDate" is not allowed |
-    | email      | "A cornered fox is more dangerous than a jackal!" | "email" is not allowed      |
-    | foobar     | "Only a fool trusts his life to a weapon!"        | "foobar" is not allowed     |
-    | id         | 1337                                              | "id" is not allowed         |
-    | modifyDate | 1999                                              | "modifyDate" is not allowed |
-    | password   | "Make me feel alive again!"                       | "password" is not allowed   |
-    | bio        | null                                              | "bio" must be a string      |
+    | KEY        | VALUE                                             |
+    | createDate | 1998                                              |
+    | email      | "A cornered fox is more dangerous than a jackal!" |
+    | foobar     | "Only a fool trusts his life to a weapon!"        |
+    | id         | 1337                                              |
+    | modifyDate | 1999                                              |
+    | password   | "Make me feel alive again!"                       |
+    | bio        | null                                              |
 
 
   Scenario: Update another user
@@ -84,7 +83,7 @@ Feature: Patch user
       """
       {
         error: "Forbidden",
-        message: "This action may only be performed by the same user",
+        message: "Forbidden",
         statusCode: 403,
       }
       """

@@ -9,20 +9,18 @@ const knexStub = sinon.stub();
 knexStub.returns(knexStubValue);
 mockRequire('knex', knexStub);
 
-knexConfig.testEnvironment = 'Damn it, Jim';
-knexConfig.develop = "I'm a doctor, not a damn, unit test writer!";
+knexConfig.testEnvironment =
+ "Damn it, Jim! I'm a doctor, not a damn, unit test writer!";
 
 const attachKnexRegister = require('./../attach_knex').register;
 
 describe('Register Attach Knex', function() {
-  let nextSpy;
   let serverStub;
 
-  beforeEach(function() {
-    nextSpy = sinon.spy();
+  beforeEach(async function() {
     serverStub = {decorate: sinon.spy()};
     process.env.NODE_ENV = 'testEnvironment';
-    attachKnexRegister(serverStub, null, nextSpy);
+    await attachKnexRegister(serverStub);
   });
 
   it('loads the knex configuration with the specified environment', function() {
@@ -37,9 +35,5 @@ describe('Register Attach Knex', function() {
   it('decorates the server with knex', function() {
     expect(serverStub.decorate).to.be
       .calledWith('server', 'knex', knexStubValue);
-  });
-
-  it('calls the provided next value', function() {
-    expect(nextSpy).to.be.calledAfter(serverStub.decorate);
   });
 });

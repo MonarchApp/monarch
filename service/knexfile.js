@@ -1,5 +1,5 @@
 module.exports = {
-  develop: {
+  development: {
     client: 'pg',
     connection: {
       database: 'monarch_dev',

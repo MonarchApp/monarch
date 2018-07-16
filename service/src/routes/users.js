@@ -8,11 +8,7 @@ module.exports = [
     path: '/v1/users/{id}'
   },
   {
-    handler: users.getAll.handler,
-    method: 'GET',
-    path: '/v1/users'
-  },
-  {
+    config: users.get.config,
     handler: users.get.handler,
     method: 'GET',
     path: '/v1/users/{id}'

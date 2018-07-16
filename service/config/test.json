@@ -3,12 +3,10 @@
     "jwtAudience": "uiUrl",
     "saltRounds": 1
   },
-  "connection": {
-    "port": 8081,
-    "host": "localhost"
-  },
-  "debug": {
-    "log": "*"
-  },
-  "good": {}
+  "good": {},
+  "server": {
+    "debug": false,
+    "host": "localhost",
+    "port": 8081
+  }
 }

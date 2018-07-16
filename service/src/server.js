@@ -1,40 +1,45 @@
 const Hapi = require('hapi');
-require('hapi-bluebird');
 
 const routes = require('./routes');
+const getConfig = require('./utils/get_config');
 
-const initServer = async () => {
-  process.env.NODE_ENV = process.env.NODE_ENV || 'develop';
-
-  const server = new Hapi.Server();
-
+const registerPlugins = async (server, plugins) => {
   try {
-    await server.register({register: require('./plugins/attach_config')});
+    await server.register(plugins);
   } catch (error) {
-    error.message = `Failed to register configuration plugin.\n\nError:\n${error.message}`;
-  }
-
-  server.connection(server.config.get('connection'));
-  server.route(routes);
-
-  try {
-    await server.register([
-      {register: require('./plugins/auth')},
-      {register: require('./plugins/attach_knex')},
-      {register: require('good'), options: server.config.get('good')}
-    ]);
-    await server.start();
-  } catch (error) {
-    error.message = `Failed to register plugins.\n\nError:\n${error.message}`;
+    server.log(['error', 'init'], 'Failed to register plugins');
     throw error;
   }
+};
+
+const initServer = async () => {
+  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+  const config = await getConfig();
+  const server = new Hapi.Server(config.get('server'));
+
+  await registerPlugins(server, [{
+    options: config.get('good'),
+    plugin: require('good')
+  }, {
+    options: {config},
+    plugin: require('./plugins/attach_config')
+  }, {
+    options: {jwtPublicKey: config.get('auth:jwtPublicKey')},
+    plugin: require('./plugins/auth')
+  }, {
+    plugin: require('./plugins/attach_knex')
+  }]);
+
+  server.route(routes);
+  await server.start();
 
   // eslint-disable-next-line no-console
-  server.log(['info'], `\nMonarch started at ${server.info.uri}\n`);
+  server.log(['info', 'init'], `\nMonarch started at ${server.info.uri}\n`);
 
   process.on('SIGINT', async () => {
     // eslint-disable-next-line no-console
-    server.log(['info'], 'Shutting down Monarch server...');
+    server.log(['info', 'exit'], 'Shutting down Monarch server...');
 
     try {
       await server.knex.destroy();
@@ -46,6 +51,7 @@ const initServer = async () => {
       process.exit(0);
     } catch (error) {
       process.exit(1);
+      throw error;
     }
   });
 

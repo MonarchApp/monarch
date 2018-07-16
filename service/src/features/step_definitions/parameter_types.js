@@ -1,18 +1,16 @@
-const {defineSupportCode} = require('cucumber');
+const {defineParameterType} = require('cucumber');
 
-defineSupportCode(({defineParameterType}) => {
-  defineParameterType({
-    name: 'getOrDelete',
-    regexp: /(GET|DELETE)/
-  });
+defineParameterType({
+  name: 'getOrDelete',
+  regexp: /(GET|DELETE)/
+});
 
-  defineParameterType({
-    regexp: /(PATCH|POST|PUT)/,
-    name: 'patchPostOrPut'
-  });
+defineParameterType({
+  regexp: /(PATCH|POST|PUT)/,
+  name: 'patchPostOrPut'
+});
 
-  defineParameterType({
-    regexp: /(\d+)(?:st|nd|rd|th)/,
-    name: 'ordinalInt'
-  });
+defineParameterType({
+  regexp: /(\d+)(?:st|nd|rd|th)/,
+  name: 'ordinalInt'
 });

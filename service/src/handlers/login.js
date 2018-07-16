@@ -1,5 +1,6 @@
 const Promise = require('bluebird');
 const boom = require('boom');
+const bounce = require('bounce');
 const bcrypt = require('bcrypt');
 const joi = require('joi');
 const jwt = require('jsonwebtoken');
@@ -18,9 +19,9 @@ const generateToken = (payload, jwtPrivateKey, options) => {
   return jwt.sign(payload, jwtPrivateKey, jwtOptions);
 };
 
-const replyWithInvalidCreds = async reply => {
+const replyWithInvalidCreds = async () => {
   await Promise.delay(500);
-  reply(boom.unauthorized('invalid username or password', 'jwt'));
+  return boom.unauthorized('invalid username or password', 'jwt');
 };
 
 const login = {
@@ -37,26 +38,26 @@ login.post.config = {
   }
 };
 
-login.post.handler = async (request, reply) => {
+login.post.handler = async (request, h) => {
   const {email, password} = request.payload;
   const {jwtAudience, jwtPrivateKey} = request.config.get('auth');
 
   try {
     const [user] = await request.knex('users').select().where({email});
-    if (!user) { return await replyWithInvalidCreds(reply); }
+    if (!user) { return await replyWithInvalidCreds(); }
 
     const hashedPassword = user.password;
     const isValidPassword = await compare(password, hashedPassword);
-    if (!isValidPassword) { return await replyWithInvalidCreds(reply); }
+    if (!isValidPassword) { return await replyWithInvalidCreds(); }
 
     const tokenPayload = {id: user.id};
     const tokenOptions = {audience: jwtAudience};
 
     const token = generateToken(tokenPayload, jwtPrivateKey, tokenOptions);
-    reply.response({token}).code(200);
+    return h.response({token}).code(200);
   } catch (error) {
-    const errorMessage = `Failed to authenticate ${email}\n\nError:\n${error.message}`;
-    reply(boom.badImplementation(errorMessage));
+    bounce.rethrow(error, 'system');
+    return boom.badImplementation();
   }
 };
 
