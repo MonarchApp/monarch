@@ -54,28 +54,11 @@ export default () => next => async action => {
     Bounce.rethrow(response, 'system');
 
     const json = await response.json();
-    const {message} = json;
-
     const failAction = next(actionWith({
       error: true,
       payload: new Error(json),
       type: failureType
     }));
-
-    if (shouldValidateAsJoi(action.payload, response, json)) {
-      const [, _error] = message.match(joiErrorRegex);
-      const error = new SubmissionError(Object.assign({}, {_error},
-        json.validation.keys.reduce((errors, formKey) => {
-          errors[formKey] = true;
-          return errors;
-        }, {})
-      ));
-      return Promise.reject(error);
-    }
-
-    if (shouldValidateAsForm(action.payload, response)) {
-      return Promise.reject(new SubmissionError({_error: message}));
-    }
 
     return failAction;
   }

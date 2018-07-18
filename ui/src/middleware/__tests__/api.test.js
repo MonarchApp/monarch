@@ -116,62 +116,6 @@ describe('API Middleware', function() {
           expect(resultAction.payload.message).to.equal(assertedAction.payload.message);
         });
       });
-
-      context('and the action came from a form', function() {
-        context('and the action is configured to parse joi and there are errors', function() {
-          beforeEach(function() {
-            const joiAction = _.merge({}, action, {
-              payload: {
-                isForm: true,
-                hasJoiValidation: true
-              }
-            });
-            fetchStub.resolves(ApiFixtures.JOI_ERROR_RESPONSE.clone());
-
-            returnValue = store.dispatch(joiAction);
-          });
-
-          it('returns a submission error for redux-form using the joi payload', function() {
-            return expect(returnValue).to.be.eventually.rejectedWith(SubmissionError)
-              .and.eql(ApiFixtures.JOI_SUBMISSION_ERRORS);
-          });
-        });
-
-        context('and the action is not configured to parse joi', function() {
-          const _error = 'You only have to write your name!';
-
-          beforeEach(function() {
-            const formAction = _.merge({}, action, {payload: {isForm: true}});
-            fetchStub.resolves(new Response(JSON.stringify({message: _error}), {status: 401}));
-
-            returnValue = store.dispatch(formAction);
-          });
-
-          it('returns a submission error for redux-form using the error message', function() {
-            return expect(returnValue).to.be.eventually.rejectedWith(SubmissionError)
-              .and.eql({errors: {_error}});
-          });
-        });
-      });
-
-      context('and the action does not have isForm enabled', function() {
-        const mockError = {error: 'I know your mother, Trebek!'};
-
-        const failedResponse = new Response(JSON.stringify(mockError), {status: 500});
-        const assertedAction = {error: true, payload: new Error(mockError), type: failureType};
-        const assertedActionWithoutPayload = _.omit(assertedAction, 'payload');
-        let returnValueWithoutPayload;
-
-        beforeEach(async function() {
-          fetchStub.resolves(failedResponse.clone());
-          returnValue = await store.dispatch(action);
-          returnValueWithoutPayload = _.omit(returnValue, 'payload');
-        });
-
-        it('returns the dispatched action', function() {
-          expect(assertedActionWithoutPayload).to.eql(returnValueWithoutPayload);
-        });
-      });
     });
 
     context('when the request succeeds', function() {

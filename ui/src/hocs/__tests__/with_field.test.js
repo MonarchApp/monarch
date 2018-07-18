@@ -6,59 +6,73 @@ const id = 'rusty-shackleford@see-eye-ay.gov';
 const label = 'Use your *real* email';
 const name = 'Email';
 const type = 'email';
+const errorId = `Well if it's Jack Ruby's hat, then I have to make sure it's
+  his hat... Yeah... Alright, what colors does it come in?`;
 let wrappedField;
 
 const input = {name};
 
-describe.only('withField', function() {
+describe('withField', function() {
   describe('rendering', function() {
     context('always', function() {
-      beforeEach(function() {
-        wrappedField = shallow(<InputField id={id} input={input} label={label} type={type} />);
+      before(function() {
+        wrappedField = mount(
+          <InputField
+            errorId={errorId}
+            id={id}
+            input={input}
+            label={label}
+            type={type} />
+        );
       });
 
+      after(function() {
+        wrappedField.unmount();
+      });
 
       it('renders a single label with the provided label content and name', function() {
-        const labelComponent = wrappedField.find('.field');
+        const labelComponent = wrappedField
+          .find({testdatalabel: 'HOC/field-label'});
         expect(labelComponent).to.have.length(1);
         expect(labelComponent.text()).to.equal(label);
-        expect(labelComponent.prop('htmlFor')).to.equal(name);
+        expect(labelComponent.prop('htmlFor')).to.equal(id);
       });
 
       it('renders the provided component and passes the HOC props', function() {
-        expect(wrappedField.find('input').props()).to.eql(Object.assign({}, input, {type}));
-      });
-    });
-
-    context('when there is a warning', function() {
-      const meta = {warning: "I'm gonna KICK. YOUR. ASS!", fromHankHill: true};
-
-      beforeEach(function() {
-        wrappedField = shallow(<InputField input={input} label={label} meta={meta} />);
-      });
-
-      it('renders the error message', function() {
-        expect(wrappedField.find('.warning-message').text()).to.equal(meta.warning);
-      });
-
-      it('adds the warning class', function() {
-        expect(wrappedField.hasClass('warning')).to.be.true;
+        expect(wrappedField.find('input').props()).to.eql(
+          Object.assign({}, input, {
+            'aria-describedby': errorId,
+            className: 'input',
+            id: id,
+            type
+          }));
       });
     });
 
     context('when there is an error', function() {
       const meta = {error: 'Damn it, Bobby'};
 
-      beforeEach(function() {
-        wrappedField = shallow(<InputField input={input} label={label} meta={meta} />);
+      before(function() {
+        wrappedField = mount(<InputField
+          input={input}
+          label={label}
+          meta={meta}
+          type={type} />
+        );
+      });
+
+      after(function() {
+        wrappedField.unmount();
       });
 
       it('renders the error message', function() {
-        expect(wrappedField.find('.error-message').text()).to.equal(meta.error);
+        expect(wrappedField.find({testdatalabel: 'HOC/field-error'}).text())
+          .to.equal(meta.error);
       });
 
-      it('adds the error class', function() {
-        expect(wrappedField.hasClass('error')).to.be.true;
+      it('looks like an error', function() {
+        expect(wrappedField.find({testdatalabel: 'HOC/field-wrapper'})
+          .hasClass('error')).to.be.true;
       });
     });
   });

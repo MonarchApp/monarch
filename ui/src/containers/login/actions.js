@@ -7,8 +7,6 @@ Actions.login = (email, password) => ({
   type: ActionTypes.Api.CALL,
   payload: {
     endpoint: ApiPaths.LOGIN,
-    isForm: true,
-    hasJoiValidation: true,
     options: {
       body: {email, password},
       method: 'POST'
