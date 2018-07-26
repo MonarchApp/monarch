@@ -2,7 +2,7 @@ import ActionTypes from 'constants/actions';
 import AuthReducer from '../auth';
 import Immutable from 'immutable';
 import sinon from 'sinon';
-import {TOKEN_KEY} from 'constants/local_storage';
+import LocalStorageConstants from 'constants/local_storage';
 
 const sandbox = sinon.createSandbox();
 
@@ -11,19 +11,19 @@ describe('AuthReducer', function() {
 
   before(function() {
     global.localStorage = {
-      removeItem: sinon.spy(),
-      setItem: sinon.spy()
+      removeItem: sandbox.spy(),
+      setItem: sandbox.spy()
     };
   });
 
   afterEach(function() {
-    sandbox.reset();
+    sandbox.resetHistory();
   });
 
   context('when the user fails to login', function() {
     const initialState = Immutable.Map({isAuthenticated: true});
 
-    before(function() {
+    beforeEach(function() {
       returnValue = AuthReducer(initialState, {type: ActionTypes.Auth.LOGIN_FAILURE});
     });
 
@@ -32,7 +32,8 @@ describe('AuthReducer', function() {
     });
 
     it('clears the token in local storage', function() {
-      expect(global.localStorage.removeItem).to.be.calledWith(TOKEN_KEY);
+      expect(global.localStorage.removeItem).to.be
+        .calledWith(LocalStorageConstants.TOKEN_KEY);
     });
   });
 
@@ -40,7 +41,7 @@ describe('AuthReducer', function() {
     const initialState = Immutable.Map({isAuthenticated: false, token: ''});
     const token = 'token';
 
-    before(function() {
+    beforeEach(function() {
       returnValue = AuthReducer(initialState, {
         payload: {token},
         type: ActionTypes.Auth.LOGIN_SUCCESS
@@ -52,7 +53,8 @@ describe('AuthReducer', function() {
     });
 
     it('sets the token in local storage', function() {
-      expect(global.localStorage.setItem).to.be.calledWith(TOKEN_KEY, token);
+      expect(global.localStorage.setItem).to.be
+        .calledWith(LocalStorageConstants.TOKEN_KEY, token);
     });
   });
 });

@@ -80,20 +80,19 @@ Feature: Login
     And response body matches
       """
       {
-        error: _.isString,
-        message: _.isContainerFor|'<MESSAGE>',
         statusCode: 400,
-        validation: {keys: [<KEYS>], source: "payload"}
+        error: 'Bad Request',
+        message: 'Invalid request payload input'
       }
       """
 
     Examples:
-      | EMAIL                      | PASSWORD   | MESSAGE                               | KEYS       |
-      | ""                         | "password" | "email" is not allowed to be empty    | "email"    |
-      | "frankjaeger@foxhound.com" | ""         | "password" is not allowed to be empty | "password" |
-      | null                       | "password" | "email" must be a string              | "email"    |
-      | "frankjaeger@foxhound.com" | null       | "password" must be a string           | "password" |
-      | "frankjaeger"              | "password" | "email" must be a valid email         | "email"    |
+      | EMAIL                      | PASSWORD   |
+      | ""                         | "password" |
+      | "frankjaeger@foxhound.com" | ""         |
+      | null                       | "password" |
+      | "frankjaeger@foxhound.com" | null       |
+      | "frankjaeger"              | "password" |
 
 
   Scenario: Login with unexpected error

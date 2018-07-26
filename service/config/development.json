@@ -3,13 +3,6 @@
     "jwtAudience": "uiUrl",
     "saltRounds": 12
   },
-  "connection": {
-    "host": "localhost",
-    "port": 8080,
-    "routes": {
-      "cors": true
-    }
-  },
   "good": {
     "ops": {
       "interval": 5000
@@ -28,6 +21,13 @@
           "format": "MM/DD/YYYY: HH:mm:ss.SSS"
         }]
       }, "stdout"]
+    }
+  },
+  "server": {
+    "host": "localhost",
+    "port": 8080,
+    "routes": {
+      "cors": true
     }
   }
 }

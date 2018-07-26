@@ -1,5 +1,5 @@
 const request = require('request-promise');
-const {defineSupportCode} = require('cucumber');
+const {Before} = require('cucumber');
 
 const utils = {};
 
@@ -37,9 +37,7 @@ utils.request = async (options, token) => {
 // eslint-disable-next-line no-console
 utils.consoleError = (...args) => console.error(...args);
 
-defineSupportCode(({Before}) => {
-  Before(function() {
-    this.utils = utils;
-    this.utils.getRequestUrl = path => `${this.server.info.uri}/v1${path}`;
-  });
+Before(function() {
+  this.utils = utils;
+  this.utils.getRequestUrl = path => `${this.server.info.uri}/v1${path}`;
 });

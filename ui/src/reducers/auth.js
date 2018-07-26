@@ -13,6 +13,7 @@ export default createReducer(initialState, {
   },
 
   [ActionTypes.Auth.LOGIN_SUCCESS]: (state, {payload}) => {
+    // TODO: Ugh. Let's just cookie / session this mother fucker.
     localStorage.setItem(TOKEN_KEY, payload.token);
     return state.merge({isAuthenticated: true});
   }

@@ -21,7 +21,7 @@ Feature: Delete user
       """
       {
         error: "Forbidden",
-        message: "This action may only be performed by the same user",
+        message: "Forbidden",
         statusCode: 403,
       }
       """

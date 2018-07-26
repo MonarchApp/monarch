@@ -18,12 +18,22 @@ const withField = (Input) => {
     meta: {error},
     type
   }) =>
-    <div className={Classnames({className, error}, 'field')}>
-      <label htmlFor={id}>
+    <div
+      className={Classnames({className, error}, 'field')}
+      testdatalabel='HOC/field-wrapper'
+    >
+      <label
+        htmlFor={id}
+        testdatalabel='HOC/field-label'>
         <span className='label'>{label}</span>
         <Input {...input} aria-describedby={errorId} className='input' id={id} type={type}/>
       </label>
-      {error && <span className='error-message' id={errorId}>{error}</span>}
+      {error && <span
+        className='error-message'
+        id={errorId}
+        testdatalabel='HOC/field-error'>
+        {error}
+      </span>}
     </div>;
 
   FieldWrapperComponent.propTypes = {

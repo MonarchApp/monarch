@@ -1,22 +1,20 @@
 const matchPattern = require('lodash-match-pattern');
-const {defineSupportCode} = require('cucumber');
+const {Given, Then} = require('cucumber');
 const {expect} = require('chai');
 
-defineSupportCode(function({Given, Then}) {
-  Given('{ordinalInt} user matches', async function(id, json) {
-    const [user] = await this.knex('users').select().where({id});
+Given('{ordinalInt} user matches', async function(id, json) {
+  const [user] = await this.knex('users').select().where({id});
 
-    const userResultMatchesPattern = matchPattern(user, json);
-    if (userResultMatchesPattern) { throw new Error(userResultMatchesPattern); }
-  });
+  const userResultMatchesPattern = matchPattern(user, json);
+  if (userResultMatchesPattern) { throw new Error(userResultMatchesPattern); }
+});
 
-  Given('I store the {ordinalInt} user', async function(id) {
-    const [user] = await this.knex('users').select().where({id});
-    this.activeUser = user;
-  });
+Given('I store the {ordinalInt} user', async function(id) {
+  const [user] = await this.knex('users').select().where({id});
+  this.activeUser = user;
+});
 
-  Then('{ordinalInt} user remains unchanged', async function(id) {
-    const [user] = await this.knex('users').select().where({id});
-    expect(user).to.eql(this.activeUser);
-  });
+Then('{ordinalInt} user remains unchanged', async function(id) {
+  const [user] = await this.knex('users').select().where({id});
+  expect(user).to.eql(this.activeUser);
 });

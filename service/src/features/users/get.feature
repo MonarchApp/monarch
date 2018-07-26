@@ -1,14 +1,14 @@
 Feature: Get user
 
-  As a consumer of the Monarch API,
-  I want to be able to get a user from the database.
+  As a user of the Monarch service,
+  I want to be able to get my information.
 
   Background:
     Given I seed "users"
     And I get a token
 
 
-  Scenario: Get a valid user
+  Scenario: Get self
     When GET "/users/1"
     Then response status code is 200
     And response body matches
@@ -24,10 +24,17 @@ Feature: Get user
       """
 
 
-  Scenario: Get a nonexistant user
-    When GET "/users/75"
-    Then response status code is 200
-    And response body is empty
+  Scenario: Get another user
+    When GET "/users/3"
+    Then response status code is 403
+    And response body matches
+      """
+      {
+        error: "Forbidden",
+        message: "Forbidden",
+        statusCode: 403,
+      }
+      """
 
 
   Scenario: Get a user with unexpected error

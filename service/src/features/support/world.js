@@ -1,8 +1,6 @@
-const {defineSupportCode} = require('cucumber');
+const {setWorldConstructor} = require('cucumber');
 
 process.env.NODE_ENV = 'test';
 function MonarchWorld() {}
 
-defineSupportCode(function({setWorldConstructor}) {
-  setWorldConstructor(MonarchWorld);
-});
+setWorldConstructor(MonarchWorld);
