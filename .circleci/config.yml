@@ -42,7 +42,7 @@ jobs:
             - v1-service-node-deps-{{ checksum "yarn.lock" }}
             - v1-service-node-deps-
           paths:
-          - node_modules
+            - node_modules
 
       - *persist_to_workspace
 
@@ -82,7 +82,7 @@ jobs:
             - v1-ui-node-deps-{{ checksum "yarn.lock" }}
             - v1-ui-node-deps-
           paths:
-          - node_modules
+            - node_modules
 
 workflows:
   version: 2
