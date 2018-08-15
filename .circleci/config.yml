@@ -48,14 +48,16 @@ jobs:
 
   lint_and_unit_test_service:
     <<: *service_defaults
-    - *attach_workspace
-    - run: yarn lint
-    - run: yarn test:unit
+    steps:
+      - *attach_workspace
+      - run: yarn lint
+      - run: yarn test:unit
 
   feature_test_service:
     <<: *service_defaults
-    - *attach_workspace
-    - run: yarn features
+    steps:
+      - *attach_workspace
+      - run: yarn features
 
   build_and_test_ui:
     docker:
@@ -81,8 +83,6 @@ jobs:
             - v1-ui-node-deps-
           paths:
           - node_modules
-
-
 
 workflows:
   version: 2
