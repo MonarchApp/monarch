@@ -9,9 +9,9 @@ version: 2.0
         POSTGRES_DB: monarch_test
   working_directory: /root/service
 
-.attach_workspace: &attach_workspace
+.attach_server_workspace: &attach_server_workspace
   attach_workspace:
-    at: workspace
+    at: /root/service
 
 jobs:
   build_service:
@@ -37,7 +37,7 @@ jobs:
             - node_modules
 
       - persist_to_workspace:
-        root: workspace
+        root: /root/service
         paths:
           - node_modules
           - rsa-private.pem
@@ -47,14 +47,14 @@ jobs:
   lint_and_unit_test_service:
     <<: *service_defaults
     steps:
-      - *attach_workspace
+      - *attach_server_workspace
       - run: yarn lint
       - run: yarn test:unit
 
   feature_test_service:
     <<: *service_defaults
     steps:
-      - *attach_workspace
+      - *attach_server_workspace
       - run: yarn features
 
   build_and_test_ui:
