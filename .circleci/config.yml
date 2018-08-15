@@ -3,7 +3,7 @@ version: 2.0
 .service_defaults: &service_defaults
   docker:
     - image: circleci/node:8
-    - image: circleci/postgres:8
+    - image: postgres:latest
       environment:
         POSTGRES_USER: postgres
         POSTGRES_DB: monarch_test
