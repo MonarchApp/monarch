@@ -33,11 +33,11 @@ jobs:
             - node_modules
 
       - persist_to_workspace:
-        root: ~/service
-        paths:
-          - node_modules
-          - rsa-private.pem
-          - rsa-public.pem
+          root: ~/service
+          paths:
+            - node_modules
+            - rsa-private.pem
+            - rsa-public.pem
 
 
   lint_and_unit_test_service:
