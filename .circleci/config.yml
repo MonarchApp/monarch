@@ -3,22 +3,15 @@ version: 2.0
 .service_defaults: &service_defaults
   docker:
     - image: circleci/node:8
+    - image: circleci/postgres:8
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_DB: monarch_test
   working_directory: /root/service
-
-.ui_defaults: &ui_defaults
-  docker:
-    - image: circleci/node:8
-  working_directory: /root/ui
-
-.persist_to_workspace: &persist_to_workspace
-  persist_to_workspace:
-    root: /workspace
-    paths:
-      - node_modules
 
 .attach_workspace: &attach_workspace
   attach_workspace:
-    at: /workspace
+    at: workspace
 
 jobs:
   build_service:
@@ -32,9 +25,8 @@ jobs:
             - v1-service-node-deps-{{ checksum "yarn.lock" }}
             - v1-service-node-deps-
 
-      - run:
-          name: Install packages
-          command: yarn
+      - run: yarn
+      - run: yarn gen-keys
 
       - save_cache:
           name: Save node_modules cache
@@ -44,7 +36,13 @@ jobs:
           paths:
             - node_modules
 
-      - *persist_to_workspace
+      - persist_to_workspace:
+        root: workspace
+        paths:
+          - node_modules
+          - rsa-private.pem
+          - rsa-public.pem
+
 
   lint_and_unit_test_service:
     <<: *service_defaults
