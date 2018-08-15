@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Emma Bukacek",
   "license": "AGPL-3.0",
+  "engine": {
+    "node": ">= 8.0.0"
+  },
   "dependencies": {
     "bounce": "^1.2.0",
     "chai-immutable": "^2.0.0-alpha.1",
@@ -12,6 +15,7 @@
     "immutable": "^3.8.2",
     "isomorphic-fetch": "^2.2.1",
     "normalizr": "^3.2.4",
+    "nyc": "^12.0.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
@@ -61,8 +65,13 @@
     "lint:js": "eslint src/",
     "lint:scss": "sass-lint src/**/*.scss -v",
     "start": "webpack-dev-server --color --progress",
-    "test": "yarn test:file 'src/**/*.test.js'",
-    "test:file": "mocha-webpack --opts='test/mocha.opts'",
+    "test": "mocha-webpack --opts='test/mocha.opts' 'src/**/*.test.js'",
+    "test:coverage": "nyc --reporter=html yarn test",
     "test:watch": "yarn test --watch"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*"
+    ]
   }
 }
