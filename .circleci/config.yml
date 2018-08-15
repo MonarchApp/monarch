@@ -7,11 +7,11 @@ version: 2.0
       environment:
         POSTGRES_USER: postgres
         POSTGRES_DB: monarch_test
-  working_directory: /root/service
+  working_directory: ~/service
 
 .attach_server_workspace: &attach_server_workspace
   attach_workspace:
-    at: /root/service
+    at: ~/service
 
 jobs:
   build_service:
@@ -33,7 +33,7 @@ jobs:
             - node_modules
 
       - persist_to_workspace:
-        root: /root/service
+        root: ~/service
         paths:
           - node_modules
           - rsa-private.pem
@@ -56,7 +56,7 @@ jobs:
   build_and_test_ui:
     docker:
       - image: circleci/node:8
-    working_directory: /root/ui
+    working_directory: ~/ui
     steps:
       - checkout
 
