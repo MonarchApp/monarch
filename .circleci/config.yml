@@ -20,7 +20,6 @@ jobs:
       - checkout
 
       - restore_cache:
-          name: Restore node_modules cache
           keys:
             - v1-service-node-deps-{{ checksum "yarn.lock" }}
             - v1-service-node-deps-
@@ -29,10 +28,7 @@ jobs:
       - run: yarn gen-keys
 
       - save_cache:
-          name: Save node_modules cache
-          key:
-            - v1-service-node-deps-{{ checksum "yarn.lock" }}
-            - v1-service-node-deps-
+          key: v1-service-node-deps-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
 
@@ -65,7 +61,6 @@ jobs:
       - checkout
 
       - restore_cache:
-          name: Restore node_modules cache
           keys:
             - v1-ui-node-deps-{{ checksum "yarn.lock" }}
             - v1-ui-node-deps-
@@ -75,10 +70,7 @@ jobs:
       - run: yarn test
 
       - save_cache:
-          name: Save node_modules cache
-          key:
-            - v1-ui-node-deps-{{ checksum "yarn.lock" }}
-            - v1-ui-node-deps-
+          key: v1-ui-node-deps-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
 
