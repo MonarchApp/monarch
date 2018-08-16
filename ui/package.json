@@ -61,7 +61,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "lint": "yarn lint:js ; yarn lint:scss",
+    "lint": "yarn lint:js && yarn lint:scss",
     "lint:js": "eslint src/",
     "lint:scss": "sass-lint src/**/*.scss -v",
     "start": "webpack-dev-server --color --progress",
