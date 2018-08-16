@@ -7,11 +7,11 @@ version: 2.0
 #       environment:
 #         POSTGRES_USER: postgres
 #         POSTGRES_DB: monarch_test
-#   working_directory: ~/service
+#   working_directory: ~/monarch
 
 # .attach_server_workspace: &attach_server_workspace
 #   attach_workspace:
-#     at: ~/service
+#     at: ~/monarch
 
 jobs:
   # build_service:
@@ -33,7 +33,7 @@ jobs:
   #           - node_modules
   #
   #     - persist_to_workspace:
-  #         root: ~/service
+  #         root: ~/monarch
   #         paths:
   #           - node_modules
   #           - rsa-private.pem
@@ -56,22 +56,31 @@ jobs:
   build_and_test_ui:
     docker:
       - image: circleci/node:8
-    working_directory: ~/ui
+    working_directory: ~/monarch
     steps:
       - checkout
+
       - run: echo "BUTTS" && pwd && ls -la
 
       - restore_cache:
           keys:
-            - v1-ui-node-deps-{{ checksum "yarn.lock" }}
+            - v1-ui-node-deps-{{ checksum "ui/yarn.lock" }}
             - v1-ui-node-deps-
 
-      - run: yarn
-      - run: yarn lint
-      - run: yarn test
+      - run:
+          command: yarn
+          working_directory: ~/monarch/ui
+
+      - run:
+          command: yarn lint
+          working_directory: ~/monarch/ui
+
+      - run:
+          command: yarn test
+          working_directory: ~/monarch/ui
 
       - save_cache:
-          key: v1-ui-node-deps-{{ checksum "yarn.lock" }}
+          key: v1-ui-node-deps-{{ checksum "ui/yarn.lock" }}
           paths:
             - node_modules
 
