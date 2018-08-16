@@ -15,7 +15,9 @@ version: 2.0
 
 jobs:
   build_service:
-    <<: *service_defaults
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/monarch/
     steps:
       - checkout
 
@@ -39,7 +41,7 @@ jobs:
             - node_modules
 
       - persist_to_workspace:
-          root: ~/monarch
+          root: ~/monarch/service
           paths:
             - node_modules
             - rsa-private.pem
