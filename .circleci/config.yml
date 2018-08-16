@@ -1,57 +1,57 @@
 version: 2.0
 
-.service_defaults: &service_defaults
-  docker:
-    - image: circleci/node:8
-    - image: postgres:10.5-alpine
-      environment:
-        POSTGRES_USER: postgres
-        POSTGRES_DB: monarch_test
-  working_directory: ~/service
+# .service_defaults: &service_defaults
+#   docker:
+#     - image: circleci/node:8
+#     - image: postgres:10.5-alpine
+#       environment:
+#         POSTGRES_USER: postgres
+#         POSTGRES_DB: monarch_test
+#   working_directory: ~/service
 
-.attach_server_workspace: &attach_server_workspace
-  attach_workspace:
-    at: ~/service
+# .attach_server_workspace: &attach_server_workspace
+#   attach_workspace:
+#     at: ~/service
 
 jobs:
-  build_service:
-    <<: *service_defaults
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-service-node-deps-{{ checksum "yarn.lock" }}
-            - v1-service-node-deps-
-
-      - run: yarn
-      - run: yarn gen-keys
-
-      - save_cache:
-          key: v1-service-node-deps-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
-
-      - persist_to_workspace:
-          root: ~/service
-          paths:
-            - node_modules
-            - rsa-private.pem
-            - rsa-public.pem
-
-
-  lint_and_unit_test_service:
-    <<: *service_defaults
-    steps:
-      - *attach_server_workspace
-      - run: yarn lint
-      - run: yarn test:unit
-
-  feature_test_service:
-    <<: *service_defaults
-    steps:
-      - *attach_server_workspace
-      - run: yarn features
+  # build_service:
+  #   <<: *service_defaults
+  #   steps:
+  #     - checkout
+  #
+  #     - restore_cache:
+  #         keys:
+  #           - v1-service-node-deps-{{ checksum "yarn.lock" }}
+  #           - v1-service-node-deps-
+  #
+  #     - run: yarn
+  #     - run: yarn gen-keys
+  #
+  #     - save_cache:
+  #         key: v1-service-node-deps-{{ checksum "yarn.lock" }}
+  #         paths:
+  #           - node_modules
+  #
+  #     - persist_to_workspace:
+  #         root: ~/service
+  #         paths:
+  #           - node_modules
+  #           - rsa-private.pem
+  #           - rsa-public.pem
+  #
+  #
+  # lint_and_unit_test_service:
+  #   <<: *service_defaults
+  #   steps:
+  #     - *attach_server_workspace
+  #     - run: yarn lint
+  #     - run: yarn test:unit
+  #
+  # feature_test_service:
+  #   <<: *service_defaults
+  #   steps:
+  #     - *attach_server_workspace
+  #     - run: yarn features
 
   build_and_test_ui:
     docker:
@@ -59,6 +59,7 @@ jobs:
     working_directory: ~/ui
     steps:
       - checkout
+      - run: echo "BUTTS" && pwd && echo "BUTTS"
 
       - restore_cache:
           keys:
@@ -76,7 +77,7 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test_service:
+  build_and_test:
     jobs:
       - build_and_test_ui
       - build_service
