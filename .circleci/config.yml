@@ -11,7 +11,7 @@ version: 2.0
 
 .attach_server_workspace: &attach_server_workspace
   attach_workspace:
-    at: ~/monarch
+    at: ~/monarch/server
 
 jobs:
   build_service:
