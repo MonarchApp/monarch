@@ -29,7 +29,6 @@
     "request-promise": "^4.2.2"
   },
   "scripts": {
-    "coverage": "nyc report --reporter=text-lcov",
     "gen-keys": "yarn private-key && yarn public-key",
     "lint": "node_modules/.bin/eslint src/",
     "private-key": "openssl genrsa 4096 > rsa-private.pem",
@@ -44,7 +43,6 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
-    "coveralls": "^3.0.2",
     "cucumber": "^4.2.1",
     "eslint": "^5.1.0",
     "lodash-match-pattern": "^2.0.1",
@@ -56,13 +54,13 @@
     "sinon-chai": "^3.2.0"
   },
   "nyc": {
+    "include": [
+      "src/**/*"
+    ],
     "exclude": [
       "src/routes",
       "src/features",
       "src/seeds"
-    ],
-    "include": [
-      "src/**/*"
     ]
   }
 }

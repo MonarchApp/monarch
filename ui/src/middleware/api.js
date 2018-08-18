@@ -1,18 +1,6 @@
 import ActionTypes from 'constants/actions';
 import {normalize} from 'normalizr';
-import {SubmissionError} from 'redux-form/immutable';
 import Bounce from 'bounce';
-
-const shouldValidateAsJoi = ({isForm, hasJoiValidation}, response, {validation}) =>
-  response.ok === false &&
-    isForm === true &&
-    hasJoiValidation === true &&
-    validation &&
-    validation.keys.length;
-
-const shouldValidateAsForm = ({isForm}, response) => response.ok === false && isForm === true;
-
-const joiErrorRegex = /\[(.+)\]/;
 
 const callApi = async (endpoint, options, schema) => {
   const updatedOptions = Object.assign({}, options, {

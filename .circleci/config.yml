@@ -1,17 +1,81 @@
-machine:
-  node:
-    version: 8.5.0
-  timezone:
-    America/Los_Angeles
+version: 2.0
 
-dependencies:
-  override:
-    - scripts/ci-setup.sh
-    - scripts/ci-build.sh
-  cache_directories:
-    - ~/node_modules
+jobs:
+  build_and_test_service:
+    docker:
+      - image: circleci/node:8
+      - image: postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: monarch_test
+    working_directory: ~/monarch/
 
-test:
-  override:
-    - scripts/ci-test.sh
-    - scripts/ci-test-report.sh
+    steps:
+      - checkout
+
+      # - restore_cache:
+      #     keys:
+      #       - v1-service-node-deps-{{ checksum "service/yarn.lock" }}
+      #       - v1-service-node-deps-
+
+      - run:
+          command: yarn
+          working_directory: service
+
+      - run:
+          name: Generate keys for signing tokens
+          command: yarn gen-keys
+          working_directory: service
+
+      - run:
+          command: yarn lint
+          working_directory: service
+
+      - run:
+          command: yarn test:unit
+          working_directory: service
+
+      - run:
+          command: yarn test:feature
+          working_directory: service
+
+      # - save_cache:
+      #     key: v1-service-node-deps-{{ checksum "service/yarn.lock" }}
+      #     paths:
+      #       - service/node_modules
+
+  build_and_test_ui:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/monarch
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-ui-node-deps-{{ checksum "ui/yarn.lock" }}
+            - v1-ui-node-deps-
+
+      - run:
+          command: yarn
+          working_directory: ui
+
+      - run:
+          command: yarn lint
+          working_directory: ui
+
+      - run:
+          command: yarn test
+          working_directory: ui
+
+      - save_cache:
+          key: v1-ui-node-deps-{{ checksum "ui/yarn.lock" }}
+          paths:
+            - node_modules
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_and_test_ui
+      - build_and_test_service

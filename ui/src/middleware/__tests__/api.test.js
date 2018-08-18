@@ -1,10 +1,8 @@
 import ActionTypes from 'constants/actions';
-import ApiFixtures from './fixtures/api';
 import ApiMiddleware from '../api';
 import _ from 'lodash';
 import configureStore from 'redux-mock-store';
 import sinon from 'sinon';
-import {SubmissionError} from 'redux-form/immutable';
 import {normalize, schema} from 'normalizr';
 
 
