@@ -1,72 +1,48 @@
 version: 2.0
 
-.service_defaults: &service_defaults
-  docker:
-    - image: circleci/node:8
-    - image: postgres:10.5-alpine
-      environment:
-        POSTGRES_USER: postgres
-        POSTGRES_DB: monarch_test
-  working_directory: ~/monarch/
-
-.attach_server_workspace: &attach_server_workspace
-  attach_workspace:
-    at: ~/monarch/server
-
 jobs:
-  build_service:
+  build_and_test_service:
     docker:
       - image: circleci/node:8
+      - image: postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: monarch_test
     working_directory: ~/monarch/
+
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - v1-service-node-deps-{{ checksum "service/yarn.lock" }}
-            - v1-service-node-deps-
+      # - restore_cache:
+      #     keys:
+      #       - v1-service-node-deps-{{ checksum "service/yarn.lock" }}
+      #       - v1-service-node-deps-
 
       - run:
           command: yarn
-          working_directory: ~/monarch/service
+          working_directory: service
 
       - run:
           name: Generate keys for signing tokens
           command: yarn gen-keys
-          working_directory: ~/monarch/service
+          working_directory: service
 
-      - save_cache:
-          key: v1-service-node-deps-{{ checksum "service/yarn.lock" }}
-          paths:
-            - node_modules
-
-      - persist_to_workspace:
-          root: ~/monarch/service
-          paths:
-            - node_modules
-            - rsa-private.pem
-            - rsa-public.pem
-
-
-  lint_and_unit_test_service:
-    <<: *service_defaults
-    steps:
-      - *attach_server_workspace
       - run:
           command: yarn lint
-          working_directory: ~/monarch/service
+          working_directory: service
 
       - run:
           command: yarn test:unit
-          working_directory: ~/monarch/service
+          working_directory: service
 
-  feature_test_service:
-    <<: *service_defaults
-    steps:
-      - *attach_server_workspace
       - run:
           command: yarn features
-          working_directory: ~/monarch/service
+          working_directory: service
+
+      # - save_cache:
+      #     key: v1-service-node-deps-{{ checksum "service/yarn.lock" }}
+      #     paths:
+      #       - service/node_modules
 
   build_and_test_ui:
     docker:
@@ -82,15 +58,15 @@ jobs:
 
       - run:
           command: yarn
-          working_directory: ~/monarch/ui
+          working_directory: ui
 
       - run:
           command: yarn lint
-          working_directory: ~/monarch/ui
+          working_directory: ui
 
       - run:
           command: yarn test
-          working_directory: ~/monarch/ui
+          working_directory: ui
 
       - save_cache:
           key: v1-ui-node-deps-{{ checksum "ui/yarn.lock" }}
@@ -102,10 +78,4 @@ workflows:
   build_and_test:
     jobs:
       - build_and_test_ui
-      - build_service
-      - lint_and_unit_test_service:
-          requires:
-            - build_service
-      - feature_test_service:
-          requires:
-            - build_service
+      - build_and_test_service
