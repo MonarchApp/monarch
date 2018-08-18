@@ -36,7 +36,7 @@ jobs:
           working_directory: service
 
       - run:
-        command: yarn test:feature
+          command: yarn test:feature
           working_directory: service
 
       # - save_cache:
