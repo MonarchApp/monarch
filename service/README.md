@@ -1,36 +1,28 @@
-# Monarch API
+# Monarch Service
+
+Backend service for Monarch.
 
 ## Setup
 
-* Install [Yarn][yarn-setup].
-* Install [Postgres][postgres-setup].
-* Install NPM dependencies: `yarn`
-* Generate JWT keys: `yarn gen-keys`
-* Create database tables:
+Run the following commands to get started:
 
-```bash
+1. Install [Docker][docker-compose].
+1. Install [Docker Compose][docker-compose-setup].
+1. Start containers:
 
-psql -U postgres -h localhost -c 'CREATE DATABASE monarch_dev;' &&
-psql -U postgres -h localhost -c 'CREATE DATABASE monarch_test;'
-
-```
-* Establish table schema:
-
-```bash
-
-knex migrate:latest --env develop &&
-knex migrate:latest --env test
-
-```
-
-## Running Server
-
-1. `yarn start`
+    ```bash
+    docker-compose up
+    ```
 
 ## Running Tests
 
-1. `yarn test`
+When running tests, make sure you have all containers running
+by running `docker-compose up`. Once the containers are running,
+run the following command:
 
+```bash
+docker-compose run monarch yarn test
+```
 
-[yarn-setup]: https://yarnpkg.com/lang/en/docs/install/
-[postgres-setup]: https://www.postgresql.org/download/
+[docker-compose]: https://docs.docker.com/install/
+[docker-compose-setup]: https://docs.docker.com/compose/install/

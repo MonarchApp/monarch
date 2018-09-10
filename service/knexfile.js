@@ -6,15 +6,15 @@ module.exports = {
       user: 'postgres'
     },
     migrations: {
-      directory: __dirname + '/src//db/migrations'
+      directory: __dirname + '/src/db/migrations'
     },
     seeds: {
-      directory: __dirname + '/src//db/seeds/develop'
+      directory: __dirname + '/src/db/seeds/develop'
     }
   },
   test: {
     client: 'pg',
-    connection: {
+    connection: process.env.DATABASE_URL || {
       database: 'monarch_test',
       user: 'postgres'
     },
@@ -22,7 +22,7 @@ module.exports = {
       directory: __dirname + '/src/db/migrations'
     },
     seeds: {
-      directory: __dirname + '/src/db/seeds/develop'
+      directory: __dirname + '/src/db/seeds/test'
     }
   }
 };

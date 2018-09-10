@@ -1,5 +1,7 @@
 # Monarch App
 
+Frontend application for Monarch.
+
 ## Setup
 
 1. Install [Yarn][yarn-setup].
