@@ -36,7 +36,7 @@
     "start": "node_modules/.bin/nodemon index",
     "test": "yarn test:unit && yarn test:feature",
     "test:coverage": "nyc --reporter=html yarn test",
-    "test:feature": "node_modules/.bin/cucumber-js src/features",
+    "test:feature": "node_modules/.bin/cucumber-js src/features --tags 'not @Disabled'",
     "test:feature:only": "yarn test:feature --tags '@Only'",
     "test:unit": "node_modules/.bin/mocha 'src/**/*.test.js' test/mocha_hooks.js"
   },
