@@ -8,20 +8,41 @@ Run the following commands to get started:
 
 1. Install [Docker][docker-compose].
 1. Install [Docker Compose][docker-compose-setup].
-1. Start containers:
 
-    ```bash
-    docker-compose up
-    ```
+## Running Server
+
+### Using entire stack
+If you want to run entire stack in `docker-compose`, use the
+`docker-compose.app.yml` file by using the `-f` option before
+each command.
+
+### Using partial stack plus node service
+
+Run the default command to start up all containers, sans node:
+
+```bash
+docker-compose up
+```
+
+Then boot up the node server:
+
+```bash
+yarn start
+```
 
 ## Running Tests
 
 When running tests, make sure you have all containers running
-by running `docker-compose up`. Once the containers are running,
-run the following command:
+by running:
 
 ```bash
-docker-compose run monarch yarn test
+docker-compose up
+```
+
+Once the containers are running, run the following command:
+
+```bash
+yarn test
 ```
 
 [docker-compose]: https://docs.docker.com/install/

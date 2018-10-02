@@ -16,6 +16,7 @@ module.exports = {
     client: 'pg',
     connection: process.env.DATABASE_URL || {
       database: 'monarch_test',
+      host: 'localhost',
       user: 'postgres'
     },
     migrations: {
