@@ -24,75 +24,57 @@ describe('getConfig', function() {
     sinon.resetHistory();
   });
 
-  context('when the provided environment has a corresponding config file', function() {
-    context('always', function() {
-      beforeEach(async function() {
-        await getConfig();
-      });
-
-      it('loads the environment config', function() {
-        expect(nconfStub.file).to.be
-          .calledWithMatch(`config/${process.env.NODE_ENV}.json`);
-      });
+  context('always', function() {
+    beforeEach(async function() {
+      await getConfig();
     });
 
-    context('and there are JWT keys available', function() {
-      const privateKey = 'privateKey';
-      const publicKey = 'publicKey';
-
-      beforeEach(async function() {
-        fsStub.readFile.withArgs('rsa-private.pem', 'utf8').yields(null, privateKey);
-        fsStub.readFile.withArgs('rsa-public.pem', 'utf8').yields(null, publicKey);
-
-        returnValue = await getConfig();
-      });
-
-      after(function() {
-        fsStub.readFile.reset();
-      });
-
-      it('sets the private key on the nconf object', function() {
-        expect(nconfStub.set).to.be.calledWith('auth:jwtPrivateKey', privateKey);
-      });
-
-      it('sets the public key on the nconf object', function() {
-        expect(nconfStub.set).to.be.calledWith('auth:jwtPublicKey', publicKey);
-      });
-
-      it('returns the nconf object', function() {
-        expect(returnValue).to.eql(nconfStub);
-      });
-    });
-
-    context('and JWT keys are not available', function() {
-      let configPromise;
-      const missingJwtError = 'THESE ARE NOT THE JWT SECRETZ UR LOKIN FOR';
-
-      beforeEach(function() {
-        fsStub.readFile.yields(missingJwtError);
-        configPromise = getConfig();
-      });
-
-      it('throws', function() {
-        return expect(configPromise).to.eventually.be
-          .rejectedWith(missingJwtError);
-      });
+    it('loads the environment config', function() {
+      expect(nconfStub.file).to.be
+        .calledWithMatch(`env/${process.env.NODE_ENV}/config.json`);
     });
   });
 
-  context('when the provided environment does not have a corresponding config file',
-    function() {
-      let configPromise;
-      const missingFileError = "This file has lost it's way..";
+  context('and there are JWT keys available', function() {
+    const privateKey = 'privateKey';
+    const publicKey = 'publicKey';
 
-      beforeEach(function() {
-        fsStub.stat.yieldsAsync(missingFileError);
-        configPromise = getConfig();
-      });
+    beforeEach(async function() {
+      fsStub.readFile.withArgs('rsa-private.pem', 'utf8').yields(null, privateKey);
+      fsStub.readFile.withArgs('rsa-public.pem', 'utf8').yields(null, publicKey);
 
-      it('throws', function() {
-        return expect(configPromise).to.eventually.be
-          .rejectedWith(missingFileError);
-      });
+      returnValue = await getConfig();
     });
+
+    after(function() {
+      fsStub.readFile.reset();
+    });
+
+    it('sets the private key on the nconf object', function() {
+      expect(nconfStub.set).to.be.calledWith('auth:jwtPrivateKey', privateKey);
+    });
+
+    it('sets the public key on the nconf object', function() {
+      expect(nconfStub.set).to.be.calledWith('auth:jwtPublicKey', publicKey);
+    });
+
+    it('returns the nconf object', function() {
+      expect(returnValue).to.eql(nconfStub);
+    });
+  });
+
+  context('and JWT keys are not available', function() {
+    let configPromise;
+    const missingJwtError = 'config.json';
+
+    beforeEach(function() {
+      fsStub.readFile.yields(missingJwtError);
+      configPromise = getConfig();
+    });
+
+    it('throws', function() {
+      return expect(configPromise).to.eventually.be
+        .rejectedWith(missingJwtError);
+    });
+  });
 });

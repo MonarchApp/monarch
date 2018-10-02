@@ -12,7 +12,7 @@ When('{string} table is dropped', async function(tableName) {
 });
 
 When('I seed {string}', async function(seedFilename) {
-  const pathToSeed = path.join('src/db/seeds', process.env.NODE_ENV, seedFilename);
+  const pathToSeed = path.join('env', process.env.NODE_ENV, 'seeds', seedFilename);
   const seedFunction = rootRequire(pathToSeed).seed;
   await seedFunction(this.knex);
 });

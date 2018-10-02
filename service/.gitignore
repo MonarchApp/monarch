@@ -1,6 +1,11 @@
 *.pem
+env/*/*
+!env/*/seeds/
+!env/*/config.json
+
 .nyc_output/
 coverage/
 node_modules/
+
 npm-debug.log
 yarn-error.log

@@ -4,13 +4,10 @@ const nconf = require('nconf');
 const path = require ('path');
 
 const readFile = Promise.promisify(fs.readFile);
-const stat = Promise.promisify(fs.stat);
 
 
 const getConfig = async () => {
-  const configPath = path.resolve('config', `${process.env.NODE_ENV}.json`);
-
-  await stat(configPath);
+  const configPath = path.resolve('env', process.env.NODE_ENV, 'config.json');
 
   nconf.file(configPath);
   nconf.set('auth:jwtPrivateKey', await readFile('rsa-private.pem', 'utf8'));

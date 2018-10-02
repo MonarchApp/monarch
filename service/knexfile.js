@@ -6,10 +6,10 @@ module.exports = {
       user: 'postgres'
     },
     migrations: {
-      directory: __dirname + '/src/db/migrations'
+      directory: './src/migrations'
     },
     seeds: {
-      directory: __dirname + '/src/db/seeds/develop'
+      directory: './env/development/seeds'
     }
   },
   test: {
@@ -19,10 +19,10 @@ module.exports = {
       user: 'postgres'
     },
     migrations: {
-      directory: __dirname + '/src/db/migrations'
+      directory: './src/migrations'
     },
     seeds: {
-      directory: __dirname + '/src/db/seeds/test'
+      directory: './env/test/seeds'
     }
   }
 };
