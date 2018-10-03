@@ -33,6 +33,11 @@ describe('getConfig', function() {
       expect(nconfStub.file).to.be
         .calledWithMatch(`env/${process.env.NODE_ENV}/config.json`);
     });
+
+    it('loads the local config', function() {
+      expect(nconfStub.file).to.be
+        .calledWithMatch(`env/${process.env.NODE_ENV}/local.json`);
+    });
   });
 
   context('and there are JWT keys available', function() {
