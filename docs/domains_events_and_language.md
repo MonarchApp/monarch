@@ -69,12 +69,8 @@ but given an appeals process for wrongful banning.
   * Authentication (Generic)
   * Profile (Supporting)
 
-## Location
+## Connect
 *Type* - Core
-
-*Subdomains* -
-  * Connect (Core)
-  * Geocode (Generic)
 
 ## Conversation
 *Type* - Supporting

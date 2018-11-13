@@ -1,7 +1,7 @@
 const sinon = require('sinon');
 const mockRequire = require('mock-require');
 
-const here = require('../here.js');
+const connect = require('../connect.js');
 
 const mockRp = {
   get: sinon.stub()
@@ -9,15 +9,15 @@ const mockRp = {
 
 mockRequire('request-promise', mockRp);
 
-describe.skip('Location Service', function() {
+describe.only('Connect Service', function() {
   describe('geocode', function() {
-    const hereAppId = 'Scrubbob Octogonpants';
-    const hereAppCode = 'Mattress Bar';
+    const hereAppId = 'Scrubbob';
+    const hereAppCode = 'Octogonpants';
     const searchText = ' (╯°□°）╯︵ ┻━┻';
 
     context('when calling the Here API', function() {
       beforeEach(function() {
-        here.reverseGeocode({hereAppId, hereAppCode, search: searchText});
+        connect.reverseGeocode({hereAppId, hereAppCode, search: searchText});
       });
 
       it('calls the API with the provided search query', async function() {
