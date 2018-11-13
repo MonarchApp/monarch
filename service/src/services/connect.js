@@ -1,8 +1,8 @@
 const rp = require('request-promise');
 
-const location = {};
+const connect = {};
 
-location.geocode = async ({hereAppId, hereAppCode, search}) => {
+connect.geocode = async ({hereAppId, hereAppCode, search}) => {
   return await rp.get({
     uri: 'https://geocoder.api.here.com/6.2/geocode.json',
     qs: {
@@ -13,4 +13,4 @@ location.geocode = async ({hereAppId, hereAppCode, search}) => {
   });
 };
 
-module.exports = location;
+module.exports = connect;
