@@ -5,33 +5,45 @@ const mockRp = {
   get: sinon.stub()
 };
 
-// mock('request-promise', mockRp);
+mock('request-promise', mockRp);
 const location = require('../location.js');
 
-describe.skip('Location Service', function() {
+describe.only('Location Service', function() {
   describe('search', function() {
     const hereAppId = 'Scrubbob';
     const hereAppCode = 'Octogonpants';
     const searchText = '(╯°□°）╯︵ ┻━┻';
     const label = 'SOMEWHERE!';
     const locationId = 'LOCATION';
-    let result;
+    let returnValue;
 
     after(function() {
       mock.stopAll();
     });
 
+    afterEach(function() {
+      mockRp.get.reset();
+    });
+
     context('when the call succeeds', function() {
       beforeEach(async function() {
         mockRp.get
-          .withArgs({hereAppId, hereAppCode, search: searchText})
-          .yields({searchions: {label, locationId}});
+          .withArgs({
+            json: true,
+            qs: {
+              app_code: hereAppCode,
+              app_id: hereAppId,
+              query: searchText
+            },
+            uri: 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json'
+          })
+          .resolves({suggestions: [{label, locationId}]});
 
-        result = await location.search({hereAppId, hereAppCode, search: searchText});
+        returnValue = await location.search({hereAppId, hereAppCode, search: searchText});
       });
 
       it('returns all available options', function() {
-        expect(result).to.eql({label, locationId});
+        expect(returnValue).to.eql([{label, locationId}]);
       });
     });
 
@@ -39,14 +51,12 @@ describe.skip('Location Service', function() {
       const requestFailure = new Error('WELL GODDAMNIT');
 
       beforeEach(async function() {
-        mockRp.get
-          .withArgs({hereAppId, hereAppCode, search: searchText})
-          .rejects(requestFailure);
+        mockRp.get.rejects(requestFailure);
       });
 
       it('throws', function() {
         return expect(location.search({hereAppId, hereAppCode, search: searchText}))
-          .to.eventually.be.rejectedWith(requestFailure);
+          .to.be.rejectedWith(requestFailure);
       });
     });
   });
