@@ -23,6 +23,7 @@
     "jsonwebtoken": "^8.0.1",
     "knex": "^0.15.1",
     "lodash": "^4.17.10",
+    "mockingjays": "^2.0.0-alpha.14",
     "nconf": "^0.10.0",
     "pg": "^7.2.0",
     "request": "^2.87.0",
