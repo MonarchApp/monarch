@@ -17,6 +17,11 @@ Sidekicks are manually vetted initially.
 *Rationale* - Has no power connotations. Evokes silly, but also a bit of badass.
 
 
+### Resource
+A person, asset, article, support group, or other miscellaneous entity that can
+benefit a user.
+
+
 ### Conversation
 A dialog opened between two users that facilitates the sending
 and receiving of messages.
