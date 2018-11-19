@@ -38,5 +38,6 @@ Feature: Unauthorized routes
       """
 
     Examples:
-      | METHOD | URL      |
-      | PATCH  | /users/1 |
+      | METHOD | URL              |
+      | PATCH  | /users/1         |
+      | POST   | /location/search |
