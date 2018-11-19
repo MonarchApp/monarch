@@ -1,16 +1,15 @@
 const sinon = require('sinon');
-const mockRequire = require('mock-require');
-
-const location = require('../location.js');
+const mock = require('mock-require');
 
 const mockRp = {
   get: sinon.stub()
 };
 
-mockRequire('request-promise', mockRp);
+// mock('request-promise', mockRp);
+const location = require('../location.js');
 
-describe.only('Location Service', function() {
-  describe('geocode', function() {
+describe.skip('Location Service', function() {
+  describe('search', function() {
     const hereAppId = 'Scrubbob';
     const hereAppCode = 'Octogonpants';
     const searchText = '(╯°□°）╯︵ ┻━┻';
@@ -18,13 +17,17 @@ describe.only('Location Service', function() {
     const locationId = 'LOCATION';
     let result;
 
+    after(function() {
+      mock.stopAll();
+    });
+
     context('when the call succeeds', function() {
       beforeEach(async function() {
         mockRp.get
           .withArgs({hereAppId, hereAppCode, search: searchText})
-          .yields({label, locationId});
+          .yields({searchions: {label, locationId}});
 
-        result = await location.geocode({hereAppId, hereAppCode, search: searchText});
+        result = await location.search({hereAppId, hereAppCode, search: searchText});
       });
 
       it('returns all available options', function() {
@@ -38,11 +41,11 @@ describe.only('Location Service', function() {
       beforeEach(async function() {
         mockRp.get
           .withArgs({hereAppId, hereAppCode, search: searchText})
-          .yields(requestFailure);
+          .rejects(requestFailure);
       });
 
       it('throws', function() {
-        return expect(location.geocode({hereAppId, hereAppCode, search: searchText}))
+        return expect(location.search({hereAppId, hereAppCode, search: searchText}))
           .to.eventually.be.rejectedWith(requestFailure);
       });
     });
