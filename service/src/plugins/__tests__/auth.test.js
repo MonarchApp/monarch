@@ -1,8 +1,8 @@
-const mockRequire = require('mock-require');
+const mock = require('mock-require');
 const sinon = require('sinon');
 
 const hapiAuthJwtStub = {value: 'The plugin is alive, Jim.'};
-mockRequire('hapi-auth-jwt2', hapiAuthJwtStub);
+mock('hapi-auth-jwt2', hapiAuthJwtStub);
 
 const registerAuth = require('./../auth').register;
 
@@ -19,6 +19,10 @@ describe('Register Auth', function() {
 
   afterEach(function() {
     sinon.resetHistory();
+  });
+
+  after(function() {
+    mock.stopAll();
   });
 
   context('when the hapi auth jwt plugin successfully loads', function() {
