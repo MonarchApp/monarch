@@ -1,6 +1,10 @@
 const rootRequire = require('app-root-path').require;
+
 const sinon = require('sinon');
+const path = require('path');
 const {Before, BeforeAll, After, AfterAll} = require('cucumber');
+const Mockingjays = require('mockingjays');
+
 const createServer = rootRequire('src/server');
 
 let server;
@@ -26,6 +30,14 @@ Before(async function() {
     error.message = `Failed to perform database migrations.\n\nError:\n${error.message}`;
     throw error;
   }
+});
+
+Before(function() {
+  // new Mockingjays().start({
+  //   cacheDir: path.resolve('src/features/fixtures/here'),
+  //   serverBaseUrl: 'https://here.com',
+  //   port: 9000
+  // });
 });
 
 After(async function() {
