@@ -2597,16 +2597,16 @@ mock-require@^3.0.2:
     get-caller-file "^1.0.2"
     normalize-path "^2.1.1"
 
-mockingjays@^2.0.0-alpha.14:
-  version "2.0.0-alpha.14"
-  resolved "https://registry.yarnpkg.com/mockingjays/-/mockingjays-2.0.0-alpha.14.tgz#1e8f5a45e2065a7282774fb66fd66e6cebd82f8c"
+mockingjays@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/mockingjays/-/mockingjays-2.0.0.tgz#e530f3174711cbf85a5f2b498378c0d97f9d494c"
   dependencies:
     babel-runtime "^6.0.0"
     http-shutdown "^1.0.0"
     immutable "^3.0.0"
-    lodash "^4.0.0"
     minimist "^1.0.0"
     qs "^6.0.0"
+    ramda "^0.25.0"
 
 moment@2.20.x:
   version "2.20.1"
@@ -3239,6 +3239,10 @@ punycode@^1.4.1:
 qs@^6.0.0, qs@~6.5.1:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
+
+ramda@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
 
 rc@^1.0.1:
   version "1.2.1"
