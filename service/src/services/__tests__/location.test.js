@@ -25,6 +25,40 @@ describe.only('Location Service', function() {
       mockRp.get.reset();
     });
 
+    context('when constructing the uri', function() {
+      beforeEach(function() {
+        mockRp
+          .get
+          .resolves({suggestions: [{label: 'butt', locationId: 'stuff'}]});
+      });
+
+      context('and a port is passed', function() {
+        const port = '666';
+
+        beforeEach(async function() {
+          await location.search({hereAppId, hereAppCode, port, search: searchText});
+        });
+
+        it('adds the port to the uri', function() {
+          expect(mockRp.get).to.be.calledWithMatch({
+            uri: `https://autocomplete.geocoder.api.here.com/6.2/suggest.json:${port}`
+          });
+        });
+      });
+
+      context('and no port is passed', function() {
+        beforeEach(async function() {
+          await location.search({hereAppId, hereAppCode, search: searchText});
+        });
+
+        it("doesn't add the port to the uri", function() {
+          expect(mockRp.get).to.be.calledWithMatch({
+            uri: 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json'
+          });
+        });
+      });
+    });
+
     context('when the call succeeds', function() {
       beforeEach(async function() {
         mockRp.get
