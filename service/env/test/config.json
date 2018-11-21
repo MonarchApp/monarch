@@ -4,6 +4,9 @@
     "saltRounds": 1
   },
   "good": {},
+  "hereApi": {
+    "port": 9000
+  },
   "server": {
     "debug": false,
     "host": "localhost",

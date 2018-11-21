@@ -18,18 +18,18 @@ location.search.config = {
 
 location.search.handler = async (request, h) => {
   const {value} = request.payload;
-  const {id, code} = request.config.get('hereApi');
+  const {code, id, port} = request.config.get('hereApi');
 
   try {
     const searchResults = await locationService.search({
       hereAppCode: code,
       hereAppId: id,
+      port,
       search: value
     });
 
     return h.response(searchResults).code(200);
   } catch (error) {
-    console.log(error);
     bounce.rethrow(error, 'system');
     return boom.serverUnavailable();
   }
