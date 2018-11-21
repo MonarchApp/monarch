@@ -3,10 +3,12 @@ const rootRequire = require('app-root-path').require;
 const sinon = require('sinon');
 const path = require('path');
 const {Before, BeforeAll, After, AfterAll} = require('cucumber');
+
 const Mockingjays = require('mockingjays');
 
 const createServer = rootRequire('src/server');
 
+const hereApiMock = new Mockingjays();
 let server;
 
 BeforeAll(async function() {
@@ -33,11 +35,15 @@ Before(async function() {
 });
 
 Before(function() {
-  // new Mockingjays().start({
-  //   cacheDir: path.resolve('src/features/fixtures/here'),
-  //   serverBaseUrl: 'https://here.com',
-  //   port: 9000
-  // });
+  hereApiMock.start({
+    cacheDir: path.resolve('src/features/fixtures/here'),
+    serverBaseUrl: 'https://here.com',
+    port: 9000
+  });
+});
+
+After(function() {
+  hereApiMock.close();
 });
 
 After(async function() {
