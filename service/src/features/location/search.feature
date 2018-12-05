@@ -26,7 +26,7 @@ Feature: User can search for a location
         },
         {
           label: "United States, CA, Oakland",
-          locationId: "NT_BI83mpCVa3V9rLDBYDZzIB-D"
+          locationId: "NT_GZjy33o37B9sEpW0Qo2O-D"
         },
         {
           label: "Australia, VIC, Oaklands Junction",
@@ -37,7 +37,7 @@ Feature: User can search for a location
           locationId: "NT_udwRS962hbzrU455xcnOcD"
         },
         {
-          "label": "Canada, BC, Victoria, <b>Oakland</b>s",
+          "label": "Canada, BC, Victoria, Oaklands",
           "locationId": "NT_NSy0yH7AxPB.dff6u.URDA",
         }
       ]
@@ -52,21 +52,26 @@ Feature: User can search for a location
     And response body matches
       """
       {
-        statusCode: 400,
         error: 'Bad Request',
-        message: 'Invalid request payload input'
+        message: 'Invalid request payload input',
+        statusCode: 400
       }
       """
 
   Scenario: Third-party service is down
     Given the third party geocoding service is down
     When POST "/location/search"
-    Then response status code is 500
+      """
+      {
+        "value": "Derp"
+      }
+      """
+    Then response status code is 503
     And response body matches
       """
       {
         error: _.isString,
-        message: "An internal server error occurred",
-        statusCode: 500,
+        message: 'Service Unavailable',
+        statusCode: 503,
       }
       """
