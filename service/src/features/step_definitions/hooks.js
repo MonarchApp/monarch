@@ -2,13 +2,14 @@ const rootRequire = require('app-root-path').require;
 
 const sinon = require('sinon');
 const path = require('path');
-const {Before, BeforeAll, After, AfterAll} = require('cucumber');
+const nock = require('nock');
 
+const {Before, BeforeAll, After, AfterAll} = require('cucumber');
 const Mockingjays = require('mockingjays');
 
 const createServer = rootRequire('src/server');
 
-const hereApiMock = new Mockingjays();
+const locationGatewayMock = new Mockingjays();
 let server;
 
 BeforeAll(async function() {
@@ -21,8 +22,18 @@ BeforeAll(async function() {
 });
 
 Before(function() {
+  this.config = {};
   this.server = server;
+
   this.knex = this.server.knex;
+});
+
+Before(function() {
+  const host = this.server.config.get('locationGateway:host');
+  const port = this.server.config.get('locationGateway:port');
+  const uriPort = port ? `:${port}` : '';
+
+  this.config.locationGatewayUrl = `${host}${uriPort}`;
 });
 
 Before(async function() {
@@ -35,15 +46,17 @@ Before(async function() {
 });
 
 Before(function() {
-  hereApiMock.start({
+  locationGatewayMock.start({
     cacheDir: path.resolve('src/features/fixtures/here'),
-    serverBaseUrl: 'https://here.com',
-    port: 9000
+    logLevel: 'warn',
+    port: 9000,
+    serverBaseUrl: 'https://autocomplete.geocoder.api.here.com'
   });
 });
 
 After(function() {
-  hereApiMock.close();
+  nock.cleanAll();
+  locationGatewayMock.stop();
 });
 
 After(async function() {
