@@ -4,7 +4,8 @@
     "saltRounds": 1
   },
   "good": {},
-  "hereApi": {
+  "locationGateway": {
+    "host": "http://localhost",
     "port": 9000
   },
   "server": {
