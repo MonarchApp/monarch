@@ -49,6 +49,7 @@
     "mocha": "^5.2.0",
     "mock-require": "^3.0.2",
     "mockingjays": "^2.0.0",
+    "nock": "^10.0.3",
     "nodemon": "^1.18.2",
     "nyc": "^12.0.2",
     "sinon": "^6.1.3",
