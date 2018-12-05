@@ -18,12 +18,13 @@ location.search.config = {
 
 location.search.handler = async (request, h) => {
   const {value} = request.payload;
-  const {code, id, port} = request.config.get('hereApi');
+  const {code, host, id, port} = request.config.get('locationGateway');
 
   try {
     const searchResults = await locationService.search({
-      hereAppCode: code,
-      hereAppId: id,
+      locationGatewayCode: code,
+      locationGatewayId: id,
+      locationGatewayHost: host,
       port,
       search: value
     });

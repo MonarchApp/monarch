@@ -8,10 +8,11 @@ const mockRp = {
 mock('request-promise', mockRp);
 const location = require('../location.js');
 
-describe.only('Location Service', function() {
+describe('Location Service', function() {
   describe('search', function() {
-    const hereAppId = 'Scrubbob';
-    const hereAppCode = 'Octogonpants';
+    const locationGatewayId = 'Scrubbob';
+    const locationGatewayCode = 'Octogonpants';
+    const locationGatewayHost = 'https://speedo-bottom.com';
     const searchText = '(╯°□°）╯︵ ┻━┻';
     const label = 'SOMEWHERE!';
     const locationId = 'LOCATION';
@@ -36,24 +37,35 @@ describe.only('Location Service', function() {
         const port = '666';
 
         beforeEach(async function() {
-          await location.search({hereAppId, hereAppCode, port, search: searchText});
+          await location.search({
+            locationGatewayHost,
+            locationGatewayId,
+            locationGatewayCode,
+            port,
+            search: searchText
+          });
         });
 
         it('adds the port to the uri', function() {
           expect(mockRp.get).to.be.calledWithMatch({
-            uri: `https://autocomplete.geocoder.api.here.com/6.2/suggest.json:${port}`
+            uri: `${locationGatewayHost}:${port}/6.2/suggest.json`
           });
         });
       });
 
       context('and no port is passed', function() {
         beforeEach(async function() {
-          await location.search({hereAppId, hereAppCode, search: searchText});
+          await location.search({
+            locationGatewayHost,
+            locationGatewayId,
+            locationGatewayCode,
+            search: searchText
+          });
         });
 
         it("doesn't add the port to the uri", function() {
           expect(mockRp.get).to.be.calledWithMatch({
-            uri: 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json'
+            uri: `${locationGatewayHost}/6.2/suggest.json`
           });
         });
       });
@@ -65,15 +77,21 @@ describe.only('Location Service', function() {
           .withArgs({
             json: true,
             qs: {
-              app_code: hereAppCode,
-              app_id: hereAppId,
+              app_code: locationGatewayCode,
+              app_id: locationGatewayId,
               query: searchText
             },
-            uri: 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json'
+            uri: `${locationGatewayHost}/6.2/suggest.json`
           })
           .resolves({suggestions: [{label, locationId}]});
 
-        returnValue = await location.search({hereAppId, hereAppCode, search: searchText});
+        returnValue = await location
+          .search({
+            locationGatewayHost,
+            locationGatewayId,
+            locationGatewayCode,
+            search: searchText
+          });
       });
 
       it('returns all available options', function() {
@@ -89,8 +107,12 @@ describe.only('Location Service', function() {
       });
 
       it('throws', function() {
-        return expect(location.search({hereAppId, hereAppCode, search: searchText}))
-          .to.be.rejectedWith(requestFailure);
+        return expect(location.search({
+          locationGatewayHost,
+          locationGatewayId,
+          locationGatewayCode,
+          search: searchText
+        })).to.be.rejectedWith(requestFailure);
       });
     });
   });

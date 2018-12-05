@@ -2,21 +2,24 @@ const rp = require('request-promise');
 
 const location = {};
 
-location.search = async ({hereAppId, hereAppCode, port, search}) => {
+location.search = async ({
+  locationGatewayId,
+  locationGatewayCode,
+  locationGatewayHost,
+  port,
+  search
+}) => {
   let uriPort;
   uriPort = port ? `:${port}` : '';
-
-  const uri =
-    `https://autocomplete.geocoder.api.here.com/6.2/suggest.json${uriPort}`;
 
   const geocodeSuggestions = await rp.get({
     json: true,
     qs: {
-      app_code: hereAppCode,
-      app_id: hereAppId,
+      app_code: locationGatewayCode,
+      app_id: locationGatewayId,
       query: search
     },
-    uri
+    uri: `${locationGatewayHost}${uriPort}/6.2/suggest.json`
   });
 
   return geocodeSuggestions.suggestions
