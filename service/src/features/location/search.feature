@@ -58,8 +58,8 @@ Feature: User can search for a location
       }
       """
 
-  Scenario: Third-party service is down
-    Given the third party geocoding service is down
+  Scenario: Third-party geocoding API is down
+    Given the third party geocoding API is down
     When POST "/location/search"
       """
       {
