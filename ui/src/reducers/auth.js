@@ -2,7 +2,7 @@ import ActionTypes from 'constants/actions';
 import LocalStorageConstants from 'constants/local_storage';
 
 function createReducer(initialState, handlers) {
-  return (state = initialState, action) => {
+  return (state = initialState, action = {}) => {
     if (handlers.hasOwnProperty(action.type)) {
       return handlers[action.type](state, action);
     } else {
