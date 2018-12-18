@@ -2,7 +2,7 @@ import FullLogo from 'icons/full_logo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import withField from 'hocs/with_field';
-import {Field} from 'redux-form/immutable';
+import {Field} from 'redux-form';
 import {PrimaryButton} from 'components/buttons';
 import {InlineErrorNotification} from 'components/inline_notifications';
 
