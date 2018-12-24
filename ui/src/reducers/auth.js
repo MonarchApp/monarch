@@ -1,15 +1,6 @@
 import ActionTypes from 'constants/actions';
 import LocalStorageConstants from 'constants/local_storage';
-
-function createReducer(initialState, handlers) {
-  return (state = initialState, action = {}) => {
-    if (handlers.hasOwnProperty(action.type)) {
-      return handlers[action.type](state, action);
-    } else {
-      return state;
-    }
-  };
-}
+import createReducer from "./createReducer";
 
 const initialState = {isAuthenticated: false};
 const {TOKEN_KEY} = LocalStorageConstants;
