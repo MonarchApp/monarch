@@ -2612,10 +2612,10 @@ mock-require@^3.0.2:
     get-caller-file "^1.0.2"
     normalize-path "^2.1.1"
 
-mockingjays@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/mockingjays/-/mockingjays-2.0.1.tgz#b27c1e7f3f976c8b292ddf69229ad82c33f89afa"
-  integrity sha512-SJ73+/vV1Z0JWRkjei0vrrtxzFfX3tcZrhTi2R5/BcG4vB9bi7CaMvK1O42Uye/rgwIzRY7CUIb/SQ3Gkyhmaw==
+mockingjays@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/mockingjays/-/mockingjays-2.2.0.tgz#077e3881a51185581725281a8455d68fc21ade30"
+  integrity sha512-CSBVwymu+G+Lw7irhToofIFjMmyyRXogXY+YfiDDQHo4513eTnwMGeiNvfY1r0F4jan9YKg8sf8pB24kVepZ+Q==
   dependencies:
     babel-runtime "^6.0.0"
     http-shutdown "^1.0.0"
