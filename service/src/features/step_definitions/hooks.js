@@ -48,8 +48,8 @@ Before(async function() {
 Before(function() {
   locationGatewayMock.start({
     cacheDir: path.resolve('src/features/fixtures/here'),
-    logLevel: 'warn',
     port: 9000,
+    queryParameterBlacklist: 'app_code,app_id',
     serverBaseUrl: 'https://autocomplete.geocoder.api.here.com'
   });
 });
