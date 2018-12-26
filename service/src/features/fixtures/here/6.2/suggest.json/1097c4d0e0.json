@@ -13,15 +13,11 @@
   "status": 200,
   "type": "application/json;charset=utf-8",
   "headers": {
-    "date": "Tue, 25 Dec 2018 06:15:21 GMT",
     "content-type": "application/json;charset=utf-8",
     "content-length": "1249",
     "connection": "close",
     "server": "Apache",
-    "access-control-allow-origin": "*",
-    "x-served-by": "i-0b235e65eb0470540.us-east-1b",
-    "x-nlp-tid": "582fe0b5-1d58-41fd-8b42-11bb0afa4637",
-    "x-nlp-irt": "6230"
+    "access-control-allow-origin": "*"
   },
   "data": "{\"suggestions\":[{\"label\":\"United States, MI, Oakland\",\"language\":\"en\",\"countryCode\":\"USA\",\"locationId\":\"NT_QGc7BMU.aSXiFEE7B-CdhC\",\"address\":{\"country\":\"United States\",\"state\":\"MI\",\"county\":\"Oakland\"},\"matchLevel\":\"county\"},{\"label\":\"United States, CA, Oakland\",\"language\":\"en\",\"countryCode\":\"USA\",\"locationId\":\"NT_GZjy33o37B9sEpW0Qo2O-D\",\"address\":{\"country\":\"United States\",\"state\":\"CA\",\"county\":\"Alameda\",\"city\":\"Oakland\",\"postalCode\":\"94612\"},\"matchLevel\":\"city\"},{\"label\":\"Australia, VIC, Oaklands Junction\",\"language\":\"en\",\"countryCode\":\"AUS\",\"locationId\":\"NT_BI83mpCVa3V9rLDBYDZzIB\",\"address\":{\"country\":\"Australia\",\"state\":\"VIC\",\"city\":\"Oaklands Junction\",\"postalCode\":\"3063\"},\"matchLevel\":\"city\"},{\"label\":\"Australia, VIC, Oaklands Junction, Oaklands Rd\",\"language\":\"en\",\"countryCode\":\"AUS\",\"locationId\":\"NT_udwRS962hbzrU455xcnOcD\",\"address\":{\"country\":\"Australia\",\"state\":\"VIC\",\"city\":\"Oaklands Junction\",\"street\":\"Oaklands Rd\",\"postalCode\":\"3063\"},\"matchLevel\":\"street\"},{\"label\":\"Canada, BC, Victoria, Oaklands\",\"language\":\"en\",\"countryCode\":\"CAN\",\"locationId\":\"NT_NSy0yH7AxPB.dff6u.URDA\",\"address\":{\"country\":\"Canada\",\"state\":\"BC\",\"county\":\"Capital\",\"city\":\"Victoria\",\"district\":\"Oaklands\",\"postalCode\":\"V8T\"},\"matchLevel\":\"district\"}]}"
 }
