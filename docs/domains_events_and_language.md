@@ -17,6 +17,11 @@ Sidekicks are manually vetted initially.
 *Rationale* - Has no power connotations. Evokes silly, but also a bit of badass.
 
 
+### Resource
+A person, asset, article, support group, or other miscellaneous entity that can
+benefit a user.
+
+
 ### Conversation
 A dialog opened between two users that facilitates the sending
 and receiving of messages.
@@ -37,11 +42,15 @@ The process of finding resources (Sidekicks, maybe support groups) for users
 and providing a means to request access to those resources.
 
 
-### Report
-The act of a user flagging another user or entity for behavior that violates
-the code of conduct. When another user is flagged, they are immediately banned,
+### Complaint
+A message sent to Monarch by a user or a sidekick flagging another user or sidekick
+for behavior that violates the code of conduct.
+
+When a user receives a complaint, they are immediately banned,
 but given an appeals process for wrongful banning.
 
+After initial rollout, when a sidekick receives a complaint, their complaint will
+be reviewed by three other sidekicks to determine action.
 
 
 # Events
@@ -53,11 +62,10 @@ but given an appeals process for wrongful banning.
 * User is connected with a sidekick
 * User leaves sidekick
 * Sidekick leaves user
-* Sidekick reports a user
-* User reports a sidekick
+* Sidekick files complaint against a user
+* User files complaint against sidekick
 * User sends a message
 * User receives a message
-
 
 
 # Domains
@@ -69,12 +77,11 @@ but given an appeals process for wrongful banning.
   * Authentication (Generic)
   * Profile (Supporting)
 
-## Location
+## Connect
 *Type* - Core
 
-*Subdomains* -
-  * Connect (Core)
-  * Geocode (Generic)
+## Location
+*Type* - Generic
 
 ## Conversation
 *Type* - Supporting
@@ -82,5 +89,5 @@ but given an appeals process for wrongful banning.
 ## Notification
 *Type* - Generic
 
-## Reporting
+## Complaints
 *Type* - Generic
