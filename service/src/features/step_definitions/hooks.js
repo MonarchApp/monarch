@@ -48,7 +48,7 @@ Before(async function() {
 Before(function() {
   locationGatewayMock.start({
     cacheDir: path.resolve('src/features/fixtures/here'),
-    logLevel: 'error',
+    logLevel: 'debug',
     port: 9000,
     queryParameterBlacklist: 'app_code,app_id',
     responseHeaderBlacklist: 'date,x-served-by,x-nlp-tid,x-nlp-irt',
