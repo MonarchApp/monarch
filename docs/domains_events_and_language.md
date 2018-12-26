@@ -53,7 +53,6 @@ After initial rollout, when a sidekick receives a complaint, their complaint wil
 be reviewed by three other sidekicks to determine action.
 
 
-
 # Events
 * User signs up
 * User logs in
@@ -63,11 +62,10 @@ be reviewed by three other sidekicks to determine action.
 * User is connected with a sidekick
 * User leaves sidekick
 * Sidekick leaves user
-* Sidekick reports a user
-* User reports a sidekick
+* Sidekick files complaint against a user
+* User files complaint against sidekick
 * User sends a message
 * User receives a message
-
 
 
 # Domains
