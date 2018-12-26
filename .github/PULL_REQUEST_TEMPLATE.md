@@ -1,8 +1,8 @@
-## Issues
-*
+## Description
+
 
 ## Changes
 *
 
-## Notes
-*
+## Considerations
+
