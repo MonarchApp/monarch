@@ -30,6 +30,11 @@ Then boot up the node server:
 yarn start
 ```
 
+Note: On first run a key-pair needs to be generated: 
+```bash 
+yarn gen-keys
+```
+
 ## Running Tests
 
 When running tests, make sure you have all containers running
