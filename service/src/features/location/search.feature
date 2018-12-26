@@ -58,6 +58,7 @@ Feature: User can search for a location
       }
       """
 
+  @Only
   Scenario: Third-party geocoding API is down
     Given the third party geocoding API is down
     When POST "/location/search"
@@ -70,7 +71,7 @@ Feature: User can search for a location
     And response body matches
       """
       {
-        error: _.isString,
+        error: 'Service Unavailable',
         message: 'Service Unavailable',
         statusCode: 503,
       }
