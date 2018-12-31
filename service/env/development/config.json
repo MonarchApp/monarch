@@ -23,6 +23,9 @@
       }, "stdout"]
     }
   },
+  "locationGateway": {
+    "host": "https://autocomplete.geocoder.api.here.com"
+  },
   "server": {
     "host": "localhost",
     "port": 8080,

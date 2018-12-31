@@ -1,9 +1,11 @@
 const Promise = require('bluebird');
 const _ = require('lodash');
+
 const bcrypt = require('bcrypt');
 const boom = require('boom');
 const bounce = require('bounce');
 const joi = require('joi');
+
 const {enforceSelfActionOnly} = require('../utils/user');
 const {getTokenFromRequest} = require('../utils/request');
 

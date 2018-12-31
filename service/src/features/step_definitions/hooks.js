@@ -1,8 +1,15 @@
 const rootRequire = require('app-root-path').require;
+
 const sinon = require('sinon');
+const path = require('path');
+const nock = require('nock');
+
 const {Before, BeforeAll, After, AfterAll} = require('cucumber');
+const Mockingjays = require('mockingjays');
+
 const createServer = rootRequire('src/server');
 
+const locationGatewayMock = new Mockingjays();
 let server;
 
 BeforeAll(async function() {
@@ -15,8 +22,18 @@ BeforeAll(async function() {
 });
 
 Before(function() {
+  this.config = {};
   this.server = server;
+
   this.knex = this.server.knex;
+});
+
+Before(function() {
+  const host = this.server.config.get('locationGateway:host');
+  const port = this.server.config.get('locationGateway:port');
+  const uriPort = port ? `:${port}` : '';
+
+  this.config.locationGatewayUrl = `${host}${uriPort}`;
 });
 
 Before(async function() {
@@ -26,6 +43,21 @@ Before(async function() {
     error.message = `Failed to perform database migrations.\n\nError:\n${error.message}`;
     throw error;
   }
+});
+
+Before(function() {
+  locationGatewayMock.start({
+    cacheDir: path.resolve('src/features/fixtures/here'),
+    logLevel: 'debug',
+    port: 9000,
+    queryParameterBlacklist: 'app_code,app_id',
+    serverBaseUrl: 'https://autocomplete.geocoder.api.here.com'
+  });
+});
+
+After(function() {
+  nock.cleanAll();
+  locationGatewayMock.stop();
 });
 
 After(async function() {
