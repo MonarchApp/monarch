@@ -4,7 +4,7 @@ Feature: Login
   I want to be able to log in using a username and password.
 
   Background:
-    Given I seed "users"
+    Given I seed "user_account"
 
 
   @StubDate
@@ -96,7 +96,7 @@ Feature: Login
 
 
   Scenario: Login with unexpected error
-    When "users" table is dropped
+    When "user_account" table is dropped
     And POST "/login"
       """
       {

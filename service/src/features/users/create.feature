@@ -16,7 +16,7 @@ Feature: Create user
     When raw query
       """
         SELECT *
-        FROM users
+        FROM user_account
         WHERE email = 'testemail@domain.com'
       """
     Then raw query result matches
@@ -99,7 +99,7 @@ Feature: Create user
 
 
   Scenario: Create a user with unexpected error
-    When "users" table is dropped
+    When "user_account" table is dropped
     And POST "/users"
       """
       {

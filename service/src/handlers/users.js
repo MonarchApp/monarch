@@ -26,7 +26,7 @@ users.delete.handler = async (request, h) => {
   const {id} = request.params;
 
   try {
-    await request.knex('users').where({id}).delete();
+    await request.knex('user_account').where({id}).delete();
     return h.response().code(204);
   } catch (error) {
     bounce.rethrow(error, 'system');
@@ -44,7 +44,7 @@ users.get.handler = async (request, h) => {
   const {id} = request.params;
 
   try {
-    const [user] = await request.knex('users').select().where({id});
+    const [user] = await request.knex('user_account').select().where({id});
     return h.response(user || {}).code(200);
   } catch (error) {
     bounce.rethrow(error, 'system');
@@ -72,7 +72,7 @@ users.patch.handler = async (request, h) => {
   const newValues = Object.assign({}, request.payload, {modifyDate: now});
 
   try {
-    await request.knex('users').where({id}).update(newValues);
+    await request.knex('user_account').where({id}).update(newValues);
     return h.response().code(200);
   } catch (error) {
     bounce.rethrow(error, 'system');
@@ -105,14 +105,14 @@ users.post.handler = async (request, h) => {
   };
 
   try {
-    await request.knex('users').insert(userObject);
+    await request.knex('user_account').insert(userObject);
 
     // TODO: Send user email
     return h.response().code(201);
   } catch (error) {
     bounce.rethrow(error, 'system');
 
-    if (error.message.indexOf('users_email_unique') > -1) {
+    if (error.message.indexOf('user_account_email_unique') > -1) {
       return h.response().code(201);
     }
 

@@ -4,7 +4,7 @@ Feature: Patch user
   I want to be able to update my information.
 
   Background:
-    Given I seed "users"
+    Given I seed "user_account"
     And I get a token
 
 
@@ -90,7 +90,7 @@ Feature: Patch user
 
 
   Scenario: Update a user with unexpected error
-    Given "users" table is dropped
+    Given "user_account" table is dropped
     When PATCH "/users/1"
       """
       {

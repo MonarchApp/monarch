@@ -4,7 +4,7 @@ Feature: Get user
   I want to be able to get my information.
 
   Background:
-    Given I seed "users"
+    Given I seed "user_account"
     And I get a token
 
 
@@ -38,7 +38,7 @@ Feature: Get user
 
 
   Scenario: Get a user with unexpected error
-    When "users" table is dropped
+    When "user_account" table is dropped
     And GET "/users/1"
     Then response status code is 500
     And response body matches
