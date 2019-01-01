@@ -19,6 +19,7 @@ In alphabetical order:
 * Kayla Hennegin
 * Kyle Asano
 * Matthew Boston
+* Meagan Harris
 * Mike Cummings
 * Phil Hagelberg
 * Seth Etter
