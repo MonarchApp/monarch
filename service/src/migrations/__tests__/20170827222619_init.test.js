@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const {getKnexConnection} = rootRequire('src/utils/test_utils');
 const knex = getKnexConnection();
 
-describe('Add User Migration', function() {
+describe('Initial Migration', function() {
   context('when applying the migration', function() {
     const now = new Date();
     let dateStub;
@@ -16,12 +16,12 @@ describe('Add User Migration', function() {
       await initialMigrations.up(knex);
 
       hasAllColumns = [
-        await knex.schema.hasColumn('user', 'bio'),
-        await knex.schema.hasColumn('user', 'createDate'),
-        await knex.schema.hasColumn('user', 'email'),
-        await knex.schema.hasColumn('user', 'id'),
-        await knex.schema.hasColumn('user', 'modifyDate'),
-        await knex.schema.hasColumn('user', 'password')
+        await knex.schema.hasColumn('user_account', 'bio'),
+        await knex.schema.hasColumn('user_account', 'createDate'),
+        await knex.schema.hasColumn('user_account', 'email'),
+        await knex.schema.hasColumn('user_account', 'id'),
+        await knex.schema.hasColumn('user_account', 'modifyDate'),
+        await knex.schema.hasColumn('user_account', 'password')
       ].every(exists => exists === true);
     });
 
@@ -29,20 +29,20 @@ describe('Add User Migration', function() {
       dateStub.restore();
     });
 
-    it('creates the user table with basic columns', function() {
+    it('creates the user_account table with basic columns', function() {
       expect(hasAllColumns).to.be.true;
     });
 
-    context('and when adding a default user', function() {
+    context('and when adding a default user_account', function() {
       const email = '( ͡° ͜ʖ ͡°)';
       const password = 'Light salt, please...';
 
       before(async function() {
-        await knex('user').insert({email, password});
+        await knex('user_account').insert({email, password});
       });
 
       it('populates default fields properly', async function() {
-        const [mockUser] = await knex.select().table('user').where({email});
+        const [mockUser] = await knex.select().table('user_account').where({email});
         expect(mockUser).to.eql({
           bio: null,
           createDate: now,
@@ -60,10 +60,10 @@ describe('Add User Migration', function() {
 
     before(async function() {
       await initialMigrations.down(knex);
-      hasTable = await knex.schema.hasTable('user');
+      hasTable = await knex.schema.hasTable('user_account');
     });
 
-    it('drops the user table', function() {
+    it('drops the user_account table', function() {
       expect(hasTable).to.be.false;
     });
   });
