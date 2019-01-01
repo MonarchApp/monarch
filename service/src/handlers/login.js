@@ -43,7 +43,7 @@ login.post.handler = async (request, h) => {
   const {jwtAudience, jwtPrivateKey} = request.config.get('auth');
 
   try {
-    const [user] = await request.knex('users').select().where({email});
+    const [user] = await request.knex('user_account').select().where({email});
     if (!user) { return await replyWithInvalidCreds(); }
 
     const hashedPassword = user.password;

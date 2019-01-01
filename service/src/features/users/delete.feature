@@ -4,7 +4,7 @@ Feature: Delete user
   I want to be able to delete a user.
 
   Background:
-    Given I seed "users"
+    Given I seed "user_account"
     And I get a token
 
 
@@ -28,7 +28,7 @@ Feature: Delete user
 
 
   Scenario: Delete user with unexpected error
-    Given "users" table is dropped
+    Given "user_account" table is dropped
     When DELETE "/users/1"
     Then response status code is 500
     And response body matches

@@ -12,5 +12,5 @@ exports.seed = async knex => {
     }
   ];
 
-  return knex('users').insert(users);
+  return knex('user_account').insert(users);
 };
