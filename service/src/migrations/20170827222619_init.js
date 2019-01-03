@@ -1,5 +1,5 @@
-exports.up = knex => {
-  return knex.schema.createTable('user_account', (table) => {
+exports.up = async knex => {
+  await knex.schema.createTable('user_account_info', table => {
     table
       .increments('id')
       .primary();
@@ -13,17 +13,28 @@ exports.up = knex => {
       .string('password')
       .notNullable();
 
-    table
-      .timestamp('createDate')
-      .notNullable()
-      .defaultTo(new Date().toISOString());
-
-    table
-      .timestamp('modifyDate')
-      .notNullable()
-      .defaultTo(new Date().toISOString());
-
     table.string('bio');
+
+    table
+      .timestamp('create_date')
+      .notNullable()
+      .defaultTo(new Date().toISOString());
+
+    table
+      .timestamp('modify_date')
+      .notNullable()
+      .defaultTo(new Date().toISOString());
+  });
+
+  await knex.schema.createTable('user_account', (table) => {
+    table
+      .increments('id')
+      .primary();
+
+    table
+      .int('user_account_info_id')
+      .references('id')
+      .inTable('user_account_info');
   });
 };
 
