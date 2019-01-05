@@ -2,6 +2,8 @@ exports.up = knex => {
   return knex.schema.createTable('user_account', (table) => {
     table
       .uuid('id')
+      .unique()
+      .index()
       .primary();
 
     table
