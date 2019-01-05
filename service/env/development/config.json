@@ -30,7 +30,10 @@
     "host": "localhost",
     "port": 8080,
     "routes": {
-      "cors": true
+      "cors": true,
+      "log": {
+        "collect": true
+      }
     }
   }
 }
