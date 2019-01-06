@@ -6,7 +6,7 @@ Feature: User can search for a location
   To enable my access to resources.
 
   Background:
-    Given I seed "user_account"
+    Given the database is seeded with "user_account"
     And a valid, authenticated token is obtained
 
   Scenario: Find a location

@@ -4,7 +4,7 @@ Feature: Delete user
   I want to be able to delete a user.
 
   Background:
-    Given I seed "user_account"
+    Given the database is seeded with "user_account"
     And a valid, authenticated token is obtained
 
 
