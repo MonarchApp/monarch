@@ -1,16 +1,16 @@
 const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
+const uuidv4 = require('uuid/v4');
 
 const {saltRounds} = require('../config.json').auth;
 const hash = Promise.promisify(bcrypt.hash);
 
 exports.seed = async knex => {
-  const users = [
-    {
-      email: 'jill@abc.com',
-      password: await hash('password', saltRounds)
-    }
-  ];
+  const users = [{
+    email: 'jill@abc.com',
+    id: uuidv4(),
+    password: await hash('password', saltRounds)
+  }];
 
-  return knex('user_account').insert(users);
+  await knex('user_account').insert(users);
 };

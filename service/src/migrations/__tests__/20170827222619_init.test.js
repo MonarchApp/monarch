@@ -1,6 +1,7 @@
 const initialMigrations = require('./../20170827222619_init');
 const rootRequire = require('app-root-path').require;
 const sinon = require('sinon');
+const uuidv4 = require('uuid/v4');
 
 const {getKnexConnection} = rootRequire('src/utils/test_utils');
 const knex = getKnexConnection();
@@ -33,6 +34,27 @@ describe('Initial Migration', function() {
     });
   });
 
+  context('and when adding a default user_account', function() {
+    const email = '( ͡° ͜ʖ ͡°)';
+    const id = uuidv4();
+    const password = 'Light salt, please...';
+
+    before(async function() {
+      await knex('user_account').insert({id, email, password});
+    });
+
+    it('populates default fields properly', async function() {
+      const [mockUser] = await knex.select().table('user_account').where({email});
+      expect(mockUser).to.eql({
+        bio: null,
+        createDate: now,
+        email,
+        id,
+        modifyDate: now,
+        password
+      });
+    });
+
   context('when rolling back the migration', function() {
     before(async function() {
       await initialMigrations.up(knex);
@@ -44,28 +66,6 @@ describe('Initial Migration', function() {
         await knex.schema.hasTable('user_account')
         await knex.schema.hasTable('user_account_info')
       ].every(exists => exists === true)).to.be.false;
-    });
-  });
-
-  context('when creating a default user_account', function() {
-    const email = '( ͡° ͜ʖ ͡°)';
-    const password = 'Light salt, please...';
-
-    before(async function() {
-      await initialMigrations.up(knex);
-      await knex('user_account').insert({email, password});
-    });
-
-    it('populates default fields properly', async function() {
-      const [mockUser] = await knex.select().table('user_account').where({email});
-      expect(mockUser).to.eql({
-        bio: null,
-        createDate: now,
-        email,
-        id: 1,
-        modifyDate: now,
-        password
-      });
     });
   });
 });

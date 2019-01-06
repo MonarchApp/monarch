@@ -8,6 +8,7 @@ exports.seed = async knex => {
   const users = [
     {
       email: 'frankjaeger@foxhound.com',
+      id: '10ba038e-48da-487b-96e8-8d3b99b6d18a',
       password: await hash('password', saltRounds)
     }
   ];
