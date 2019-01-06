@@ -25,7 +25,7 @@ Feature: Create user
         bio: null,
         createDate: _.isDate,
         email: "testemail@domain.com",
-        id: 1,
+        id: _.isUuid,
         modifyDate: _.isDate,
         password: _.isSize|60
         ...

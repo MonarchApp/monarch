@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const boom = require('boom');
 const bounce = require('bounce');
 const joi = require('joi');
+const uuidv4 = require('uuid/v4');
 
 const {enforceSelfActionOnly} = require('../utils/user');
 const {getTokenFromRequest} = require('../utils/request');
@@ -64,7 +65,7 @@ users.patch.config = {
 };
 
 users.patch.handler = async (request, h) => {
-  const id = parseInt(getTokenFromRequest(request).id);
+  const {id} = getTokenFromRequest(request);
 
   if (_.isEmpty(request.payload)) return h.response().code(200);
 
@@ -101,6 +102,7 @@ users.post.handler = async (request, h) => {
 
   const userObject = {
     email,
+    id: uuidv4(),
     password: hashedPassword
   };
 
