@@ -5,7 +5,7 @@ Feature: Delete user
 
   Background:
     Given I seed "user_account"
-    And I get a token
+    And a valid, authenticated token is obtained
 
 
   Scenario: Delete self
