@@ -11,10 +11,6 @@ exports.up = async knex => {
       .notNullable()
       .unique();
 
-    table
-      .string('password')
-      .notNullable();
-
     table.string('bio');
 
     table
@@ -33,13 +29,29 @@ exports.up = async knex => {
       .increments('id')
       .primary();
 
+    table.uuid('user_account_info_id');
     table
-      .int('user_account_info_id')
+      .foreign('user_account_info_id')
       .references('id')
       .inTable('user_account_info');
+
+    table
+      .string('password')
+      .notNullable();
+
+    table
+      .timestamp('create_date')
+      .notNullable()
+      .defaultTo(new Date().toISOString());
+
+    table
+      .timestamp('modify_date')
+      .notNullable()
+      .defaultTo(new Date().toISOString());
   });
 };
 
-exports.down = knex => {
-  return knex.schema.dropTable('user_account');
+exports.down = async knex => {
+  await knex.schema.dropTable('user_account');
+  await knex.schema.dropTable('user_account_info');
 };

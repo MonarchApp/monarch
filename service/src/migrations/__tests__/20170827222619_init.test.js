@@ -2,6 +2,7 @@ const initialMigrations = require('./../20170827222619_init');
 const rootRequire = require('app-root-path').require;
 const sinon = require('sinon');
 const uuidv4 = require('uuid/v4');
+const Promise = require('bluebird');
 
 const {getKnexConnection} = rootRequire('src/utils/test_utils');
 const knex = getKnexConnection();
@@ -16,44 +17,31 @@ describe('Initial Migration', function() {
       await initialMigrations.up(knex);
     });
 
-    after(function() {
+    after(async function() {
       dateStub.restore();
+      await initialMigrations.down(knex);
     });
 
-    it('creates the all tables with all columns', async function() {
-      expect([
-        await knex.schema.hasColumn('user_account', 'id'),
-        await knex.schema.hasColumn('user_account', 'user_account_info_id'),
-        await knex.schema.hasColumn('user_account', 'password'),
-        await knex.schema.hasColumn('user_account_info', 'id'),
-        await knex.schema.hasColumn('user_account_info', 'email'),
-        await knex.schema.hasColumn('user_account_info', 'bio'),
-        await knex.schema.hasColumn('user_account_info', 'create_date'),
-        await knex.schema.hasColumn('user_account_info', 'modify_date'),
-      ].every(exists => exists === true)).to.be.true;
+    it('creates the user_account table with correct columns', async function() {
+      expect((await Promise.all([
+        knex.schema.hasColumn('user_account', 'id'),
+        knex.schema.hasColumn('user_account', 'user_account_info_id'),
+        knex.schema.hasColumn('user_account', 'password'),
+        knex.schema.hasColumn('user_account', 'create_date'),
+        knex.schema.hasColumn('user_account', 'modify_date'),
+      ])).every(exists => exists === true)).to.be.true;
+    });
+
+    it('creates the user_account_info table with correct columns', async function() {
+      expect((await Promise.all([
+        knex.schema.hasColumn('user_account_info', 'id'),
+        knex.schema.hasColumn('user_account_info', 'email'),
+        knex.schema.hasColumn('user_account_info', 'bio'),
+        knex.schema.hasColumn('user_account_info', 'create_date'),
+        knex.schema.hasColumn('user_account_info', 'modify_date'),
+      ])).every(exists => exists === true)).to.be.true;
     });
   });
-
-  context('and when adding a default user_account', function() {
-    const email = '( ͡° ͜ʖ ͡°)';
-    const id = uuidv4();
-    const password = 'Light salt, please...';
-
-    before(async function() {
-      await knex('user_account').insert({id, email, password});
-    });
-
-    it('populates default fields properly', async function() {
-      const [mockUser] = await knex.select().table('user_account').where({email});
-      expect(mockUser).to.eql({
-        bio: null,
-        createDate: now,
-        email,
-        id,
-        modifyDate: now,
-        password
-      });
-    });
 
   context('when rolling back the migration', function() {
     before(async function() {
@@ -63,7 +51,7 @@ describe('Initial Migration', function() {
 
     it('drops all tables', async function() {
       expect([
-        await knex.schema.hasTable('user_account')
+        await knex.schema.hasTable('user_account'),
         await knex.schema.hasTable('user_account_info')
       ].every(exists => exists === true)).to.be.false;
     });
