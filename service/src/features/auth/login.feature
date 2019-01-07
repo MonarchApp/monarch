@@ -1,7 +1,8 @@
 Feature: Login
 
-  As a consumer of the Monarch API,
-  I want to be able to log in using a username and password.
+  As a user of the Monarch service,
+  I want to be able to log in,
+  So I can use the service.
 
   Background:
     Given I seed "user_account"
@@ -96,7 +97,7 @@ Feature: Login
 
 
   Scenario: Login with unexpected error
-    When "user_account" table is dropped
+    When "user_account_info" table is dropped
     And POST "/login"
       """
       {
