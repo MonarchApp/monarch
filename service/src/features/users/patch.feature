@@ -4,8 +4,8 @@ Feature: Patch user
   I want to be able to update my information.
 
   Background:
-    Given I seed "user_account"
-    And I get a token
+    Given the database is seeded with "user_account"
+    And a valid, authenticated token is obtained
 
 
   Scenario: Update self
@@ -35,13 +35,13 @@ Feature: Patch user
 
 
   Scenario: Update self with empty object
-    Given I store the 1st user
+    Given a comparison of the 1st user
     When PATCH "/users/1"
       """
       {}
       """
     Then response status code is 200
-    And 1st user remains unchanged
+    And 1st user has not changed
 
 
   Scenario Outline: Update self with invalid payload

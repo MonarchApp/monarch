@@ -2,13 +2,13 @@
 # TODO: Add to unauthorized routes
 Feature: Connect users with sidekicks within a radius
 
-  As a user,
+  As a user of the Monarch service,
   I want to be able to find a sidekick,
   So I can have someone to help provide me with advice,
   resource information, and moral support.
 
   Background:
-    Given I get a token
+    Given a valid, authenticated token is obtained
 
 
   Scenario: Match a user with a sidekick within 50 miles
