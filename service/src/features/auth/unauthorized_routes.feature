@@ -1,7 +1,7 @@
 Feature: Unauthorized routes
 
   As a user of the Monarch service,
-  When I don't have a token,
+  When I'm not authenticated,
   I want to be denied access to all relevant endpoints.
 
   Scenario Outline: GET or DELETE Request without token

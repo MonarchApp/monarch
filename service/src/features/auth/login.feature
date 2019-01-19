@@ -4,7 +4,7 @@ Feature: Login
   I want to be able to log in using a username and password.
 
   Background:
-    Given I seed "user_account"
+    Given the database is seeded with "user_account"
 
 
   @StubDate
