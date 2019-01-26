@@ -9,7 +9,7 @@ Feature: Delete user
 
 
   Scenario: Delete self
-    When DELETE "/users/1"
+    When DELETE "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
     Then response status code is 204
     And response body is undefined
 
@@ -29,7 +29,7 @@ Feature: Delete user
 
   Scenario: Delete user with unexpected error
     Given "user_account" table is dropped
-    When DELETE "/users/1"
+    When DELETE "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
     Then response status code is 500
     And response body matches
       """

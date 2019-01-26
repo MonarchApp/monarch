@@ -9,14 +9,14 @@ Feature: Patch user
 
 
   Scenario: Update self
-    Given 1st user matches
+    Given "10ba038e-48da-487b-96e8-8d3b99b6d18a" user matches
       """
       {
         modifyDate: _.isSetAsMemo|modifyDate,
         ...
       }
       """
-    When PATCH "/users/1"
+    When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
       """
       {
         "bio": "More...MORE!!"
@@ -24,7 +24,7 @@ Feature: Patch user
       """
     Then response status code is 200
     And response body is undefined
-    Then 1st user matches
+    Then "10ba038e-48da-487b-96e8-8d3b99b6d18a" user matches
       """
       {
         bio: 'More...MORE!!',
@@ -35,17 +35,17 @@ Feature: Patch user
 
 
   Scenario: Update self with empty object
-    Given a comparison of the 1st user
-    When PATCH "/users/1"
+    Given a comparison of the "10ba038e-48da-487b-96e8-8d3b99b6d18a" user
+    When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
       """
       {}
       """
     Then response status code is 200
-    And 1st user has not changed
+    And "10ba038e-48da-487b-96e8-8d3b99b6d18a" user remains unchanged
 
 
   Scenario Outline: Update self with invalid payload
-    When PATCH "/users/1"
+    When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
       """
       {
         "<KEY>": <VALUE>
@@ -91,7 +91,7 @@ Feature: Patch user
 
   Scenario: Update a user with unexpected error
     Given "user_account" table is dropped
-    When PATCH "/users/1"
+    When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
       """
       {
         "bio": "Gray fox! It can't be!"

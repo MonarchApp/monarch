@@ -1,6 +1,7 @@
 const initialMigrations = require('./../20170827222619_init');
 const rootRequire = require('app-root-path').require;
 const sinon = require('sinon');
+const uuidv4 = require('uuid/v4');
 
 const {getKnexConnection} = rootRequire('src/utils/test_utils');
 const knex = getKnexConnection();
@@ -35,10 +36,11 @@ describe('Initial Migration', function() {
 
     context('and when adding a default user_account', function() {
       const email = '( ͡° ͜ʖ ͡°)';
+      const id = uuidv4();
       const password = 'Light salt, please...';
 
       before(async function() {
-        await knex('user_account').insert({email, password});
+        await knex('user_account').insert({id, email, password});
       });
 
       it('populates default fields properly', async function() {
@@ -47,7 +49,7 @@ describe('Initial Migration', function() {
           bio: null,
           createDate: now,
           email,
-          id: 1,
+          id,
           modifyDate: now,
           password
         });

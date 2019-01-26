@@ -9,7 +9,7 @@ Feature: Get user
 
 
   Scenario: Get self
-    When GET "/users/1"
+    When GET "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
     Then response status code is 200
     And response body matches
       """
@@ -17,7 +17,7 @@ Feature: Get user
         bio: null,
         createDate: _.isDateString,
         email: "frankjaeger@foxhound.com",
-        id: 1,
+        id: "10ba038e-48da-487b-96e8-8d3b99b6d18a",
         modifyDate: _.isDateString,
         password: _.isSize|60
       }
@@ -39,7 +39,7 @@ Feature: Get user
 
   Scenario: Get a user with unexpected error
     When "user_account" table is dropped
-    And GET "/users/1"
+    And GET "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
     Then response status code is 500
     And response body matches
       """

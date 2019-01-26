@@ -57,7 +57,6 @@ Feature: User can search for a location
       }
       """
 
-  @Only
   Scenario: Third-party geocoding API is down
     Given the third party geocoding API is down
     When POST "/location/search"
