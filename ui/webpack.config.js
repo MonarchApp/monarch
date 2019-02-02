@@ -37,7 +37,8 @@ module.exports = {
     modules: [
       path.resolve(__dirname, 'node_modules'),
       path.resolve(__dirname, 'src')
-    ]
+    ],
+    extensions: ['.js', '.scss', '*']
   },
   devServer: {
     contentBase: 'dist',
