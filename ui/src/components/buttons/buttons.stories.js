@@ -6,11 +6,9 @@ const buttonColumnStyles = {
   width: '33.33%'
 };
 
-storiesOf('Components/Buttons/Primary Button', module)
-  .add('buttons', () =>
+storiesOf('Components/Buttons', module)
+  .add('Primary Button', () =>
     <React.Fragment>
-      <h3>Buttons</h3>
-      <h4>Primary Button</h4>
       <dl style={buttonColumnStyles}>
         <dt>Enabled</dt>
         <dl>
