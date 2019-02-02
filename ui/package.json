@@ -23,6 +23,7 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "@storybook/react": "^4.1.11",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
@@ -59,9 +60,10 @@
   "scripts": {
     "build": "webpack",
     "lint": "yarn lint:js && yarn lint:scss",
-    "lint:js": "eslint src/",
+    "lint:js": "eslint src/ webpack.config.js .storybook/",
     "lint:scss": "sass-lint src/**/*.scss -v",
     "start": "webpack-dev-server --color --progress",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "mocha-webpack --opts='test/mocha.opts' 'src/**/*.test.js'",
     "test:coverage": "nyc --reporter=html yarn test",
     "test:watch": "yarn test --watch"

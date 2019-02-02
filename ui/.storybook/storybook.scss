@@ -1,0 +1,22 @@
+@import '~theme/vars';
+
+.story-wrapper {
+  margin: $space;
+}
+
+dl {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: $space;
+}
+
+dt {
+  font-size: $font-small;
+  font-weight: 700;
+  width: 50%;
+}
+
+dd {
+  width: 50%;
+}
