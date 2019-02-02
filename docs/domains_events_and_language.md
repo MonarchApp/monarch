@@ -83,9 +83,6 @@ be reviewed by three other sidekicks to determine action.
 ## Location
 *Type* - Generic
 
-## Conversation
-*Type* - Supporting
-
 ## Notification
 *Type* - Generic
 
