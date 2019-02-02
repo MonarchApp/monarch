@@ -1,7 +1,8 @@
-@import '~theme/base';
-@import '~theme/form';
-@import '~theme/normalize';
-@import '~theme/vars';
+@import '~theme';
+
+body {
+  background: $red-orange-gradient;
+}
 
 .wrap {
   height: 100vh;
