@@ -1,9 +1,9 @@
 import ActionTypes from 'constants/actions';
 import ApiPaths from 'constants/api_paths';
-import Auth from '../actions';
+import Identity from '../actions';
 import configureStore from 'redux-mock-store';
 
-describe('Auth Actions', function() {
+describe('Identity Actions', function() {
   const store = configureStore([])({});
 
   afterEach(function() {
@@ -13,10 +13,10 @@ describe('Auth Actions', function() {
   describe('login', function() {
     const email = 'Randy Savage';
     const password = 'SNAP INTO A SLIM JIM!';
-    const {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} = ActionTypes.Auth;
+    const {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} = ActionTypes.Identity;
 
     before(function() {
-      store.dispatch(Auth.login(email, password));
+      store.dispatch(Identity.login(email, password));
     });
 
     it('should dispatch the proper action', function() {
