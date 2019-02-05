@@ -20,5 +20,10 @@
 
   &[disabled] {
     background-color: $blue-disabled;
+
+    &:hover {
+      background-color: $blue-disabled;
+      cursor: not-allowed;
+    }
   }
 }
