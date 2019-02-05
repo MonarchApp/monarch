@@ -109,5 +109,10 @@ $animation-speed: .125s;
 //
 $font-heading: 'Zona Bold', sans-serif;
 $font-body: 'Tofino Book', sans-serif;
-$font-xsmall: .625rem;
-$font-small: .75rem;
+
+$font-xsmall: $space * .625;
+$font-small: $space * .75;
+$font-medium: $space;
+
+$font-regular: 400;
+$font-bold: 700;

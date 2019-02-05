@@ -17,11 +17,13 @@ const Login = ({error, handleSubmit, submitting}) =>
         component={InputField}
         label='Email'
         name='email'
+        required={true}
         type='email' />
       <Field
         component={InputField}
         label='Password'
         name='password'
+        required={true}
         type='password' />
       <PrimaryButton
         disabled={submitting}

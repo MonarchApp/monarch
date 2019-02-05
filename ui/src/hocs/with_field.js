@@ -8,35 +8,46 @@ const getDisplayName = input => `WithField(${ typeof input === 'string' ?
   input.displayName || input.name || 'Component'
 })`;
 
+// Note that `input` and `meta` prop keys in the FieldWrapper
+// are inherited from the redux-form Field component. See redux-form
+// documentation for further information about what props to expect.
 const withField = (Input) => {
-  const FieldWrapperComponent = ({
+  const FieldWrapper = ({
     className,
     errorId,
     id,
     input,
     label,
     meta: {error},
+    required,
     type
   }) =>
     <div
-      className={Classnames({className, error}, 'field')}
-      testdatalabel='HOC/field-wrapper'
-    >
+      className={Classnames(className, {error}, 'field')}
+      test-label='HOC/field-wrapper'>
       <label
         htmlFor={id}
-        testdatalabel='HOC/field-label'>
+        test-label='HOC/field-label'>
         <span className='label'>{label}</span>
-        <Input {...input} aria-describedby={errorId} className='input' id={id} type={type}/>
+        <Input
+          aria-describedby={errorId}
+          aria-invalid={error && true}
+          className='input'
+          id={id}
+          required={required}
+          type={type}
+          {...input}/>
       </label>
       {error && <span
         className='error-message'
         id={errorId}
-        testdatalabel='HOC/field-error'>
+        role='alert'
+        test-label='HOC/field-error'>
         {error}
       </span>}
     </div>;
 
-  FieldWrapperComponent.propTypes = {
+  FieldWrapper.propTypes = {
     className: PropTypes.string,
     errorId: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
@@ -47,12 +58,13 @@ const withField = (Input) => {
     meta: PropTypes.shape({
       error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
     }),
+    required: PropTypes.bool,
     type: PropTypes.string.isRequired
   };
 
-  FieldWrapperComponent.displayName = getDisplayName(Input);
+  FieldWrapper.displayName = getDisplayName(Input);
 
-  FieldWrapperComponent.defaultProps = {
+  FieldWrapper.defaultProps = {
     meta: {}
   };
 
@@ -61,9 +73,7 @@ const withField = (Input) => {
     id: `form-${props.input.name}`
   }, props));
 
-  const FieldWrapper = enhance(FieldWrapperComponent);
-
-  return FieldWrapper;
+  return enhance(FieldWrapper);
 };
 
 export default withField;
