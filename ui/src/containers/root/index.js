@@ -1,4 +1,4 @@
-import Login from 'containers/login';
+import Login from 'containers/identity/login';
 import React from 'react';
 import './root.scss';
 

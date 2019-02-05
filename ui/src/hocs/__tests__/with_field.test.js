@@ -10,7 +10,7 @@ const errorId = `Well if it's Jack Ruby's hat, then I have to make sure it's
   his hat... Yeah... Alright, what colors does it come in?`;
 let wrappedField;
 
-const input = {name};
+const inputProvidedByReduxForm = {name};
 
 describe('withField', function() {
   describe('rendering', function() {
@@ -20,7 +20,7 @@ describe('withField', function() {
           <InputField
             errorId={errorId}
             id={id}
-            input={input}
+            input={inputProvidedByReduxForm}
             label={label}
             type={type} />
         );
@@ -32,7 +32,7 @@ describe('withField', function() {
 
       it('renders a single label with the provided label content and name', function() {
         const labelComponent = wrappedField
-          .find({testdatalabel: 'HOC/field-label'});
+          .find({'test-label': 'HOC/field-label'});
         expect(labelComponent).to.have.length(1);
         expect(labelComponent.text()).to.equal(label);
         expect(labelComponent.prop('htmlFor')).to.equal(id);
@@ -40,23 +40,26 @@ describe('withField', function() {
 
       it('renders the provided component and passes the HOC props', function() {
         expect(wrappedField.find('input').props()).to.eql(
-          Object.assign({}, input, {
+          Object.assign({}, inputProvidedByReduxForm, {
             'aria-describedby': errorId,
+            'aria-invalid': undefined,
             className: 'input',
             id: id,
+            required: undefined,
             type
-          }));
+          })
+        );
       });
     });
 
     context('when there is an error', function() {
-      const meta = {error: 'Damn it, Bobby'};
+      const metaProvidedByReduxForm = {error: 'Damn it, Bobby'};
 
       before(function() {
         wrappedField = mount(<InputField
-          input={input}
+          input={inputProvidedByReduxForm}
           label={label}
-          meta={meta}
+          meta={metaProvidedByReduxForm}
           type={type} />
         );
       });
@@ -66,13 +69,31 @@ describe('withField', function() {
       });
 
       it('renders the error message', function() {
-        expect(wrappedField.find({testdatalabel: 'HOC/field-error'}).text())
-          .to.equal(meta.error);
+        expect(wrappedField.find({'test-label': 'HOC/field-error'}).text())
+          .to.equal(metaProvidedByReduxForm.error);
       });
 
-      it('looks like an error', function() {
-        expect(wrappedField.find({testdatalabel: 'HOC/field-wrapper'})
-          .hasClass('error')).to.be.true;
+      it('marks the input as invalid', function() {
+        expect(wrappedField.find('input').prop('aria-invalid')).to.be.true;
+      });
+    });
+
+    context('when the field is required', function() {
+      before(function() {
+        wrappedField = mount(<InputField
+          input={inputProvidedByReduxForm}
+          label={label}
+          required={true}
+          type={type} />
+        );
+      });
+
+      after(function() {
+        wrappedField.unmount();
+      });
+
+      it('marks the input as required', function() {
+        expect(wrappedField.find('input').prop('required')).to.be.true;
       });
     });
   });

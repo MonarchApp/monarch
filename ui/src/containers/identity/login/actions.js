@@ -12,9 +12,9 @@ Actions.login = (email, password) => ({
       method: 'POST'
     },
     types: [
-      ActionTypes.Auth.LOGIN_REQUEST,
-      ActionTypes.Auth.LOGIN_SUCCESS,
-      ActionTypes.Auth.LOGIN_FAILURE
+      ActionTypes.Identity.LOGIN_REQUEST,
+      ActionTypes.Identity.LOGIN_SUCCESS,
+      ActionTypes.Identity.LOGIN_FAILURE
     ]
   }
 });

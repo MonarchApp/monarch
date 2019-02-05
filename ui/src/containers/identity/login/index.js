@@ -1,5 +1,5 @@
-import AuthActions from './actions';
-import Login from 'components/login';
+import IdentityActions from './actions';
+import Login from 'components/identity/login';
 import validate from './validate';
 import {connect} from 'react-redux';
 import {reduxForm, stopSubmit, SubmissionError} from 'redux-form';
@@ -26,7 +26,7 @@ export default connect(
       }
 
       dispatch(stopSubmit(FORM_NAME, {}));
-      return dispatch(AuthActions.login(form.email, form.password));
+      return dispatch(IdentityActions.login(form.email, form.password));
     }
   })
 )(LoginForm);

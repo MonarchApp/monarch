@@ -13,10 +13,15 @@ dl {
 
 dt {
   font-size: $font-small;
-  font-weight: 700;
-  width: 50%;
+  margin-bottom: $space;
+  width: 20%;
 }
 
 dd {
-  width: 50%;
+  margin-bottom: $space;
+  width: 70%;
+}
+
+.col-4 {
+  width: 25%;
 }

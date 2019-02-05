@@ -58,6 +58,24 @@ After initial rollout, when a sidekick receives a complaint, their complaint wil
 be reviewed by three other sidekicks to determine action.
 
 
+# Domains
+## Identity (Supporting)
+Stores and authenticates personally identifiable information,
+passwords, or other user account information.
+
+## Connect (Core)
+Connects a user with a sidekick, enables conversations, or stores
+someone's location to facilitate proper connections.
+
+## Notification (Generic)
+Sends emails or push notifications to notify user accounts of recent activity,
+confirm email address changes, or confirm user account sign ups.
+
+## Complaints (Generic)
+Enables the filing, sending, refutation, or acceptance of complaints
+between users.
+
+
 # Events
 * User signs up
 * User logs in
@@ -72,28 +90,3 @@ be reviewed by three other sidekicks to determine action.
 * User files complaint against sidekick
 * User sends a message
 * User receives a message
-
-
-# Domains
-
-## Identity
-*Type* - Core
-
-*Subdomains* -
-  * Authentication (Generic)
-  * Profile (Supporting)
-
-## Connect
-*Type* - Core
-
-## Location
-*Type* - Generic
-
-## Conversation
-*Type* - Supporting
-
-## Notification
-*Type* - Generic
-
-## Complaints
-*Type* - Generic
