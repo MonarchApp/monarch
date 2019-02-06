@@ -9,7 +9,7 @@
     text-align: left;
   }
 
-  .label {
+  .label-text {
     color: $grey-primary;
     display: block;
     font-family: $font-heading;
@@ -40,3 +40,39 @@
   }
 }
 
+.field-info {
+  font-size: $font-small;
+  margin-bottom: $space;
+}
+
+.inline-label-form {
+  .field {
+    label {
+      display: flex;
+    }
+
+    .label-text {
+      line-height: $space-xlarge;
+      padding: 0 $space 0 0;
+      text-align: right;
+      width: 25%;
+    }
+
+    .input {
+      width: 75%;
+    }
+  }
+
+  .field-info {
+    float: right;
+    text-align: right;
+    width: 75%;
+  }
+
+  .button {
+    &.primary {
+      clear: both;
+      float: right;
+    }
+  }
+}
