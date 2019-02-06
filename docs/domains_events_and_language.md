@@ -81,12 +81,14 @@ between users.
 * User logs in
 * User signs out
 * User edits profile
+* User changes password
+* User changes email
 * User deletes user account
 * User updates user account
 * User is connected with a sidekick
 * User leaves sidekick
 * Sidekick leaves user
-* Sidekick files complaint against a user
-* User files complaint against sidekick
 * User sends a message
 * User receives a message
+* Sidekick files complaint against a user
+* User files complaint against sidekick
