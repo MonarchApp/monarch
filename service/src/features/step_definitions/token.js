@@ -9,7 +9,7 @@ const isTokenActive = token => {
   return (exp * 1000) > (Date.now() - (60 * 1000));
 };
 
-When('I get a token', async function() {
+When('a valid, authenticated token is obtained', async function() {
   if (isTokenActive(this.token)) return this.token;
 
   const url = this.utils.getRequestUrl('/login');

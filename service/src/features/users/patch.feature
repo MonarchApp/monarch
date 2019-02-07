@@ -4,8 +4,8 @@ Feature: Patch user
   I want to be able to update my information.
 
   Background:
-    Given I seed "user_account"
-    And I get a token
+    Given the database is seeded with "user_account"
+    And a valid, authenticated token is obtained
 
 
   Scenario: Update self
@@ -35,7 +35,7 @@ Feature: Patch user
 
 
   Scenario: Update self with empty object
-    Given I store the "10ba038e-48da-487b-96e8-8d3b99b6d18a" user
+    Given a comparison of the "10ba038e-48da-487b-96e8-8d3b99b6d18a" user
     When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
       """
       {}

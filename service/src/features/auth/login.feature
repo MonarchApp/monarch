@@ -5,7 +5,7 @@ Feature: Login
   So I can use the service.
 
   Background:
-    Given I seed "user_account"
+    Given the database is seeded with "user_account"
 
 
   @StubDate

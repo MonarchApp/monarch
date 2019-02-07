@@ -1,13 +1,12 @@
 Feature: User can search for a location
 
-  As a user,
+  As a user of the Monarch service,
   I want a list of location suggestions,
-  So Monarch can store my location,
-  To enable my access to resources.
+  So Monarch can store my general location to connect me with resources.
 
   Background:
-    Given I seed "user_account"
-    And I get a token
+    Given the database is seeded with "user_account"
+    And a valid, authenticated token is obtained
 
   Scenario: Find a location
     When POST "/location/search"

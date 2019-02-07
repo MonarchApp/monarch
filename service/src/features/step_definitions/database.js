@@ -11,7 +11,7 @@ When('{string} table is dropped', async function(tableName) {
   await this.knex.schema.dropTable(tableName);
 });
 
-When('I seed {string}', async function(seedFilename) {
+When('the database is seeded with {string}', async function(seedFilename) {
   const pathToSeed = path.join('env', process.env.NODE_ENV, 'seeds', seedFilename);
   const seedFunction = rootRequire(pathToSeed).seed;
   await seedFunction(this.knex);

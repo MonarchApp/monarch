@@ -1,11 +1,11 @@
 import ActionTypes from 'constants/actions';
-import AuthReducer from '../auth';
+import IdentityReducer from '../identity';
 import sinon from 'sinon';
 import LocalStorageConstants from 'constants/local_storage';
 
 const sandbox = sinon.createSandbox();
 
-describe('AuthReducer', function() {
+describe('IdentityReducer', function() {
   let returnValue;
 
   before(function() {
@@ -23,10 +23,10 @@ describe('AuthReducer', function() {
     const initialState = {isAuthenticated: true};
 
     beforeEach(function() {
-      returnValue = AuthReducer(initialState, {type: ActionTypes.Auth.LOGIN_FAILURE});
+      returnValue = IdentityReducer(initialState, {type: ActionTypes.Identity.LOGIN_FAILURE});
     });
 
-    it('sets isAuthenticated to false', function() {
+    it('revokes user authentication', function() {
       expect(returnValue.isAuthenticated).to.be.false;
     });
 
@@ -41,13 +41,13 @@ describe('AuthReducer', function() {
     const token = 'token';
 
     beforeEach(function() {
-      returnValue = AuthReducer(initialState, {
+      returnValue = IdentityReducer(initialState, {
         payload: {token},
-        type: ActionTypes.Auth.LOGIN_SUCCESS
+        type: ActionTypes.Identity.LOGIN_SUCCESS
       });
     });
 
-    it('sets isAuthenticated to true', function() {
+    it('authenticates the user', function() {
       expect(returnValue.isAuthenticated).to.be.true;
     });
 

@@ -1,0 +1,28 @@
+@import '~theme/vars';
+
+.header {
+  background: $red-orange-gradient;
+  height: 3.75rem;
+  position: relative;
+
+  .svg-full-logo {
+    fill: $white;
+    height: 2rem;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .avatar {
+    background: $black;
+    border: $border-base $white;
+    border-radius: 50%;
+    height: 2.25rem;
+    position: absolute;
+    right: $space;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.25rem;
+  }
+}

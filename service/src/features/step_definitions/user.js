@@ -9,7 +9,7 @@ Given('{string} user matches', async function(id, json) {
   if (userResultMatchesPattern) { throw new Error(userResultMatchesPattern); }
 });
 
-Given('I store the {string} user', async function(id) {
+Given('a comparison of the {string} user', async function(id) {
   const [user] = await this.knex('user_account').select().where({id});
   this.activeUser = user;
 });

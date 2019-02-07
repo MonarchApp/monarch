@@ -1,0 +1,27 @@
+@import '~theme/vars';
+
+.story-wrapper {
+  margin: $space;
+}
+
+dl {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: $space;
+}
+
+dt {
+  font-size: $font-small;
+  margin-bottom: $space;
+  width: 20%;
+}
+
+dd {
+  margin-bottom: $space;
+  width: 70%;
+}
+
+.col-4 {
+  width: 25%;
+}

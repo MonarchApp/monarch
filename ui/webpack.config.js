@@ -8,6 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
+  mode: 'development',
   module: {
     rules: [
       {
@@ -36,7 +37,8 @@ module.exports = {
     modules: [
       path.resolve(__dirname, 'node_modules'),
       path.resolve(__dirname, 'src')
-    ]
+    ],
+    extensions: ['.js', '.scss', '*']
   },
   devServer: {
     contentBase: 'dist',
