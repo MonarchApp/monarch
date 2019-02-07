@@ -1,3 +1,4 @@
+@Only
 Feature: Create user
 
   As a potential consumer of the Monarch service,
@@ -100,7 +101,7 @@ Feature: Create user
 
 
   Scenario: Create a user with unexpected error
-    When "user_account" table is dropped
+    When "user_account_info" table is dropped
     And POST "/users"
       """
       {
