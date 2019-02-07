@@ -97,7 +97,7 @@ Feature: Login
 
 
   Scenario: Login with unexpected error
-    When "user_account_info" table is dropped
+    When "user_account" table is dropped
     And POST "/login"
       """
       {
