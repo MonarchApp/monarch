@@ -14,11 +14,9 @@ Feature: Get user
     And response body matches
       """
       {
-        createDate: _.isDateString,
+        bio: null,
         email: "frankjaeger@foxhound.com",
         id: "10ba038e-48da-487b-96e8-8d3b99b6d18a",
-        modifyDate: _.isDateString,
-        password: _.isSize|60
       }
       """
 
@@ -37,7 +35,7 @@ Feature: Get user
 
 
   Scenario: Get a user with unexpected error
-    When "user_account" table is dropped
+    When "user_account_info" table is dropped
     And GET "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
     Then response status code is 500
     And response body matches

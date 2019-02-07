@@ -45,8 +45,15 @@ users.get.handler = async (request, h) => {
   const {id} = request.params;
 
   try {
-    const [user] = await request.knex('user_account').select().where({id});
-    return h.response(user || {}).code(200);
+    const [user] = await request.knex('user_account_info')
+      .select('bio', 'email', 'user_account_id')
+      .where('user_account_id', id);
+
+    return h.response({
+      bio: user.bio,
+      id: user.user_account_id,
+      email: user.email
+    }).code(200);
   } catch (error) {
     bounce.rethrow(error, 'system');
     request.log(['error', 'user', 'get'], `Failed to get user with id "${id}"`);
