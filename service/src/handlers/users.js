@@ -100,21 +100,31 @@ users.post.handler = async (request, h) => {
     return boom.badImplementation();
   }
 
-  const userObject = {
-    email,
-    id: uuidv4(),
+  const id = uuidv4();
+  const userAccountRow = {
+    id,
     password: hashedPassword
   };
 
+  const userAccountInfoRow = {
+    id: uuidv4(),
+    'user_account_id': id,
+    email
+  };
+
   try {
-    await request.knex('user_account').insert(userObject);
+    await request.knex.transaction(trx =>
+      Promise.all([
+        trx('user_account').insert(userAccountRow),
+        trx('user_account_info').insert(userAccountInfoRow)
+      ]));
 
     // TODO: Send user email
     return h.response().code(201);
   } catch (error) {
     bounce.rethrow(error, 'system');
 
-    if (error.message.indexOf('user_account_email_unique') > -1) {
+    if (error.message.indexOf('user_account_info_email_unique') > -1) {
       return h.response().code(201);
     }
 

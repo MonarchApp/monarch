@@ -1,4 +1,3 @@
-@Only
 Feature: Create user
 
   As a potential consumer of the Monarch service,
@@ -18,18 +17,19 @@ Feature: Create user
     When raw query
       """
         SELECT *
-        FROM user_account
-        WHERE email = 'testemail@domain.com'
+        FROM user_account_info AS i
+        INNER JOIN user_account AS u ON (i.user_account_id = u.id)
+        WHERE i.email = 'testemail@domain.com'
       """
     Then raw query result matches
       """
       [{
         bio: null,
-        createDate: _.isDate,
+        created_at: _.isDate,
         email: "testemail@domain.com",
         id: _.isUuid,
-        modifyDate: _.isDate,
-        password: _.isSize|60
+        password: _.isSize|60,
+        updated_at: _.isDate
         ...
       }]
       """
