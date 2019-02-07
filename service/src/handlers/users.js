@@ -70,10 +70,14 @@ users.patch.handler = async (request, h) => {
   if (_.isEmpty(request.payload)) return h.response().code(200);
 
   const now = request.knex.fn.now();
-  const newValues = Object.assign({}, request.payload, {modifyDate: now});
+  const {bio} = request.payload;
 
   try {
-    await request.knex('user_account').where({id}).update(newValues);
+    await request
+      .knex('user_account_info')
+      .where({'user_account_id': id})
+      .update({bio, 'updated_at': now});
+
     return h.response().code(200);
   } catch (error) {
     bounce.rethrow(error, 'system');
