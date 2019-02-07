@@ -4,8 +4,8 @@ import Classnames from 'classnames';
 import './side_navigation.scss';
 
 const SideNavigation = ({children}) =>
-  <nav className='side-navigation' aria-labelledby='side-navigation'>
-    <ul className='side-navigation-list'>
+  <nav className='side-navigation' role='navigation'>
+    <ul className='side-navigation-list' role='menubar'>
       {children}
     </ul>
   </nav>;
@@ -19,6 +19,7 @@ const SideNavigationItem = ({active, onClick, text}) =>
   <li className='side-navigation-item'>
     <button
       className={Classnames('side-navigation-button', {active})}
+      role='menuitem'
       onClick={onClick}
     >
       {text}
