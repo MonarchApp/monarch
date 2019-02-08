@@ -2,10 +2,11 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {PrimaryButton} from './index.js';
 
-storiesOf('Components/Buttons', module)
-  .add('Primary Button', () =>
-    <React.Fragment>
-      <dl className='col-4'>
+storiesOf('Components/Shared', module)
+  .add('Button', () =>
+    <div className='col-4'>
+      <h3>Primary</h3>
+      <dl>
         <dt>Enabled</dt>
         <dd>
           <PrimaryButton text='Button' />
@@ -15,6 +16,6 @@ storiesOf('Components/Buttons', module)
           <PrimaryButton text='Button' disabled />
         </dd>
       </dl>
-    </React.Fragment>
+    </div>
   );
 

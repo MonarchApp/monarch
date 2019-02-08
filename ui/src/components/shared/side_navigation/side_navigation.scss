@@ -1,0 +1,36 @@
+@import '~theme/vars';
+
+.side-navigation {
+  background: $white;
+  display: inline-block;
+}
+
+.side-navigation-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.side-navigation-item {
+  padding-bottom: $space;
+}
+
+.side-navigation-button {
+  color: $grey-secondary;
+  text-align: left;
+  width: 100%;
+
+  &:hover {
+    color: $red-primary;
+    cursor: pointer;
+  }
+
+  &.active {
+    color: $black;
+    font-weight: $font-bold;
+
+    &:hover {
+      color: $black;
+    }
+  }
+}

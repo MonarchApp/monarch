@@ -1,9 +1,15 @@
 # Ubiquitous Language
-### User
-A member of the Monarch community.
-Users can request a sidekick and remove a sidekick.
 
-*Rationale* - Terrible, but clear for now.
+### User Account
+A digital representation of a member of the Monarch community.
+A user can request a sidekick and remove a sidekick.
+
+*Synonyms* - Users
+*Rationale* - Not the greatest title, but clear for now.
+
+### User Account Profile
+A series of optional, data fields that describe a user account. This may include things
+such as the person's name, their pronoun, their gender identity, or a biography.
 
 
 ### Sidekick
@@ -74,12 +80,15 @@ between users.
 * User signs up
 * User logs in
 * User signs out
-* User deletes account
-* User updates account
+* User edits profile
+* User changes password
+* User changes email
+* User deletes user account
+* User updates user account
 * User is connected with a sidekick
 * User leaves sidekick
 * Sidekick leaves user
-* Sidekick files complaint against a user
-* User files complaint against sidekick
 * User sends a message
 * User receives a message
+* Sidekick files complaint against a user
+* User files complaint against sidekick

@@ -28,7 +28,7 @@ const withField = (Input) => {
       <label
         htmlFor={id}
         test-label='HOC/field-label'>
-        <span className='label'>{label}</span>
+        <span className='label-text'>{label}</span>
         <Input
           aria-describedby={errorId}
           aria-invalid={error && true}

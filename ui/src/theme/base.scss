@@ -7,6 +7,7 @@
 }
 
 html {
+  color: $grey-secondary;
   font-family: $font-body;
   font-size: 16px;
 }
@@ -16,11 +17,7 @@ h2,
 h3,
 h4 {
   font-family: $font-heading;
-}
-
-p {
-  color: $grey-primary;
-  font-family: $font-body;
+  text-transform: uppercase;
 }
 
 h1 {
@@ -37,4 +34,18 @@ h3 {
 
 h4 {
   color: $blue-primary;
+}
+
+p {
+  line-height: $space-xlarge;
+}
+
+a {
+  color: $red-primary;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
 }

@@ -22,6 +22,14 @@ dd {
   width: 70%;
 }
 
+.col-wrap {
+  display: flex;
+}
+
+.col-2 {
+  width: 50%;
+}
+
 .col-4 {
   width: 25%;
 }
