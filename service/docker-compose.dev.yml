@@ -7,4 +7,4 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_DB: "monarch_test"
+      POSTGRES_DB: "monarch_dev"
