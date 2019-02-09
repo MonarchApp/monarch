@@ -9,6 +9,16 @@ exports.seed = async knex => {
   const userId = uuidv4();
   const password = await hash('password', saltRounds);
 
+  const [existingUser] = await knex('user_account_info')
+    .select('user_account_id')
+    .where({email: 'jill@abc.com'});
+
+  if (existingUser) {
+    await knex('user_account')
+      .where({id: existingUser.user_account_id})
+      .del();
+  }
+
   await knex.transaction(trx =>
     Promise.all([
       trx('user_account').insert({id: userId, password}),

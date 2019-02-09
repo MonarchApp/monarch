@@ -29,6 +29,7 @@
     "request-promise": "^4.2.2"
   },
   "scripts": {
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up --build",
     "gen-keys": "yarn private-key && yarn public-key",
     "lint": "node_modules/.bin/eslint src/",
     "private-key": "openssl genrsa 4096 > rsa-private.pem",
