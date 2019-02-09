@@ -2,9 +2,9 @@ version: '3'
 
 services:
   postgres:
-    image: postgres:10.5-alpine
+    build: images/postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_DB: "monarch_test"
+      POSTGRES_DBS: 'monarch_test monarch_dev'
