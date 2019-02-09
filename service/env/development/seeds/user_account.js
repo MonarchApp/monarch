@@ -6,6 +6,8 @@ const {saltRounds} = require('../config.json').auth;
 const hash = Promise.promisify(bcrypt.hash);
 
 exports.seed = async knex => {
+  await knex('user_account').truncate();
+
   const users = [{
     email: 'jill@abc.com',
     id: uuidv4(),
