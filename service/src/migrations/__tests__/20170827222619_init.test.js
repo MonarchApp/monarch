@@ -7,7 +7,7 @@ const uuidv4 = require('uuid/v4');
 const {getKnexConnection} = rootRequire('src/utils/test_utils');
 const knex = getKnexConnection();
 
-describe.only('Initial Migration', function() {
+describe('Initial Migration', function() {
   context('when applying the migration', function() {
     const now = new Date();
     let dateStub;
