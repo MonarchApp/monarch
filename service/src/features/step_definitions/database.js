@@ -8,7 +8,7 @@ When('raw query', async function(query) {
 });
 
 When('{string} table is dropped', async function(tableName) {
-  await this.knex.schema.dropTable(tableName);
+  await this.knex.schema.raw(`DROP TABLE if exists ${tableName} CASCADE`);
 });
 
 When('the database is seeded with {string}', async function(seedFilename) {

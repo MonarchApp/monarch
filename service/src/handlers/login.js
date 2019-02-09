@@ -43,7 +43,11 @@ login.post.handler = async (request, h) => {
   const {jwtAudience, jwtPrivateKey} = request.config.get('auth');
 
   try {
-    const [user] = await request.knex('user_account').select().where({email});
+    const [user] = await request.knex('user_account_info')
+      .where({email})
+      .join('user_account', 'user_account_info.user_account_id', '=', 'user_account.id')
+      .select('user_account.password', 'user_account.id');
+
     if (!user) { return await replyWithInvalidCreds(); }
 
     const hashedPassword = user.password;
@@ -56,6 +60,11 @@ login.post.handler = async (request, h) => {
     const token = generateToken(tokenPayload, jwtPrivateKey, tokenOptions);
     return h.response({token}).code(200);
   } catch (error) {
+    request.log(['error', 'login'], {
+      error,
+      message: 'Failed to authenticate user'
+    });
+
     bounce.rethrow(error, 'system');
     return boom.badImplementation();
   }

@@ -12,7 +12,7 @@ Feature: Patch user
     Given "10ba038e-48da-487b-96e8-8d3b99b6d18a" user matches
       """
       {
-        modifyDate: _.isSetAsMemo|modifyDate,
+        updated_at: _.isSetAsMemo|modifyDate,
         ...
       }
       """
@@ -28,7 +28,7 @@ Feature: Patch user
       """
       {
         bio: 'More...MORE!!',
-        modifyDate: _.isNotEqualToMemo|modifyDate
+        updated_at: _.isNotEqualToMemo|modifyDate
         ...
       }
       """
@@ -90,7 +90,7 @@ Feature: Patch user
 
 
   Scenario: Update a user with unexpected error
-    Given "user_account" table is dropped
+    Given "user_account_info" table is dropped
     When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
       """
       {

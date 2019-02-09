@@ -6,11 +6,17 @@ const {saltRounds} = require('../config.json').auth;
 const hash = Promise.promisify(bcrypt.hash);
 
 exports.seed = async knex => {
-  const users = [{
-    email: 'jill@abc.com',
-    id: uuidv4(),
-    password: await hash('password', saltRounds)
-  }];
+  const userId = uuidv4();
+  const password = await hash('password', saltRounds);
 
-  await knex('user_account').insert(users);
+  await knex.transaction(trx =>
+    Promise.all([
+      trx('user_account').insert({id: userId, password}),
+      trx('user_account_info').insert({
+        id: uuidv4(),
+        user_account_id: userId,
+        email: 'jill@abc.com',
+      })
+    ])
+  );
 };

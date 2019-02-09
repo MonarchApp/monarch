@@ -45,8 +45,15 @@ users.get.handler = async (request, h) => {
   const {id} = request.params;
 
   try {
-    const [user] = await request.knex('user_account').select().where({id});
-    return h.response(user || {}).code(200);
+    const [user] = await request.knex('user_account_info')
+      .select('bio', 'email', 'user_account_id')
+      .where('user_account_id', id);
+
+    return h.response({
+      bio: user.bio,
+      id: user.user_account_id,
+      email: user.email
+    }).code(200);
   } catch (error) {
     bounce.rethrow(error, 'system');
     request.log(['error', 'user', 'get'], `Failed to get user with id "${id}"`);
@@ -70,10 +77,14 @@ users.patch.handler = async (request, h) => {
   if (_.isEmpty(request.payload)) return h.response().code(200);
 
   const now = request.knex.fn.now();
-  const newValues = Object.assign({}, request.payload, {modifyDate: now});
+  const {bio} = request.payload;
 
   try {
-    await request.knex('user_account').where({id}).update(newValues);
+    await request
+      .knex('user_account_info')
+      .where({'user_account_id': id})
+      .update({bio, 'updated_at': now});
+
     return h.response().code(200);
   } catch (error) {
     bounce.rethrow(error, 'system');
@@ -100,21 +111,31 @@ users.post.handler = async (request, h) => {
     return boom.badImplementation();
   }
 
-  const userObject = {
-    email,
-    id: uuidv4(),
+  const id = uuidv4();
+  const userAccountRow = {
+    id,
     password: hashedPassword
   };
 
+  const userAccountInfoRow = {
+    id: uuidv4(),
+    'user_account_id': id,
+    email
+  };
+
   try {
-    await request.knex('user_account').insert(userObject);
+    await request.knex.transaction(trx =>
+      Promise.all([
+        trx('user_account').insert(userAccountRow),
+        trx('user_account_info').insert(userAccountInfoRow)
+      ]));
 
     // TODO: Send user email
     return h.response().code(201);
   } catch (error) {
     bounce.rethrow(error, 'system');
 
-    if (error.message.indexOf('user_account_email_unique') > -1) {
+    if (error.message.indexOf('user_account_info_email_unique') > -1) {
       return h.response().code(201);
     }
 

@@ -1,7 +1,8 @@
 Feature: Login
 
-  As a consumer of the Monarch API,
-  I want to be able to log in using a username and password.
+  As a user of the Monarch service,
+  I want to be able to log in,
+  So I can use the service.
 
   Background:
     Given the database is seeded with "user_account"
