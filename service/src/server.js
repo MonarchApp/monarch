@@ -34,6 +34,20 @@ const initServer = async () => {
   server.route(routes);
   await server.start();
 
+  if (process.env.NODE_ENV === 'development') {
+    try {
+      await server.knex.migrate.latest();
+      await server.knex.seed.run();
+    } catch (error) {
+      await server.knex.destroy();
+      await server.stop();
+
+      // eslint-disable-next-line no-console
+      console.error('Failed to run migrations. Is Postgres running?');
+      process.exit(1);
+    }
+  }
+
   // eslint-disable-next-line no-console
   server.log(['info', 'init'], `\nMonarch started at ${server.info.uri}\n`);
 
