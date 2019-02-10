@@ -13,6 +13,7 @@ const getDisplayName = input => `WithField(${ typeof input === 'string' ?
 // documentation for further information about what props to expect.
 const withField = (Input) => {
   const FieldWrapper = ({
+    autoFocus,
     className,
     errorId,
     id,
@@ -32,6 +33,7 @@ const withField = (Input) => {
         <Input
           aria-describedby={errorId}
           aria-invalid={error && true}
+          autoFocus={autoFocus} // eslint-disable-line jsx-a11y/no-autofocus
           className='input'
           id={id}
           required={required}
@@ -48,6 +50,7 @@ const withField = (Input) => {
     </div>;
 
   FieldWrapper.propTypes = {
+    autoFocus: PropTypes.bool,
     className: PropTypes.string,
     errorId: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
