@@ -1,10 +1,7 @@
 const rp = require('request-promise');
 
-const locationFactory = server => {
-  const location = {};
-
-  location.search = async query => {
-    console.log(server.config.get('locationGateway'));
+const register = server => {
+  server.method('connect.location.search', async query => {
     const {code, host, id, port} = server.config.get('locationGateway');
 
     let uriPort;
@@ -22,9 +19,11 @@ const locationFactory = server => {
 
     return geocodeSuggestions.suggestions
       .map(({label, locationId}) => ({label, locationId}));
-  };
-
-  return location;
+  });
 };
 
-module.exports = locationFactory;
+module.exports = {
+  register,
+  name: 'connect',
+  version: '0.0.0'
+};
