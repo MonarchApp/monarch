@@ -2,8 +2,6 @@ const boom = require('boom');
 const bounce = require('bounce');
 const joi = require('joi');
 
-const locationService = require('../services/location');
-
 const location = {
   search: {}
 };
@@ -18,20 +16,20 @@ location.search.config = {
 
 location.search.handler = async (request, h) => {
   const {value} = request.payload;
-  const {code, host, id, port} = request.config.get('locationGateway');
+  const {methods} = request.server;
 
   try {
-    const searchResults = await locationService.search({
-      locationGatewayCode: code,
-      locationGatewayId: id,
-      locationGatewayHost: host,
-      port,
-      search: value
-    });
+    const searchResults = await methods.connect.location.search(value);
 
     return h.response(searchResults).code(200);
   } catch (error) {
     bounce.rethrow(error, 'system');
+
+    request.log(
+      ['error', 'connect', 'location', 'search'],
+      `Failed to search for location: ${value}`
+    );
+
     return boom.serverUnavailable();
   }
 };
