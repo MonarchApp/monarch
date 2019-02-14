@@ -29,6 +29,8 @@ const initServer = async () => {
     plugin: require('./plugins/auth')
   }, {
     plugin: require('./plugins/attach_knex')
+  }, {
+    plugin: require('./plugins/connect')
   }]);
 
   server.route(routes);
