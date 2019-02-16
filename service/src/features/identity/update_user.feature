@@ -1,7 +1,8 @@
-Feature: Patch user
+Feature: Update user
 
   As a user of the Monarch service,
-  I want to be able to update my information.
+  I want to be able to update my information,
+  So my profile can portray reality.
 
   Background:
     Given the database is seeded with "user_account"

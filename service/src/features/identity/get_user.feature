@@ -1,7 +1,8 @@
 Feature: Get user
 
   As a user of the Monarch service,
-  I want to be able to get my information.
+  I want to be able to get my information,
+  So I can review it.
 
   Background:
     Given the database is seeded with "user_account"

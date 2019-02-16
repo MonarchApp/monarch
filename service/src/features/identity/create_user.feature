@@ -1,7 +1,7 @@
 Feature: Create user
 
-  As a potential consumer of the Monarch service,
-  I want to be able to create a user,
+  As a potential user of the Monarch service,
+  I want to be able to create an account,
   so I can interact with the service.
 
   Scenario: Create a valid user

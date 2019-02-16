@@ -1,7 +1,8 @@
 Feature: Delete user
 
-  As a consumer of the Monarch API,
-  I want to be able to delete a user.
+  As a user of the Monarch service,
+  I want to be able to delete my account,
+  Because I no longer want to use the service.
 
   Background:
     Given the database is seeded with "user_account"
