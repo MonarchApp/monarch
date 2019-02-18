@@ -20,14 +20,14 @@ describe('IdentityReducer', function() {
   });
 
   context('when the user fails to login', function() {
-    const initialState = {isAuthenticated: true};
+    const initialState = {authenticated: true};
 
     beforeEach(function() {
       returnValue = IdentityReducer(initialState, {type: ActionTypes.Identity.LOGIN_FAILURE});
     });
 
     it('revokes user authentication', function() {
-      expect(returnValue.isAuthenticated).to.be.false;
+      expect(returnValue.authenticated).to.be.false;
     });
 
     it('clears the token in local storage', function() {
@@ -37,7 +37,7 @@ describe('IdentityReducer', function() {
   });
 
   context('when the user logins successfully', function() {
-    const initialState = {isAuthenticated: false, token: ''};
+    const initialState = {authenticated: false};
     const token = 'token';
 
     beforeEach(function() {
@@ -48,7 +48,7 @@ describe('IdentityReducer', function() {
     });
 
     it('authenticates the user', function() {
-      expect(returnValue.isAuthenticated).to.be.true;
+      expect(returnValue.authenticated).to.be.true;
     });
 
     it('sets the token in local storage', function() {

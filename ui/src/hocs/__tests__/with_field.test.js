@@ -43,6 +43,7 @@ describe('withField', function() {
           Object.assign({}, inputProvidedByReduxForm, {
             'aria-describedby': errorId,
             'aria-invalid': undefined,
+            autoFocus: undefined,
             className: 'input',
             id: id,
             required: undefined,
