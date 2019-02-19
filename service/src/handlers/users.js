@@ -73,25 +73,48 @@ users.patch.config = {
 
 users.patch.handler = async (request, h) => {
   const {id} = getTokenFromRequest(request);
+  const {methods} = request.server;
 
   if (_.isEmpty(request.payload)) return h.response().code(200);
 
   const now = request.knex.fn.now();
-  const {bio} = request.payload;
+  const {bio, locationId} = request.payload;
 
   try {
     await request
       .knex('user_account_info')
       .where({'user_account_id': id})
       .update({bio, 'updated_at': now});
-
-    return h.response().code(200);
   } catch (error) {
     bounce.rethrow(error, 'system');
-    request.log(['error', 'user', 'patch'], `Failed to update user with id "${id}"`);
+    request.log(['error', 'user', 'patch'], `Failed to update user id "${id}"`);
 
     return boom.badImplementation();
   }
+
+  if (locationId) {
+    try {
+      const [latitude, longitude] = await methods.connect.location
+        .getCoordsFromLocationId(locationId);
+
+      await request
+        .knex('user_account_info')
+        .where({'user_account_id': id})
+        .update({latitude, longitude});
+    } catch (error) {
+      console.log(error);
+      bounce.rethrow(error, 'system');
+      request.log(['error', 'user', 'patch'], {
+        error,
+        message: `Failed to update location for user "${id}"`
+      });
+
+      // TODO: Throw general 500 when it's Knex, 503 when it's
+      return boom.serverUnavailable();
+    }
+  }
+
+  return h.response().code(200);
 };
 
 users.post.handler = async (request, h) => {

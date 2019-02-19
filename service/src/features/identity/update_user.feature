@@ -1,3 +1,4 @@
+@Only
 Feature: Update user
 
   As a user of the Monarch service,
@@ -10,6 +11,34 @@ Feature: Update user
 
 
   Scenario: Update self
+    Given "10ba038e-48da-487b-96e8-8d3b99b6d18a" user matches
+      """
+      {
+        latitude: _.isEmpty,
+        longitude: _.isEmpty,
+        updated_at: _.isSetAsMemo|modifyDate
+        ...
+      }
+      """
+    When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
+      """
+      {
+        "locationId": "NT_BI83mpCVa3V9rLDBYDZzIB"
+      }
+      """
+    Then response status code is 200
+    And response body is undefined
+    Then "10ba038e-48da-487b-96e8-8d3b99b6d18a" user matches
+      """
+      {
+        bio: 'More...MORE!!',
+        updated_at: _.isNotEqualToMemo|modifyDate
+        ...
+      }
+      """
+
+
+  Scenario: Update self with location id
     Given "10ba038e-48da-487b-96e8-8d3b99b6d18a" user matches
       """
       {
@@ -90,7 +119,7 @@ Feature: Update user
       """
 
 
-  Scenario: Update a user with unexpected error
+  Scenario: Update fails when updating general account information
     Given "user_account_info" table is dropped
     When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
       """
@@ -99,6 +128,25 @@ Feature: Update user
       }
       """
     Then response status code is 500
+    And response body matches
+      """
+      {
+        error: _.isString,
+        message: "An internal server error occurred",
+        statusCode: 500,
+      }
+      """
+
+
+  Scenario: Update fails when updating location
+    Given the third party geocoding API is down
+    When PATCH "/users/10ba038e-48da-487b-96e8-8d3b99b6d18a"
+      """
+      {
+        "bio": "Gray fox! It can't be!"
+      }
+      """
+    Then response status code is 503
     And response body matches
       """
       {
