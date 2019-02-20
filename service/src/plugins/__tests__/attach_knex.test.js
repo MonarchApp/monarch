@@ -5,8 +5,10 @@ const knexConfig = rootRequire('knexfile');
 
 const knexStubValue = 'knex';
 const knexStub = sinon.stub();
+const knexPostgisSpy = sinon.spy();
 
 knexStub.returns(knexStubValue);
+mockRequire('knex-postgis', knexPostgisSpy);
 mockRequire('knex', knexStub);
 
 knexConfig.testEnvironment =
@@ -25,6 +27,10 @@ describe('Register Attach Knex', function() {
 
   it('loads the knex configuration with the specified environment', function() {
     expect(knexStub).to.be.calledWith(knexConfig.testEnvironment);
+  });
+
+  it('initializes postgis functionality', function() {
+    expect(knexPostgisSpy).to.be.calledWith(knexStubValue);
   });
 
   it('decorates the request with knex', function() {
