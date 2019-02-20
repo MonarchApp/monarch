@@ -24,7 +24,10 @@
     }
   },
   "locationGateway": {
-    "host": "https://autocomplete.geocoder.api.here.com"
+    "hosts": {
+      "autocomplete": "https://autocomplete.geocoder.api.here.com",
+      "geocode": "https://geocoder.api.here.com"
+    }
   },
   "server": {
     "host": "localhost",

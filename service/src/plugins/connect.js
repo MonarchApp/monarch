@@ -1,12 +1,13 @@
 const rp = require('request-promise');
 
 const register = server => {
-  const {code, host, id, port} = server.config.get('locationGateway');
+  const {code, hosts, id, port} = server.config.get('locationGateway');
 
   let uriPort;
   uriPort = port ? `:${port}` : '';
 
-  const url = `${host}${uriPort}/6.2`;
+  const autocompleteUrl = `${hosts.autocomplete}${uriPort}/6.2`;
+  const geocodeUrl = `${hosts.geocode}${uriPort}/6.2`;
 
   server.method('connect.location.search', async query => {
     const geocodeSuggestions = await rp.get({
@@ -16,7 +17,7 @@ const register = server => {
         app_id: id,
         query
       },
-      uri: `${url}/suggest.json`
+      uri: `${autocompleteUrl}/suggest.json`
     });
 
     return geocodeSuggestions.suggestions
@@ -28,9 +29,10 @@ const register = server => {
       json: true,
       qs: {
         app_code: code,
-        app_id: id
+        app_id: id,
+        locationid: locationId
       },
-      uri: `${url}/suggest.json`
+      uri: `${geocodeUrl}/geocode.json`
     });
   });
 };
