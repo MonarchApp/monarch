@@ -23,10 +23,14 @@
       }, "stdout"]
     }
   },
-  "locationGateway": {
-    "hosts": {
-      "autocomplete": "https://autocomplete.geocoder.api.here.com",
-      "geocode": "https://geocoder.api.here.com"
+  "gateways": {
+    "location": {
+      "autocomplete": {
+        "host": "https://autocomplete.geocoder.api.here.com"
+      },
+      "geocode": {
+        "host": "https://geocoder.api.here.com"
+      }
     }
   },
   "server": {

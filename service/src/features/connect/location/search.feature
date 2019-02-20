@@ -57,8 +57,8 @@ Feature: User can search for a location
       }
       """
 
-  Scenario: Third-party geocoding API is down
-    Given the third party geocoding API is down
+  Scenario: Location gateway autocomplete API is down
+    Given the location gateway autocomplete API is down
     When POST "/location/search"
       """
       {

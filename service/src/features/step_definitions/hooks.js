@@ -9,8 +9,16 @@ const Mockingjays = require('mockingjays');
 
 const createServer = rootRequire('src/server');
 
-const locationGatewayMock = new Mockingjays();
+const locationAutocompleteMock = new Mockingjays();
+const locationGeocodeMock = new Mockingjays();
 let server;
+
+const getGatewayUrl = (config, path) => {
+  const {host, port} = config.get(`gateways:${path}`);
+  const uriPort = port ? `:${port}` : '';
+
+  return `${host}${uriPort}`;
+};
 
 BeforeAll(async function() {
   try {
@@ -29,11 +37,36 @@ Before(function() {
 });
 
 Before(function() {
-  const host = this.server.config.get('locationGateway:host');
-  const port = this.server.config.get('locationGateway:port');
-  const uriPort = port ? `:${port}` : '';
+  const {config} = this.server;
 
-  this.config.locationGatewayUrl = `${host}${uriPort}`;
+  this.config.locationAutocompleteUrl =
+    getGatewayUrl(config, 'location:autocomplete');
+
+  this.config.locationGeocodeUrl = getGatewayUrl(config, 'location:geocode');
+});
+
+Before(function() {
+  locationAutocompleteMock.start({
+    cacheDir: path.resolve('src/features/fixtures/here'),
+    logLevel: 'none',
+    port: 33500,
+    queryParameterBlacklist: 'app_code,app_id',
+    serverBaseUrl: 'https://autocomplete.geocoder.api.here.com'
+  });
+
+  locationGeocodeMock.start({
+    cacheDir: path.resolve('src/features/fixtures/here'),
+    logLevel: 'none',
+    port: 33501,
+    queryParameterBlacklist: 'app_code,app_id',
+    serverBaseUrl: 'https://geocoder.api.here.com'
+  });
+});
+
+After(function() {
+  nock.cleanAll();
+  locationAutocompleteMock.stop();
+  locationGeocodeMock.stop();
 });
 
 Before(async function() {
@@ -43,21 +76,6 @@ Before(async function() {
     error.message = `Failed to perform database migrations.\n\nError:\n${error.message}`;
     throw error;
   }
-});
-
-Before(function() {
-  locationGatewayMock.start({
-    cacheDir: path.resolve('src/features/fixtures/here'),
-    logLevel: 'none',
-    port: 9000,
-    queryParameterBlacklist: 'app_code,app_id',
-    serverBaseUrl: 'https://autocomplete.geocoder.api.here.com'
-  });
-});
-
-After(function() {
-  nock.cleanAll();
-  locationGatewayMock.stop();
 });
 
 After(async function() {

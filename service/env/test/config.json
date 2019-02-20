@@ -4,11 +4,21 @@
     "saltRounds": 1
   },
   "good": {},
-  "locationGateway": {
-    "host": "http://localhost",
-    "port": 9000,
-    "id": "test_id",
-    "code": "test_code"
+  "gateways": {
+    "location": {
+      "autocomplete": {
+        "host": "http://localhost",
+        "port": 33500,
+        "id": "test_id",
+        "code": "test_code"
+      },
+      "geocode": {
+        "host": "http://localhost",
+        "port": 33501,
+        "id": "test_id",
+        "code": "test_code"
+      }
+    }
   },
   "server": {
     "debug": false,
