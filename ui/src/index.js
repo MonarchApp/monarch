@@ -4,7 +4,6 @@ import Root from 'containers/root';
 import apiMiddleware from 'middleware/api';
 import reducers from 'reducers';
 import thunk from 'redux-thunk';
-import {Provider} from 'react-redux';
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import {render} from 'react-dom';
 
@@ -17,9 +16,4 @@ const initialState = reducer(defaultState);
 
 const store = createStore(reducer, initialState, composeEnhancers(middleware));
 
-render(
-  <Provider store={store}>
-    <Root />
-  </Provider>,
-  document.getElementById('app')
-);
+render(<Root store={store} />, document.getElementById('app'));

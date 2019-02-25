@@ -14,16 +14,17 @@ const Login = ({error, handleSubmit, submitting}) =>
     <form className='login-form' noValidate onSubmit={handleSubmit}>
       {error && <InlineErrorNotification message={error} />}
       <Field
+        autoFocus // eslint-disable-line jsx-a11y/no-autofocus
         component={InputField}
         label='Email'
         name='email'
-        required={true}
+        required
         type='email' />
       <Field
         component={InputField}
         label='Password'
         name='password'
-        required={true}
+        required
         type='password' />
       <PrimaryButton
         disabled={submitting}
