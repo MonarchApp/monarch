@@ -36,7 +36,7 @@ const register = server => {
   });
 
   server.method('connect.location.getCoordsFromLocationId', async locationId => {
-    const result = rp.get({
+    const result = await rp.get({
       json: true,
       qs: {
         app_code: geocodeCode,
@@ -46,8 +46,10 @@ const register = server => {
       uri: `${geocodeUrl}/geocode.json`
     });
 
-    const {Latitude, Longitude} = result.Response.View
-      .Result[0].Location.DisplayPosition;
+    const {Latitude, Longitude} = result.Response
+      .View[0]
+      .Result[0]
+      .Location.DisplayPosition;
 
     return [Latitude, Longitude];
   });

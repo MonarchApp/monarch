@@ -1,0 +1,29 @@
+{
+  "request": {
+    "hostname": "geocoder.api.here.com",
+    "port": 443,
+    "path": "/6.2/geocode.json?locationid=NT_PdfvIPpJ365UJV3OOC18AB",
+    "body": "",
+    "method": "GET",
+    "headers": {},
+    "transaction": "",
+    "proto": "https",
+    "host": "geocoder.api.here.com:443"
+  },
+  "status": 200,
+  "type": "application/json;charset=utf-8",
+  "headers": {
+    "date": "Mon, 25 Feb 2019 08:01:22 GMT",
+    "content-type": "application/json;charset=utf-8",
+    "content-length": "696",
+    "connection": "close",
+    "server": "nginx-clojure",
+    "cache-control": "public, max-age=86400",
+    "access-control-allow-origin": "*",
+    "x-served-by": "i-0cb7a5331fb724db2.us-west-2a",
+    "x-nlp-log": "Z2NfYz1DQU4gZ2NfbD1jaXR5IGdjX209YWQ=",
+    "x-nlp-tid": "e7187e42-f3db-445b-8c98-71205090901a",
+    "x-nlp-irt": "738"
+  },
+  "data": "{\"Response\":{\"MetaInfo\":{\"Timestamp\":\"2019-02-25T03:47:18.007+0000\"},\"View\":[{\"_type\":\"SearchResultsViewType\",\"ViewId\":0,\"Result\":[{\"Relevance\":0.0,\"MatchLevel\":\"city\",\"Location\":{\"LocationId\":\"NT_PdfvIPpJ365UJV3OOC18AB\",\"LocationType\":\"point\",\"DisplayPosition\":{\"Latitude\":43.6487,\"Longitude\":-79.38545},\"MapView\":{\"TopLeft\":{\"Latitude\":43.85544,\"Longitude\":-79.63926},\"BottomRight\":{\"Latitude\":43.58452,\"Longitude\":-79.11562}},\"Address\":{\"Label\":\"Toronto, ON, Canada\",\"Country\":\"CAN\",\"State\":\"ON\",\"County\":\"Toronto\",\"City\":\"Toronto\",\"PostalCode\":\"M5H\",\"AdditionalData\":[{\"value\":\"Canada\",\"key\":\"CountryName\"},{\"value\":\"Ontario\",\"key\":\"StateName\"},{\"value\":\"Toronto\",\"key\":\"CountyName\"}]}}}]}]}}"
+}

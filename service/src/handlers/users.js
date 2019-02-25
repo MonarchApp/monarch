@@ -66,6 +66,7 @@ users.patch.config = {
   pre: [enforceSelfActionOnly],
   validate: {
     payload: {
+      locationId: joi.string(),
       bio: joi.string().max(500)
     }
   }
@@ -94,23 +95,25 @@ users.patch.handler = async (request, h) => {
 
   if (locationId) {
     try {
-      const [latitude, longitude] = await methods.connect.location
+      const coordinates = await methods.connect.location
         .getCoordsFromLocationId(locationId);
 
       await request
         .knex('user_account_info')
         .where({'user_account_id': id})
-        .update({latitude, longitude});
+        .update({location: request.knex.postgis.geomFromGeoJSON({
+          type: 'Point',
+          coordinates
+        })});
     } catch (error) {
-      console.log(error);
       bounce.rethrow(error, 'system');
+
       request.log(['error', 'user', 'patch'], {
         error,
         message: `Failed to update location for user "${id}"`
       });
 
-      // TODO: Throw general 500 when it's Knex, 503 when it's
-      return boom.serverUnavailable();
+      return boom.badImplementation();
     }
   }
 
