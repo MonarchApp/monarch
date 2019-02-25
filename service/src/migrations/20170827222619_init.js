@@ -36,11 +36,16 @@ exports.up = async knex => {
       .unique();
 
     table.string('bio');
+
+    table
+      .specificType('location', 'geometry(point)')
+      .index();
+
     table.timestamps(true, true);
   });
 };
 
 exports.down = async knex => {
-  await knex.schema.dropTable('user_account_info');
-  await knex.schema.dropTable('user_account');
+  await knex.schema.dropTableIfExists('user_account_info');
+  await knex.schema.dropTableIfExists('user_account');
 };

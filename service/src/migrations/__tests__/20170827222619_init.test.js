@@ -33,12 +33,13 @@ describe('Initial Migration', function() {
 
     it('creates the user_account_info table with correct columns', async function() {
       expect((await Promise.all([
-        knex.schema.hasColumn('user_account_info', 'id'),
-        knex.schema.hasColumn('user_account_info', 'user_account_id'),
-        knex.schema.hasColumn('user_account_info', 'email'),
         knex.schema.hasColumn('user_account_info', 'bio'),
         knex.schema.hasColumn('user_account_info', 'created_at'),
+        knex.schema.hasColumn('user_account_info', 'email'),
+        knex.schema.hasColumn('user_account_info', 'id'),
+        knex.schema.hasColumn('user_account_info', 'location'),
         knex.schema.hasColumn('user_account_info', 'updated_at'),
+        knex.schema.hasColumn('user_account_info', 'user_account_id')
       ])).every(exists => exists === true)).to.be.true;
     });
   });
