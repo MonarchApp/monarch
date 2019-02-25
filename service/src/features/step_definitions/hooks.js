@@ -1,8 +1,9 @@
 const rootRequire = require('app-root-path').require;
 
-const sinon = require('sinon');
-const path = require('path');
+const knexMigrate = require('knex-migrate');
 const nock = require('nock');
+const path = require('path');
+const sinon = require('sinon');
 
 const {Before, BeforeAll, After, AfterAll} = require('cucumber');
 const Mockingjays = require('mockingjays');
@@ -29,14 +30,29 @@ BeforeAll(async function() {
   }
 });
 
-Before(function() {
-  this.config = {};
-  this.server = server;
+Before(async function() {
+  await server.knex.migrate.latest();
+});
 
-  this.knex = this.server.knex;
+After(async function() {
+  await knexMigrate('down', {to: 0});
+});
+
+AfterAll(async function() {
+  try {
+    await server.knex.destroy();
+    await server.stop();
+  } catch (error) {
+    error.message = `Failed to stop server.\n\nError:\n${error.message}`;
+    throw error;
+  }
 });
 
 Before(function() {
+  this.config = {};
+  this.server = server;
+  this.knex = this.server.knex;
+
   const {config} = this.server;
 
   this.config.locationAutocompleteUrl =
@@ -67,35 +83,6 @@ After(function() {
   nock.cleanAll();
   locationAutocompleteMock.stop();
   locationGeocodeMock.stop();
-});
-
-Before(async function() {
-  try {
-    await this.knex.migrate.latest();
-  } catch (error) {
-    error.message = `Failed to perform database migrations.\n\nError:\n${error.message}`;
-    throw error;
-  }
-});
-
-After(async function() {
-  try {
-    await this.knex.raw('DROP SCHEMA public CASCADE');
-    await this.knex.raw('CREATE SCHEMA public');
-  } catch (error) {
-    error.message = `Failed to reset database schema.\n\nError:\n${error.message}`;
-    throw error;
-  }
-});
-
-AfterAll(async function() {
-  try {
-    await server.knex.destroy();
-    await server.stop();
-  } catch (error) {
-    error.message = `Failed to stop server.\n\nError:\n${error.message}`;
-    throw error;
-  }
 });
 
 Before({tags: '@StubDate'}, function() {
