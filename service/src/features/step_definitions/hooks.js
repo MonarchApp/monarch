@@ -64,7 +64,7 @@ Before(function() {
 Before(function() {
   locationAutocompleteMock.start({
     cacheDir: path.resolve('src/features/fixtures/here'),
-    logLevel: 'none',
+    logLevel: 'debug',
     port: 33500,
     queryParameterBlacklist: 'app_code,app_id',
     serverBaseUrl: 'https://autocomplete.geocoder.api.here.com'
@@ -72,7 +72,7 @@ Before(function() {
 
   locationGeocodeMock.start({
     cacheDir: path.resolve('src/features/fixtures/here'),
-    logLevel: 'none',
+    logLevel: 'debug',
     port: 33501,
     queryParameterBlacklist: 'app_code,app_id',
     serverBaseUrl: 'https://geocoder.api.here.com'
