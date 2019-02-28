@@ -12,7 +12,7 @@ const Routes = () =>
       path={RoutePaths.IDENTITY.LOGIN}
       component={Login} />
     <Route
-      path={RoutePaths.HOME}
+      path={RoutePaths.IDENTITY.USER_ACCOUNT}
       render={() => <h1>You did it!</h1>} />
     <Route render={() => <Redirect to={RoutePaths.IDENTITY.LOGIN} />} />
   </Switch>;

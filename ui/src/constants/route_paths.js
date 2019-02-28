@@ -1,6 +1,12 @@
 export default {
+  CONNECT: {
+    CONVERSATIONS: '/conversations',
+    SIDEKICK: '/sidekick'
+  },
   IDENTITY: {
-    LOGIN: '/login'
+    LOGIN: '/login',
+    LOGOUT: '/logout',
+    USER_ACCOUNT: '/account'
   },
   HOME: '/home'
 };

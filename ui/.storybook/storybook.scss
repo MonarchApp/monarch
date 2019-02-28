@@ -8,11 +8,12 @@ dl {
   align-items: center;
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
   margin-bottom: $space;
 }
 
 dt {
-  font-size: $font-small;
+  font-size: $font-xsmall;
   margin-bottom: $space;
   width: 20%;
 }
@@ -30,6 +31,32 @@ dd {
   width: 50%;
 }
 
+.col-3 {
+  width: 33.33%;
+}
+
 .col-4 {
   width: 25%;
+}
+
+.icon-list-wrapper {
+  background: $red-orange-gradient;
+  color: $white;
+  padding: $space;
+
+  svg {
+    fill: $white;
+  }
+
+  .full-logo-icon {
+    height: $space-xlarge;
+  }
+
+  .mark-logo-icon {
+    height: $space-xlarge;
+  }
+
+  .menu-icon {
+    height: .625rem;
+  }
 }

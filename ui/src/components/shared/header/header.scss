@@ -1,28 +1,185 @@
 @import '~theme/vars';
 
+$avatar-size: 2.25rem;
+$avatar-margin: $space;
+$header-height: 3.75rem;
+$mobile-breakpoint: 420px;
+
 .header {
   background: $red-orange-gradient;
-  height: 3.75rem;
+  height: $header-height;
   position: relative;
+  transition: background-color $animation-base;
 
-  .svg-full-logo {
-    fill: $white;
-    height: 2rem;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .mobile-menu-wrapper {
+    @media screen and (min-width: $mobile-breakpoint) {
+      display: none;
+    }
   }
 
-  .avatar {
-    background: $black;
-    border: $border-base $white;
-    border-radius: 50%;
-    height: 2.25rem;
+  .mobile-menu-button {
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    width: 25%;
+  }
+
+  .mobile-menu {
+    background: $white;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 $space;
+    position: fixed;
+    right: 0;
+    top: $header-height;
+
+    a {
+      color: $grey-secondary;
+      display: block;
+      padding: $space 0;
+      text-decoration: none;
+    }
+
+    .divider {
+      border-bottom: $border-base $red-primary;
+      margin: $space 0;
+      padding: 0;
+    }
+  }
+
+  .menu-icon {
+    height: .625rem;
+    left: 1rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    > * {
+      transition: stroke $animation-base;
+    }
+  }
+
+  .mark-logo-icon {
+    fill: $white;
+    height: 3rem;
     position: absolute;
     right: $space;
     top: 50%;
     transform: translateY(-50%);
-    width: 2.25rem;
+    transition: fill $animation-base;
+
+    @media screen and (min-width: $mobile-breakpoint) {
+      display: none;
+    }
+  }
+
+  &.open {
+    background: $white;
+
+    .mark-logo-icon {
+      fill: $red-primary;
+    }
+
+    .menu-icon > * {
+      stroke: $black;
+    }
+  }
+
+  .main-menu-wrapper {
+    display: none;
+
+    @media screen and (min-width: $mobile-breakpoint) {
+      display: block;
+    }
+  }
+
+  .main-menu {
+    display: flex;
+    height: $header-height;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: $avatar-size + $avatar-margin + $space;
+
+    a {
+      color: $white;
+      display: block;
+      font-size: $font-small;
+      height: 100%;
+      line-height: $header-height;
+      padding: 0 $space;
+      text-decoration: none;
+
+      &:hover {
+        color: $blue-primary;
+        border-bottom: 3px solid $blue-primary;
+      }
+    }
+  }
+
+  .user-account-menu-button {
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    right: $avatar-margin;
+    width: $avatar-size;
+  }
+
+  .user-account-menu {
+    background: $white;
+    box-shadow: $menu-box-shadow;
+    font-size: $font-small;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    top: $header-height;
+    width: 18rem;
+
+    a {
+      color: $grey-secondary;
+      cursor: pointer;
+      display: block;
+      font-size: $font-xsmall;
+      padding: $space;
+      text-decoration: none;
+
+      &:hover {
+        background: $blue-primary;
+        color: $white;
+      }
+    }
+  }
+
+  .avatar {
+    display: none;
+
+    @media screen and (min-width: $mobile-breakpoint) {
+      background: $black;
+      border: $border-base $white;
+      border-radius: 50%;
+      display: block;
+      height: $avatar-size;
+      width: $avatar-size;
+    }
+  }
+
+  .full-logo-icon {
+    display: none;
+
+    @media screen and (min-width: $mobile-breakpoint) {
+      display: block;
+      fill: $white;
+      height: 2rem;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }

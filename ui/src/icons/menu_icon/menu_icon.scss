@@ -1,0 +1,9 @@
+@import '~theme/vars';
+
+.menu-icon {
+  > * {
+    fill: transparent;
+    stroke-width: 2;
+    stroke: $white;
+  }
+}

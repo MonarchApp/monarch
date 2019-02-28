@@ -3,6 +3,7 @@
     "brace-style": [{"style": "stroustrup"}],
     "hex-length": [2, {"style": "long"}],
     "indentation": [2, {"size": 2}],
+    "nesting-depth": 3,
     "property-sort-order": "alphabetical"
   },
   "files": {

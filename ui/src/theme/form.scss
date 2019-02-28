@@ -4,7 +4,7 @@
   .error-message {
     color: $red-primary;
     display: block;
-    font-size: $font-small;
+    font-size: $font-xsmall;
     line-height: $space-large;
     text-align: left;
   }
@@ -13,7 +13,7 @@
     color: $grey-primary;
     display: block;
     font-family: $font-heading;
-    font-size: $font-small;
+    font-size: $font-xsmall;
     padding-bottom: $space;
     text-align: left;
     text-transform: uppercase;
@@ -24,7 +24,7 @@
     border-width: $border-width;
     color: $red-primary;
     font-family: $font-body;
-    font-size: $font-small;
+    font-size: $font-xsmall;
     padding: $space-xsmall + $space-nudge;
 
     &:focus {
@@ -41,7 +41,7 @@
 }
 
 .field-info {
-  font-size: $font-small;
+  font-size: $font-xsmall;
   margin-bottom: $space;
 }
 

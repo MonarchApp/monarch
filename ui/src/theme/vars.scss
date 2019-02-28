@@ -41,7 +41,6 @@ $white: #ffffff;
 //
 // Gradients
 //
-
 $error-gradient: linear-gradient(
   to right,
   darken($red-secondary, 5%),
@@ -85,6 +84,16 @@ $border-width: 2px;
 $border-base: $border-width solid;
 
 //
+// Animation
+//
+$animation-base: .1s ease;
+
+//
+// Effects
+//
+$menu-box-shadow: rgba(0, 0, 0, .1) 0 1px 3px;
+
+//
 // Sizes
 //
 $space: 1rem;
@@ -110,8 +119,8 @@ $animation-speed: .125s;
 $font-heading: 'Zona Bold', sans-serif;
 $font-body: 'Tofino Book', sans-serif;
 
-$font-xsmall: $space * .625;
-$font-small: $space * .75;
+$font-xsmall: $space * .75;
+$font-small: $space * .875;
 $font-medium: $space;
 
 $font-regular: 400;
