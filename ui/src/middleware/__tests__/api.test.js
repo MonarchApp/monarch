@@ -1,6 +1,6 @@
 import ActionTypes from 'constants/actions';
 import ApiMiddleware from '../api';
-import _ from 'lodash';
+import * as R from 'ramda';
 import configureStore from 'redux-mock-store';
 import sinon from 'sinon';
 import { normalize, schema } from 'normalizr';
@@ -95,7 +95,7 @@ describe('API Middleware', function() {
         let resultActionWithoutPayload;
 
         const assertedAction = { error: true, payload: new Error(mockError), type: failureType };
-        const assertedActionWithoutPayload = _.omit(assertedAction, 'payload');
+        const assertedActionWithoutPayload = R.omit(['payload'], assertedAction);
 
         const failedResponse = new Response(JSON.stringify(mockError), { status: 500 });
 
@@ -105,7 +105,7 @@ describe('API Middleware', function() {
           await store.dispatch(action);
           [, resultAction] = store.getActions();
 
-          resultActionWithoutPayload = _.omit(resultAction, 'payload');
+          resultActionWithoutPayload = R.omit(['payload'], resultAction);
         });
 
         it('dispatches an action with the error and provided failure type', function() {
@@ -137,7 +137,9 @@ describe('API Middleware', function() {
         };
 
         beforeEach(async function() {
-          const actionWithSchema = _.merge({}, action, { payload: { schema: categoryListSchema } });
+          const actionWithSchema = R.mergeDeepRight(action, {
+            payload: { schema: categoryListSchema }
+          });
 
           returnValue = await store.dispatch(actionWithSchema);
           [, resultAction] = store.getActions();
