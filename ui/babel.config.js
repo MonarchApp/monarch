@@ -1,12 +1,6 @@
-const plugins = [
-  '@babel/plugin-transform-runtime',
-  '@babel/plugin-transform-spread',
-  '@babel/plugin-proposal-object-rest-spread'
-];
-
 const presets = [
   '@babel/preset-react',
-  '@babel/preset-env'
+  ['@babel/preset-env', { useBuiltIns: 'usage' }]
 ];
 
-module.exports = {plugins, presets};
+module.exports = { presets };
