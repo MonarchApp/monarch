@@ -11,20 +11,20 @@ function createReducer(initialState, handlers) {
   };
 }
 
-const initialState = {authenticated: false};
-const {TOKEN_KEY} = LocalStorageConstants;
+const initialState = { authenticated: false };
+const { TOKEN_KEY } = LocalStorageConstants;
 
 export default createReducer(initialState, {
   [ActionTypes.Identity.LOGIN_FAILURE]: state => {
     // TODO: Ugh. Let's just cookie / session this mother fucker. Or
     // move it into a subscription to make reducer side-effect free.
     localStorage.removeItem(TOKEN_KEY);
-    return Object.assign({}, state, {authenticated: false});
+    return Object.assign({}, state, { authenticated: false });
   },
 
-  [ActionTypes.Identity.LOGIN_SUCCESS]: (state, {payload}) => {
+  [ActionTypes.Identity.LOGIN_SUCCESS]: (state, { payload }) => {
     // TODO: Move into subscription to make reducer side-effect free.
     localStorage.setItem(TOKEN_KEY, payload.token);
-    return Object.assign({}, state, {authenticated: true});
+    return Object.assign({}, state, { authenticated: true });
   }
 });

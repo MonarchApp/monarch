@@ -19,12 +19,12 @@ const withField = (Input) => {
     id,
     input,
     label,
-    meta: {error},
+    meta: { error },
     required,
     type
   }) =>
     <div
-      className={Classnames(className, {error}, 'field')}
+      className={Classnames(className, { error }, 'field')}
       test-label='HOC/field-wrapper'>
       <label
         htmlFor={id}

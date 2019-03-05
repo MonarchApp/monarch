@@ -20,10 +20,10 @@ describe('IdentityReducer', function() {
   });
 
   context('when the user fails to login', function() {
-    const initialState = {authenticated: true};
+    const initialState = { authenticated: true };
 
     beforeEach(function() {
-      returnValue = IdentityReducer(initialState, {type: ActionTypes.Identity.LOGIN_FAILURE});
+      returnValue = IdentityReducer(initialState, { type: ActionTypes.Identity.LOGIN_FAILURE });
     });
 
     it('revokes user authentication', function() {
@@ -37,12 +37,12 @@ describe('IdentityReducer', function() {
   });
 
   context('when the user logins successfully', function() {
-    const initialState = {authenticated: false};
+    const initialState = { authenticated: false };
     const token = 'token';
 
     beforeEach(function() {
       returnValue = IdentityReducer(initialState, {
-        payload: {token},
+        payload: { token },
         type: ActionTypes.Identity.LOGIN_SUCCESS
       });
     });

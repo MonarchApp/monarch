@@ -13,7 +13,7 @@ describe('Identity Actions', function() {
   describe('login', function() {
     const email = 'Randy Savage';
     const password = 'SNAP INTO A SLIM JIM!';
-    const {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} = ActionTypes.Identity;
+    const { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } = ActionTypes.Identity;
 
     before(function() {
       store.dispatch(Identity.login(email, password));
@@ -24,7 +24,7 @@ describe('Identity Actions', function() {
         type: ActionTypes.Api.CALL,
         payload: {
           endpoint: ApiPaths.LOGIN,
-          options: {body: {email, password}, method: 'POST'},
+          options: { body: { email, password }, method: 'POST' },
           types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE]
         },
       }]);

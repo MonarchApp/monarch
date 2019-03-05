@@ -3,7 +3,7 @@ import React from 'react';
 import Classnames from 'classnames';
 import './side_navigation.scss';
 
-const SideNavigation = ({children}) =>
+const SideNavigation = ({ children }) =>
   <nav className='side-navigation' role='navigation'>
     <ul className='side-navigation-list' role='menubar'>
       {children}
@@ -15,10 +15,10 @@ SideNavigation.propTypes = {
   children: PropTypes.node,
 };
 
-const SideNavigationItem = ({active, onClick, text}) =>
+const SideNavigationItem = ({ active, onClick, text }) =>
   <li className='side-navigation-item'>
     <button
-      className={Classnames('side-navigation-button', {active})}
+      className={Classnames('side-navigation-button', { active })}
       role='menuitem'
       onClick={onClick}
     >
@@ -33,4 +33,4 @@ SideNavigationItem.propTypes = {
   text: PropTypes.string.isRequired
 };
 
-export {SideNavigation, SideNavigationItem};
+export { SideNavigation, SideNavigationItem };

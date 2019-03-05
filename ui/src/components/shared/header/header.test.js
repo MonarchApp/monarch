@@ -1,7 +1,7 @@
 import * as rtl from 'react-testing-library';
 import Header from './index.js';
 import React from 'react';
-import {MemoryRouter} from 'react-router';
+import { MemoryRouter } from 'react-router';
 
 const toggleMenu = component =>
   rtl.fireEvent.click(

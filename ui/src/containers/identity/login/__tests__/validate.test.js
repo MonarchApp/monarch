@@ -4,7 +4,7 @@ describe('Login Validation', function() {
   let validatedFields;
 
   beforeEach(function() {
-    validatedFields = validate({fieldOne: '', fieldTwo: ''});
+    validatedFields = validate({ fieldOne: '', fieldTwo: '' });
   });
 
   it('enforces all fields to be filled', function() {

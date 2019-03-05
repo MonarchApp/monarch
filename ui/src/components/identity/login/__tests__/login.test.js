@@ -1,8 +1,8 @@
 import Login from '../';
 import React from 'react';
 import Sinon from 'sinon';
-import {InlineErrorNotification} from 'components/shared/inline_notifications';
-import {PrimaryButton} from 'components/shared/buttons';
+import { InlineErrorNotification } from 'components/shared/inline_notifications';
+import { PrimaryButton } from 'components/shared/buttons';
 
 const sandbox = Sinon.createSandbox();
 

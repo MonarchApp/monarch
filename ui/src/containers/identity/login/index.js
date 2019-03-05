@@ -5,15 +5,15 @@ import Login from 'components/identity/login';
 import React from 'react';
 import RoutePaths from 'constants/route_paths.js';
 import validate from './validate';
-import {Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {reduxForm, stopSubmit, SubmissionError} from 'redux-form';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { reduxForm, stopSubmit, SubmissionError } from 'redux-form';
 
 const FORM_NAME = 'login';
 
 export default recompose.compose(
   connect(
-    state => ({authenticated: state.identity.authenticated}),
+    state => ({ authenticated: state.identity.authenticated }),
     dispatch => ({
       onSubmit: form => {
         const validated = validate(form);

@@ -6,7 +6,7 @@ const JOI_ERROR_RESPONSE = new Response(JSON.stringify({
     source: 'payload',
     keys: ['billy']
   }
-}), {status: 400});
+}), { status: 400 });
 
 const JOI_SUBMISSION_ERRORS = {
   errors: {
@@ -15,4 +15,4 @@ const JOI_SUBMISSION_ERRORS = {
   }
 };
 
-export default {JOI_ERROR_RESPONSE, JOI_SUBMISSION_ERRORS};
+export default { JOI_ERROR_RESPONSE, JOI_SUBMISSION_ERRORS };

@@ -2,7 +2,7 @@ import React from 'react';
 import FullLogo from 'icons/full_logo';
 import MarkLogo from 'icons/mark_logo';
 import MenuIcon from 'icons/menu_icon';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 
 storiesOf('Theme', module)
   .add('Icons', () =>

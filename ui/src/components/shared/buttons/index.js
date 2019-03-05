@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import './buttons.scss';
 
-const PrimaryButton = ({disabled, text, type}) =>
+const PrimaryButton = ({ disabled, text, type }) =>
   <button
     className='primary button'
     disabled={disabled}
@@ -19,4 +19,4 @@ PrimaryButton.propTypes = {
 };
 
 
-export {PrimaryButton};
+export { PrimaryButton };

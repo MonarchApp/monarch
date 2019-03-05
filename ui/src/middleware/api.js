@@ -1,5 +1,5 @@
 import ActionTypes from 'constants/actions';
-import {normalize} from 'normalizr';
+import { normalize } from 'normalizr';
 import Bounce from 'bounce';
 
 const callApi = async (endpoint, options, schema) => {
@@ -26,12 +26,12 @@ const callApi = async (endpoint, options, schema) => {
 export default () => next => async action => {
   if (action.type !== ActionTypes.Api.CALL) return next(action);
 
-  const {endpoint, options, schema, types} = action.payload;
+  const { endpoint, options, schema, types } = action.payload;
   const [requestType, successType, failureType] = types;
 
   const actionWith = data => Object.assign({}, action, data);
 
-  next(actionWith({type: requestType}));
+  next(actionWith({ type: requestType }));
 
   try {
     return next(actionWith({

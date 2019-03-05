@@ -3,11 +3,11 @@ import ApiMiddleware from '../api';
 import _ from 'lodash';
 import configureStore from 'redux-mock-store';
 import sinon from 'sinon';
-import {normalize, schema} from 'normalizr';
+import { normalize, schema } from 'normalizr';
 
 
 describe('API Middleware', function() {
-  const body = {category: '"S" Words'};
+  const body = { category: '"S" Words' };
   const endpoint = "It's a big hat. It's funny.";
   const failureType = 'Celebrity Jeopardy';
   const requestType = 'The only month that starts with Feb';
@@ -44,7 +44,7 @@ describe('API Middleware', function() {
   });
 
   context('when the action is not an API call', function() {
-    const otherAction = {type: 'Swords for 200'};
+    const otherAction = { type: 'Swords for 200' };
     let firstDispatchedAction;
 
     beforeEach(async function() {
@@ -68,14 +68,14 @@ describe('API Middleware', function() {
       let firstDispatchedAction;
 
       beforeEach(async function() {
-        fetchStub.resolves(new Response(JSON.stringify({host: 'Alex Trebek'}), {status: 200}));
+        fetchStub.resolves(new Response(JSON.stringify({ host: 'Alex Trebek' }), { status: 200 }));
 
         await store.dispatch(action);
         [firstDispatchedAction] = store.getActions();
       });
 
       it('dispatches an action using the provided request type', function() {
-        expect(firstDispatchedAction).to.eql(Object.assign({}, action, {type: requestType}));
+        expect(firstDispatchedAction).to.eql(Object.assign({}, action, { type: requestType }));
       });
 
       it('stringifies the provided body, uses CORS, JSON, and all provided parameters', function() {
@@ -91,13 +91,13 @@ describe('API Middleware', function() {
 
     context('when the request fails', function() {
       context('always', function() {
-        const mockError = {message: 'Welcome back to another episode of Celebrity Jeopardy'};
+        const mockError = { message: 'Welcome back to another episode of Celebrity Jeopardy' };
         let resultActionWithoutPayload;
 
-        const assertedAction = {error: true, payload: new Error(mockError), type: failureType};
+        const assertedAction = { error: true, payload: new Error(mockError), type: failureType };
         const assertedActionWithoutPayload = _.omit(assertedAction, 'payload');
 
-        const failedResponse = new Response(JSON.stringify(mockError), {status: 500});
+        const failedResponse = new Response(JSON.stringify(mockError), { status: 500 });
 
         beforeEach(async function() {
           fetchStub.resolves(failedResponse.clone());
@@ -118,10 +118,10 @@ describe('API Middleware', function() {
 
     context('when the request succeeds', function() {
       const response = [
-        {category: 'Potent Potables', id: 0},
-        {category: 'Famous Horseman', id: 1}
+        { category: 'Potent Potables', id: 0 },
+        { category: 'Famous Horseman', id: 1 }
       ];
-      const successResponse = new Response(JSON.stringify(response), {status: 200});
+      const successResponse = new Response(JSON.stringify(response), { status: 200 });
 
       beforeEach(function() {
         fetchStub.resolves(successResponse.clone());
@@ -137,7 +137,7 @@ describe('API Middleware', function() {
         };
 
         beforeEach(async function() {
-          const actionWithSchema = _.merge({}, action, {payload: {schema: categoryListSchema}});
+          const actionWithSchema = _.merge({}, action, { payload: { schema: categoryListSchema } });
 
           returnValue = await store.dispatch(actionWithSchema);
           [, resultAction] = store.getActions();
@@ -161,7 +161,7 @@ describe('API Middleware', function() {
         });
 
         it('dispatches an action with the raw payload and the provided success type', function() {
-          expect(resultAction).to.eql({payload: response, type: successType});
+          expect(resultAction).to.eql({ payload: response, type: successType });
         });
       });
     });

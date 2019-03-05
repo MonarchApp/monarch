@@ -4,16 +4,16 @@ import IdentityActions from './actions';
 import PropTypes from 'prop-types';
 import React from 'react';
 import withField from 'hocs/with_field';
-import {Field} from 'redux-form';
-import {InlineErrorNotification} from 'components/shared/inline_notifications';
-import {PrimaryButton} from 'components/shared/buttons';
-import {connect} from 'react-redux';
-import {reduxForm, stopSubmit} from 'redux-form';
+import { Field } from 'redux-form';
+import { InlineErrorNotification } from 'components/shared/inline_notifications';
+import { PrimaryButton } from 'components/shared/buttons';
+import { connect } from 'react-redux';
+import { reduxForm, stopSubmit } from 'redux-form';
 
 const InputField = withField('input');
 const TextAreaField = withField('textarea');
 
-const EditProfile = ({error, handleSubmit, submitting}) =>
+const EditProfile = ({ error, handleSubmit, submitting }) =>
   <div className='edit-profile-form-wrapper'>
     <form
       className='edit-profile-form inline-label-form'
@@ -79,4 +79,4 @@ const EditProfileForm = recompose.compose(
   )
 )(EditProfile);
 
-export {EditProfile, EditProfileForm};
+export { EditProfile, EditProfileForm };

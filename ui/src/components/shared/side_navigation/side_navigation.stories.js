@@ -1,7 +1,7 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
-import {action} from '@storybook/addon-actions';
-import {SideNavigation, SideNavigationItem} from './index.js';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { SideNavigation, SideNavigationItem } from './index.js';
 
 const onItemClick = action('Navigation Item clicked');
 

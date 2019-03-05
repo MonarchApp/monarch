@@ -3,8 +3,8 @@ import Login from 'containers/identity/login';
 import PropTypes from 'prop-types';
 import React from 'react';
 import RoutePaths from 'constants/route_paths.js';
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
-import {Provider} from 'react-redux';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 const Routes = () =>
   <Switch>
@@ -17,7 +17,7 @@ const Routes = () =>
     <Route render={() => <Redirect to={RoutePaths.IDENTITY.LOGIN} />} />
   </Switch>;
 
-const Root = ({store}) =>
+const Root = ({ store }) =>
   <Provider store={store}>
     <BrowserRouter>
       <Routes />

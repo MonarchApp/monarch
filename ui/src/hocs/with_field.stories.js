@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {storiesOf} from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import withField from './with_field.js';
 
 const InputField = withField('input');

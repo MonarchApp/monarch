@@ -8,7 +8,7 @@ Actions.login = (email, password) => ({
   payload: {
     endpoint: ApiPaths.LOGIN,
     options: {
-      body: {email, password},
+      body: { email, password },
       method: 'POST'
     },
     types: [

@@ -1,4 +1,4 @@
-import {configure} from '@storybook/react';
+import { configure } from '@storybook/react';
 import '../src/theme';
 import './storybook';
 

@@ -3,12 +3,12 @@ import ApiPaths from 'constants/api_paths';
 
 const Actions = {};
 
-Actions.updateProfile = ({bio, email, name}) => ({
+Actions.updateProfile = ({ bio, email, name }) => ({
   type: ActionTypes.Api.CALL,
   payload: {
     endpoint: ApiPaths.IDENTITY.UPDATE_PROFILE,
     options: {
-      body: {bio, email, name},
+      body: { bio, email, name },
       method: 'PUT'
     },
     types: [

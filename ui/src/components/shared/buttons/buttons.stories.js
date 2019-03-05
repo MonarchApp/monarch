@@ -1,6 +1,6 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react';
-import {PrimaryButton} from './index.js';
+import { storiesOf } from '@storybook/react';
+import { PrimaryButton } from './index.js';
 
 storiesOf('Components/Shared', module)
   .add('Button', () =>

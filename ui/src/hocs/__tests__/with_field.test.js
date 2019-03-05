@@ -10,7 +10,7 @@ const errorId = `Well if it's Jack Ruby's hat, then I have to make sure it's
   his hat... Yeah... Alright, what colors does it come in?`;
 let wrappedField;
 
-const inputProvidedByReduxForm = {name};
+const inputProvidedByReduxForm = { name };
 
 describe('withField', function() {
   describe('rendering', function() {
@@ -32,7 +32,7 @@ describe('withField', function() {
 
       it('renders a single label with the provided label content and name', function() {
         const labelComponent = wrappedField
-          .find({'test-label': 'HOC/field-label'});
+          .find({ 'test-label': 'HOC/field-label' });
         expect(labelComponent).to.have.length(1);
         expect(labelComponent.text()).to.equal(label);
         expect(labelComponent.prop('htmlFor')).to.equal(id);
@@ -54,7 +54,7 @@ describe('withField', function() {
     });
 
     context('when there is an error', function() {
-      const metaProvidedByReduxForm = {error: 'Damn it, Bobby'};
+      const metaProvidedByReduxForm = { error: 'Damn it, Bobby' };
 
       before(function() {
         wrappedField = mount(<InputField
@@ -70,7 +70,7 @@ describe('withField', function() {
       });
 
       it('renders the error message', function() {
-        expect(wrappedField.find({'test-label': 'HOC/field-error'}).text())
+        expect(wrappedField.find({ 'test-label': 'HOC/field-error' }).text())
           .to.equal(metaProvidedByReduxForm.error);
       });
 

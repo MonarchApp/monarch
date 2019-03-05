@@ -1,6 +1,6 @@
 import React from 'react';
 import Sinon from 'sinon';
-import {SideNavigation, SideNavigationItem} from './index.js';
+import { SideNavigation, SideNavigationItem } from './index.js';
 
 const sandbox = Sinon.createSandbox();
 

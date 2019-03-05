@@ -4,7 +4,7 @@ import React from 'react';
 import * as recompose from 'recompose';
 import './inline_notifications.scss';
 
-const InlineNotification = ({className, message}) =>
+const InlineNotification = ({ className, message }) =>
   <div className={Classnames('inline-notification', className)}>{message}</div>;
 
 InlineNotification.propTypes = {
@@ -22,4 +22,4 @@ InlineErrorNotification.propTypes = {
   message: PropTypes.string.isRequired
 };
 
-export {InlineErrorNotification};
+export { InlineErrorNotification };

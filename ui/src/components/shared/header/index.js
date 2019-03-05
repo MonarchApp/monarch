@@ -4,11 +4,11 @@ import FullLogo from 'icons/full_logo';
 import MarkLogo from 'icons/mark_logo';
 import MenuIcon from 'icons/menu_icon';
 import PropTypes from 'prop-types';
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import RoutePaths from 'constants/route_paths.js';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const MobileMenu = React.forwardRef(({open, toggleMenu}, ref) => {
+const MobileMenu = React.forwardRef(({ open, toggleMenu }, ref) => {
   return (
     <nav className='mobile-menu-wrapper' ref={ref}>
       <button
@@ -159,7 +159,7 @@ const Header = () => {
   });
 
   return (
-    <header className={Classnames('header', {open})} role='banner'>
+    <header className={Classnames('header', { open })} role='banner'>
       <MobileMenu ref={menuRef} toggleMenu={toggleMenu} open={open}/>
       <MainMenu />
       <MarkLogo />
