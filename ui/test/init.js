@@ -14,3 +14,6 @@ global.expect = Chai.expect;
 global.mount = Enzyme.mount;
 global.render = Enzyme.render;
 global.shallow = Enzyme.shallow;
+
+// react-testing-library requires Date to be present on the window object.
+global.window.Date = Date;
