@@ -16,7 +16,7 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'src')
         ],
-        loaders: ['babel-loader']
+        loader: 'babel-loader'
       },
       {
         test: /\.scss$/,

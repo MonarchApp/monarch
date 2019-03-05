@@ -1,6 +1,6 @@
+import * as R from 'ramda';
 import ActionTypes from 'constants/actions';
 import ApiMiddleware from '../api';
-import * as R from 'ramda';
 import configureStore from 'redux-mock-store';
 import sinon from 'sinon';
 import { normalize, schema } from 'normalizr';
